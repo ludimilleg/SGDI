@@ -81,3 +81,43 @@ main
   border-left: 1px solid var(--azul-suave);
   padding-left: 24px;
 }
+
+/* Barra do topo (telas internas) */
+.topo 
+{
+  background: var(--branco);
+  border-bottom: 1px solid var(--cinza-borda);
+  padding: 12px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* marca na esquerda, Sair na direita */
+}
+
+.topo-marca { display: flex; align-items: center; gap: 12px; }
+
+/* Quadradinho azul com a sigla */
+.topo-logo 
+{
+  background: var(--azul-ppgi);
+  color: var(--branco);
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  padding: 8px 10px;
+  border-radius: 4px;
+}
+
+.topo-nome { font-family: var(--fonte-titulo); font-weight: 600; color: var(--azul-escuro); }
+
+/* Botão de sair, só com contorno */
+.topo-sair 
+{
+  color: var(--azul-medio);
+  border: 1px solid var(--azul-medio);
+  border-radius: 4px;
+  padding: 6px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none; /* tira o sublinhado do link */
+}
+
+.topo-sair:hover { background: var(--azul-claro); }
