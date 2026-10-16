@@ -1,0 +1,48 @@
+
+
+/* SGDI | login.css: estilos só da tela de login */
+
+/* As duas metades da tela, lado a lado e do mesmo tamanho */
+.login 
+{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* Painel azul da esquerda */
+.login-apresentacao 
+{
+  background: linear-gradient(var(--azul-medio), var(--azul-escuro));
+  color: var(--branco);
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* título e texto no meio da altura */
+  gap: 16px;                /* espaço entre título e texto */
+  position: relative;       /* referência pro texto do pé (abaixo) */
+}
+
+.login-apresentacao h1 
+{
+  font-family: var(--fonte-titulo);
+  font-size: 40px;
+  line-height: 1.25;
+  max-width: 480px;
+}
+
+.login-apresentacao p 
+{
+  color: var(--azul-claro);
+  font-size: 17px;
+  max-width: 420px;
+}
+
+/* Linha de recursos (menor e presa no pé do painel) */
+.login-apresentacao .login-recursos 
+{
+  position: absolute;
+  bottom: 24px;
+  left: 48px;
+  font-size: 14px;
+  color: var(--azul-suave);
+}

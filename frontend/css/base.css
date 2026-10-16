@@ -1,0 +1,83 @@
+
+/* SGDI | base.css: fontes, cores e ajustes comuns a todas as telas */
+
+/* Importação das fontes: roboto slab (títulos) e inter (textos) */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto+Slab:wght@600;700&display=swap");
+
+/* Cores e fontes do sistema, com nomes fáceis de lembrar */
+:root 
+{
+    --azul-escuro: #243B6B;    /* títulos, rodapé, início do degradê */
+    --azul-ppgi: #1D4594;    /* links e destaques */
+    --azul-medio: #4A6FB3;    /* botões, fim do degradê */
+    --azul-claro: #E6F0FA;    /* textos sobre o azul, fundos leves */
+    --azul-suave: #B7CDED;    /* textos menores sobre o azul */
+    --cinza-borda: #D6DFEC;    /* bordas e fundo dos campos */
+    --cinza-texto: #56627A;    /* textos comuns */
+    --cinza-exemplo: #8391A7;    /* texto de exemplo nos campos */
+    --texto-escuro: #1F2A44;    /* textos fortes */
+    --vermelho-ic: #E31B23;     /* erros e ações perigosas */
+    --branco: #FFFFFF;
+    --fonte-titulo: "Roboto Slab", serif;
+    --fonte-texto: "Inter", sans-serif;
+}
+
+/* Zera as margens que o navegador coloca sozinho */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body 
+{
+  font-family: var(--fonte-texto);
+  color: var(--cinza-texto);
+  background: var(--branco);
+  min-height: 100vh;       /* a página ocupa no mínimo a altura da tela */
+  display: flex;           /* empilha main e rodapé... */
+  flex-direction: column;  /* ...um embaixo do outro */
+}
+
+/* O conteúdo cresce e empurra o rodapé pro fim da tela */
+main 
+{
+  flex: 1;
+}
+
+/* Rodapé institucional */
+.rodape 
+{
+  background: var(--azul-escuro);
+  color: var(--azul-claro);
+  font-size: 12px;
+  padding: 16px 48px;
+  display: flex;          /* instituição e contato lado a lado */
+  align-items: center;
+  justify-content: space-between; /* instituição na esquerda, contato na direita */;             /* espaço entre os dois blocos */
+}
+
+.rodape-instituicao 
+{
+  font-family: var(--fonte-titulo);
+  color: var(--branco);
+  font-size: 13px;
+}
+
+.rodape a 
+{
+  color: inherit;         /* o link fica da mesma cor do texto */
+}
+
+/* Itens do contato lado a lado, com uma linha fina entre eles */
+.rodape-contato 
+{
+  display: flex;
+  gap: 24px;
+}
+
+.rodape-contato > * + * 
+{
+  border-left: 1px solid var(--azul-suave);
+  padding-left: 24px;
+}
