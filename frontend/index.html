@@ -31,11 +31,14 @@
         <section class="login-formulario">
             <h2>Login</h2>
             <p class="login-aviso">(Acesso restrito à equipe da secretaria e da coordenação do PPGI.)</p>
-            <form id="form-login">
+            <form id="form-login" novalidate>
                 <label for="email">E-mail</label>
                 <input type="email" name="email" id="email" placeholder="Ex.: nome@ic.ufal.br">
+                <p class="erro" id="erro-email"></p>
                 <label for="senha">Senha</label>
                 <input type="password" name="senha" id="senha">
+                <p class="erro" id="erro-senha"></p>
+                <p class="erro" id="erro-geral"></p>
                 <button type="submit">Entrar</button>
             </form>
 
@@ -55,7 +58,6 @@
             <span>(82) 3214-1401</span>
         </p>
     </footer>
-
     
 
     <!-- Comportamento da tela: validação e redirecionamento -->
