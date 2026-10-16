@@ -10,9 +10,33 @@
         <!-- Estilos: base.css (todas as telas) + login.css (só esta tela) -->
         <link rel="stylesheet" href="css/base.css">
         <link rel="stylesheet" href="css/login.css">
-        
+
 </head>
 <body>
+      <!-- Login: painel de apresentação (esquerda) + formulário (direita) -->
+  <main class="login">
+
+    <!-- Painel azul com o nome do sistema -->
+    <section class="login-apresentacao">
+      <h1>Sistema de Gestão de Documentos para Inscrição</h1>
+      <p>Importe inscrições, revise os documentos por candidato e receba o relatório de homologação gerado automaticamente.</p>
+    </section>
+
+        <!-- Formulário de acesso -->
+    <section class="login-formulario">
+      <h2>Login</h2>
+      <p class="login-aviso">(Acesso restrito à equipe da secretaria e da coordenação do PPGI.)</p>
+      <form id="form-login">
+        <label for="email">E-mail</label>
+        <input type="email" name="email" id="email" placeholder="Ex.: nome@ic.ufal.br">
+        <label for="senha">Senha</label>
+        <input type="password" name="senha" id="senha">
+        <button type="submit">Entrar</button>   
+      </form>
+
+    </section>
+
+  </main>
     
 </body>
 </html>
