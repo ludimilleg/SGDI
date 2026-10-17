@@ -131,19 +131,6 @@
   border-color: var(--azul-medio);
 }
 
-/* Mensagens de erro (o JavaScript escreve o texto nelas) */
-.erro {
-  color: #F04A50;
-  font-size: 13px;
-  font-weight: 500;
-  margin: -18px 0 18px;
-}
-
-.erro:empty 
-{
-  display: none;           /* sem texto, ela nem ocupa espaço */
-}
-
 /* Campo com problema: borda e fundo avermelhados */
 #form-login input.campo-erro {
   border-color: #F04A50;

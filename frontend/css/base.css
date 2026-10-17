@@ -121,3 +121,34 @@ main
 }
 
 .topo-sair:hover { background: var(--azul-claro); }
+
+/* Mensagens de erro (o JavaScript escreve o texto nelas) */
+.erro {
+  color: #F04A50;
+  font-size: 13px;
+  font-weight: 500;
+  margin: -18px 0 18px;
+}
+
+.erro:empty 
+{
+  display: none;           /* sem texto, ela nem ocupa espaço */
+}
+
+/* Iniciais do usuário + Sair, lado a lado */
+.topo-usuario { display: flex; align-items: center; gap: 16px; }
+
+/* Bolinha com as iniciais */
+.topo-iniciais 
+{
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--azul-claro);
+  color: var(--azul-ppgi);
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -79,6 +79,7 @@ form.addEventListener("submit", function (evento)
 // Quando o alinhar com o back estiver pronto, aqui vai a chamada para /api/usuarios/login/.
 function entrar(email, senha) 
 {
+  sessionStorage.setItem("emailUsuario", email); // guarda quem entrou
   const botao = form.querySelector("button");
   botao.textContent = "Entrando...";   // mostra que está carregando
   botao.disabled = true;               // evita clicar duas vezes
