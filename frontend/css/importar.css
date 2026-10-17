@@ -1,0 +1,177 @@
+
+/* SGDI | importar.css: estilos só da tela de importar */
+
+/* Coluna central, com largura limitada */
+.importar 
+{
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;     
+  padding: 48px 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.importar h1 
+{
+  font-family: var(--fonte-titulo);
+  font-size: 32px;
+  color: var(--azul-escuro);
+}
+
+.importar-subtitulo { font-size: 16px; margin: 8px 0 32px; }
+
+/* Campo do nome do processo (mesmo visual do login) */
+.importar label 
+{
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--azul-escuro);
+  margin-bottom: 8px;
+}
+
+#nome-processo 
+{
+  height: 44px;
+  padding: 0 14px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: var(--cinza-borda);
+  font: inherit;
+  color: var(--texto-escuro);
+  margin-bottom: 24px;
+}
+
+#nome-processo::placeholder { color: var(--cinza-exemplo); }
+
+#nome-processo:focus 
+{
+  outline: none;
+  background: var(--branco);
+  border-color: var(--azul-medio);
+}
+
+
+/* Área de arrastar e soltar (borda tracejada) */
+.area-arquivo 
+{
+  border: 2px dashed var(--azul-suave);
+  border-radius: 8px;
+  background: var(--azul-claro);
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  gap: 8px;
+  text-align: center;
+  position: relative;
+}
+
+/* Setinha dentro de um círculo */
+.area-icone 
+{
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;  
+  background: var(--branco);
+  color: var(--azul-medio);
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.area-titulo { font-weight: 600; color: var(--azul-escuro); }
+.area-ou { font-size: 13px; }
+
+/* Botão "Escolher arquivo", só com contorno */
+#botao-escolher 
+{
+  border: 1px solid var(--azul-medio);
+  border-radius: 4px;
+  background: var(--branco);
+  color: var(--azul-medio);
+  font: inherit;
+  font-weight: 600;
+  padding: 8px 20px;
+  cursor: pointer;
+}
+
+#botao-escolher:hover { background: var(--azul-claro); }
+
+/* Nome do arquivo escolhido (some quando está vazio) */
+.area-nome { font-size: 14px; font-weight: 600; color: #2E7D4F; }
+.area-nome:empty { display: none; }
+
+/* Estados que o JS vai ligar e desligar */
+.area-arquivo.arrastando { border-color: var(--azul-medio); background: var(--azul-suave); } /* arquivo em cima da área */
+.area-arquivo.com-arquivo { border-color: #2E7D4F; background: #EAF6EE; }  /* arquivo escolhido: fica verde */
+
+/* Erro do arquivo: fica logo abaixo da área */
+#erro-arquivo { margin: 8px 0 0; }
+
+/* Botão principal (mesmo visual do ENTRAR do login) */
+#botao-importar 
+{
+  height: 44px;
+  margin-top: 24px;
+  border: none;
+  border-radius: 4px;
+  background: var(--azul-medio);
+  color: var(--branco);
+  font: inherit;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+#botao-importar:hover { background: var(--azul-ppgi); }
+
+/* Processos recentes */
+.recentes { margin-top: 48px; }
+
+.recentes h2 
+{
+  font-family: var(--fonte-titulo);
+  font-size: 18px;
+  color: var(--azul-escuro);
+  margin-bottom: 12px;
+}
+
+/* Cada processo vira um cartãozinho clicável */
+.recente 
+{
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  border: 1px solid var(--cinza-borda);
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.recente strong { color: var(--azul-escuro); }
+.recente span { font-size: 13px; color: var(--cinza-texto); }
+.recente:hover { border-color: var(--azul-medio); background: var(--azul-claro); }
+
+#nome-processo.campo-erro { border-color: #F04A50; background: #FDEDEE; }
+.recentes-vazio { font-size: 14px; color: var(--cinza-exemplo); }
+
+
+
+/* Botão Remover: cinza, no canto superior direito da área */
+#botao-remover 
+{
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  border: none;
+  background: none;
+  color: var(--cinza-exemplo);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+#botao-remover:hover { color: var(--cinza-texto); text-decoration: underline; }
