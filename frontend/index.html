@@ -1,0 +1,69 @@
+<!-- SGDI | Tela de login -->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | SGDI</title>
+
+    <!-- Estilos: base.css (todas as telas) + login.css (só esta tela) -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/login.css">
+
+</head>
+
+<body>
+    <!-- Login: painel de apresentação (esquerda) + formulário (direita) -->
+    <main class="login">
+
+        <!-- Painel azul com o nome do sistema -->
+        <section class="login-apresentacao">
+            <h1>Sistema de Gestão de Documentos para Inscrição</h1>
+            <p>Importe inscrições, revise os documentos por candidato e receba o relatório de homologação gerado
+                automaticamente.</p>
+            <p class="login-recursos">Importação de arquivo .zip, revisão por inscrição, compartilhamento por link e
+                geração de relatório.</p>
+        </section>
+
+        <!-- Formulário de acesso -->
+        <section class="login-formulario">
+            <h2>Login</h2>
+            <p class="login-aviso">(Acesso restrito à equipe da secretaria e da coordenação do PPGI.)</p>
+            <form id="form-login" novalidate>
+                <label for="email">E-mail</label>
+                <input type="email" name="email" id="email" placeholder="Ex.: nome@ic.ufal.br">
+                <p class="erro" id="erro-email"></p>
+                <label for="senha">Senha</label>
+                <input type="password" name="senha" id="senha">
+                <p class="erro" id="erro-senha"></p>
+                <p class="erro" id="erro-geral"></p>
+                <button type="submit">Entrar</button>
+            </form>
+
+        </section>
+
+    </main>
+
+    <!-- Rodapé institucional (igual em todas as telas) -->
+    <footer class="rodape">
+        <p class="rodape-instituicao">
+            <strong>Instituto de Computação</strong><br>
+            <strong>Universidade Federal de Alagoas</strong>
+        </p>
+        <p class="rodape-contato">
+            <span>Av. Lourival Melo Mota, S/N, Maceió - AL</span>
+            <a href="mailto:secretaria@ic.ufal.br">secretaria@ic.ufal.br</a>
+            <span>(82) 3214-1401</span>
+        </p>
+    </footer>
+    
+
+    <!-- Comportamento da tela: validação e redirecionamento -->
+    <script src="js/login.js"></script>
+
+
+</body>
+
+</html>

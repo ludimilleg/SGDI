@@ -1,0 +1,138 @@
+
+
+/* SGDI | login.css: estilos só da tela de login */
+
+/* As duas metades da tela, lado a lado e do mesmo tamanho */
+.login 
+{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* Painel azul da esquerda */
+.login-apresentacao 
+{
+  background: linear-gradient(var(--azul-medio), var(--azul-escuro));
+  color: var(--branco);
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* título e texto no meio da altura */
+  gap: 16px;                /* espaço entre título e texto */
+  position: relative;       /* referência pro texto do pé (abaixo) */
+}
+
+.login-apresentacao h1 
+{
+  font-family: var(--fonte-titulo);
+  font-size: 40px;
+  line-height: 1.25;
+  max-width: 480px;
+}
+
+.login-apresentacao p 
+{
+  color: var(--azul-claro);
+  font-size: 17px;
+  max-width: 420px;
+}
+
+/* Linha de recursos (menor e presa no pé do painel) */
+.login-apresentacao .login-recursos 
+{
+  position: absolute;
+  bottom: 24px;
+  left: 48px;
+  font-size: 14px;
+  color: var(--azul-suave);
+}
+
+/* Metade da direita: formulário centralizado */
+.login-formulario 
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* no meio da altura */
+  width: 100%;
+  max-width: 480px;         /* não deixa os campos ficarem largos demais */
+  margin: 0 auto;           /* centraliza na horizontal */
+  padding: 48px;
+}
+
+.login-formulario h2 
+{
+  font-family: var(--fonte-titulo);
+  font-size: 28px;
+  color: var(--azul-escuro);
+}
+
+.login-aviso 
+{
+  font-size: 15px;
+  margin: 4px 0 32px;       /* 4px em cima, 0 dos lados, 32px embaixo */
+}
+
+/* Campos um embaixo do outro */
+#form-login 
+{
+  display: flex;
+  flex-direction: column;
+}
+
+#form-login label 
+{
+  font-size: 14px;
+  font-weight: 600;          /* semi-negrito */
+  color: var(--azul-escuro);
+  margin-bottom: 8px;
+}
+
+#form-login input 
+{
+  height: 44px;
+  padding: 0 14px;
+  border: 1px solid transparent;
+  border-radius: 4px;        /* cantinhos arredondados */
+  background: var(--cinza-borda);
+  font: inherit;             /* usa a mesma fonte da página */
+  color: var(--texto-escuro);
+  margin-bottom: 24px;
+}
+
+#form-login input::placeholder 
+{
+  color: var(--cinza-exemplo);
+}
+
+/* Botão Entrar: largura toda, azul, texto em maiúsculas */
+#form-login button {
+  height: 44px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 4px;
+  background: var(--azul-medio);
+  color: var(--branco);
+  font: inherit;
+  font-weight: 600;
+  text-transform: uppercase;  /* "Entrar" vira "ENTRAR" */
+  letter-spacing: 1px;        /* um respiro entre as letras */
+  cursor: pointer;            /* mãozinha ao passar o mouse */
+}
+
+/* Mouse em cima do botão: fica um azul mais forte */
+#form-login button:hover {
+  background: var(--azul-ppgi);
+}
+
+/* Campo selecionado: fundo branco e borda azul */
+#form-login input:focus {
+  outline: none;
+  background: var(--branco);
+  border-color: var(--azul-medio);
+}
+
+/* Campo com problema: borda e fundo avermelhados */
+#form-login input.campo-erro {
+  border-color: #F04A50;
+  background: #FDEDEE;
+}

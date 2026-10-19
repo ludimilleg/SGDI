@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Importar | SGDI</title>
+
+    <!-- Estilos: base.css (todas as telas) + importar.css (só esta tela) -->
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/importar.css">
+</head>
+
+<body>
+
+    <!-- Barra do topo: marca do sistema + botão de sair -->
+    <header class="topo">
+        <div class="topo-marca">
+            <span class="topo-logo">SGDI</span>
+            <span class="topo-nome">Sistema de Gestão de Documentos para Inscrição</span>
+        </div>
+
+        <!-- Iniciais do usuário + sair -->
+        <div class="topo-usuario">
+            <span class="topo-iniciais" id="iniciais">--</span>
+            <a href="index.html" class="topo-sair">Sair</a>
+        </div>
+    </header>
+
+    <!-- Conteúdo da tela: importar o .zip de um processo seletivo -->
+    <main class="importar">
+        <h1>Importar inscrições</h1>
+        <p class="importar-subtitulo">Envie o arquivo .zip com as pastas dos candidatos. Cada pasta vira uma inscrição.
+        </p>
+
+        <!-- Nome do processo seletivo -->
+        <label for="nome-processo">Nome do processo</label>
+        <input type="text" name="nome-processo" id="nome-processo" placeholder="Ex.: Mestrado 2027.1">
+        <p class="erro" id="erro-nome"></p>
+
+        <!-- Área de arrastar e soltar o .zip -->
+        <label>Arquivo .zip</label>
+        <div class="area-arquivo" id="area-arquivo">
+            <span class="area-icone">↑</span>
+            <p class="area-titulo">Arraste o arquivo .zip para cá</p>
+            <p class="area-ou">ou</p>
+            <button type="button" id="botao-escolher">Escolher arquivo</button>
+
+            <!-- Arquivo escolhido + remover (escondido até ter arquivo) -->
+            <p id="area-escolhido" hidden>
+                <span class="area-nome" id="nome-arquivo"></span>
+                <button type="button" id="botao-remover">✕ Remover</button>
+            </p>
+
+            <input type="file" name="arquivo" id="arquivo" accept=".zip" hidden="hidden">
+        </div>
+
+        <p class="erro" id="erro-arquivo"></p>
+
+        <!-- Botão que envia a importação -->
+        <button type="button" id="botao-importar">Importar inscrições</button>
+
+        <!-- Processos já importados (exemplo fixo até ligar no back) -->
+        <section class="recentes">
+            <h2>Processos recentes</h2>
+            <!-- Preenchido pelo JS quando o back-end tiver a lista de processos -->
+            <p class="recentes-vazio">Nenhum processo importado ainda.</p>
+        </section>
+    </main>
+
+
+    <!-- Rodapé institucional (igual em todas as telas) -->
+    <footer class="rodape">
+        <p class="rodape-instituicao">
+            <strong>Instituto de Computação</strong><br>
+            <strong>Universidade Federal de Alagoas</strong>
+        </p>
+        <p class="rodape-contato">
+            <span>Av. Lourival Melo Mota, S/N, Maceió - AL</span>
+            <a href="mailto:secretaria@ic.ufal.br">secretaria@ic.ufal.br</a>
+            <span>(82) 3214-1401</span>
+        </p>
+    </footer>
+
+
+    <script src="js/topo.js"></script>
+    <script src="js/importar.js"></script>   <!-- Comportamento da tela: arrastar e soltar o .zip -->
+
+
+</body>
+
+</html>
