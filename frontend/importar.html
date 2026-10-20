@@ -17,6 +17,10 @@
     <!-- Barra do topo: marca do sistema + botão de sair -->
     <header class="topo">
         <div class="topo-marca">
+            <button type="button" class="topo-menu" id="botao-menu" aria-label="Abrir menu">
+                <span></span><span></span><span></span>
+            </button>
+
             <span class="topo-logo">SGDI</span>
             <span class="topo-nome">Sistema de Gestão de Documentos para Inscrição</span>
         </div>
@@ -26,6 +30,15 @@
             <span class="topo-iniciais" id="iniciais">--</span>
             <a href="index.html" class="topo-sair">Sair</a>
         </div>
+
+        <nav class="menu" id="menu" hidden>
+            <h2>Menu</h2>
+            <a href="importar.html">Importar inscrições</a>
+            <a href="inscricoes.html">Inscrições</a>
+            <a href="acessos.html">Gerenciar acessos</a>
+            <a href="importar.html#recentes">Processos recentes</a>
+        </nav>
+
     </header>
 
     <!-- Conteúdo da tela: importar o .zip de um processo seletivo -->
@@ -62,13 +75,33 @@
         <button type="button" id="botao-importar">Importar inscrições</button>
 
         <!-- Processos já importados (exemplo fixo até ligar no back) -->
-        <section class="recentes">
+        <section class="recentes" id="recentes">
             <h2>Processos recentes</h2>
-            <!-- Preenchido pelo JS quando o back-end tiver a lista de processos -->
-            <p class="recentes-vazio">Nenhum processo importado ainda.</p>
+            <p class="recentes-vazio" id="recentes-vazio">Nenhum processo importado ainda.</p>
+            <template id="modelo-recente">
+                <div class="recente">
+                    <a class="recente-link">
+                        <strong></strong>
+                        <span></span>
+                    </a>
+                    <button type="button" class="recente-excluir">Excluir</button>
+                </div>
+            </template>
         </section>
+
     </main>
 
+    <div class="fundo-escuro" id="confirmacao" hidden>
+        <div class="janela" role="dialog" aria-modal="true" aria-labelledby="confirmacao-titulo">
+            <h2 id="confirmacao-titulo">Excluir processo?</h2>
+            <p><strong id="confirmacao-nome"></strong> e todas as avaliações dele serão apagados. Esta ação não pode ser
+                desfeita.</p>
+            <div class="janela-botoes">
+                <button type="button" class="botao botao-neutro" id="botao-cancelar">Cancelar</button>
+                <button type="button" class="botao botao-perigo" id="botao-confirmar">Excluir</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Rodapé institucional (igual em todas as telas) -->
     <footer class="rodape">
@@ -84,8 +117,10 @@
     </footer>
 
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="js/dados.js"></script>
     <script src="js/topo.js"></script>
-    <script src="js/importar.js"></script>   <!-- Comportamento da tela: arrastar e soltar o .zip -->
+    <script src="js/importar.js"></script> <!-- Comportamento da tela: arrastar e soltar o .zip -->
 
 
 </body>

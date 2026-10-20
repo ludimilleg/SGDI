@@ -1,0 +1,168 @@
+.inscricao-pagina {
+  max-width: 928px;
+}
+
+.inscricao-cabecalho {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 32px;
+}
+
+.candidato {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--texto-escuro);
+  margin-top: 4px;
+}
+
+.documentos {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.documento {
+  padding: 16px 24px;
+}
+
+.documento-linha {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.documento-dados {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.documento-nome {
+  border: none;
+  background: none;
+  padding: 0;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--azul-ppgi);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.documento-nome:hover {
+  color: var(--azul-escuro);
+}
+
+.documento-arquivo {
+  font-size: 13px;
+}
+
+
+.documento-botoes {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.botao-ok,
+.botao-nao-ok {
+  height: 36px;
+  padding: 0 16px;
+  border: 2px solid var(--cinza-borda);
+  border-radius: 4px;
+  background: var(--branco);
+  color: var(--cinza-texto);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.botao-ok:hover,
+.botao-nao-ok:hover {
+  background: var(--azul-claro);
+}
+
+.documento-motivo {
+  display: none;
+  flex-direction: column;
+  margin-top: 16px;
+}
+
+.documento-motivo label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--azul-escuro);
+  margin-bottom: 6px;
+}
+
+.documento-motivo textarea {
+  min-height: 56px;
+  padding: 10px 12px;
+  border: 1px solid var(--vermelho-borda);
+  border-radius: 6px;
+  font: inherit;
+  font-size: 14px;
+  color: var(--texto-escuro);
+  resize: vertical;
+}
+
+.documento-motivo textarea:focus {
+  outline: none;
+  border-color: var(--vermelho-ic);
+}
+
+.documento.ok {
+  background: var(--verde-fundo);
+  border-color: var(--verde-borda);
+}
+
+.documento.ok .botao-ok {
+  background: var(--verde);
+  border-color: var(--verde);
+  color: var(--branco);
+}
+
+.documento.nao-ok {
+  background: var(--vermelho-fundo);
+  border-color: var(--vermelho-borda);
+}
+
+.documento.nao-ok .botao-nao-ok {
+  background: var(--vermelho-ic);
+  border-color: var(--vermelho-ic);
+  color: var(--branco);
+}
+
+.documento.nao-ok .documento-motivo {
+  display: flex;
+}
+
+.documento.sem-motivo textarea {
+  border-color: var(--vermelho-ic);
+  box-shadow: 0 0 0 2px var(--vermelho-borda);
+}
+
+.resumo {
+  position: sticky;
+  bottom: 16px;
+  margin-top: 24px;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 8px 24px rgba(31, 42, 68, 0.12);
+}
+
+.resumo div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.resumo strong {
+  color: var(--azul-escuro);
+}
+
+.resumo span {
+  font-size: 13px;
+}

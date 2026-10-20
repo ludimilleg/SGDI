@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscrição | SGDI</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/inscricao.css">
+</head>
+
+<body>
+    <header class="topo">
+        <div class="topo-marca">
+            <button type="button" class="topo-menu" id="botao-menu" aria-label="Abrir menu">
+                <span></span><span></span><span></span>
+            </button>
+            <span class="topo-logo">SGDI</span>
+            <span class="topo-nome">Sistema de Gestão de Documentos para Inscrição</span>
+        </div>
+
+        <div class="topo-usuario">
+            <span class="topo-iniciais" id="iniciais">--</span>
+            <a href="index.html" class="topo-sair">Sair</a>
+        </div>
+
+        <nav class="menu" id="menu" hidden>
+            <h2>Menu</h2>
+            <a href="importar.html">Importar inscrições</a>
+            <a href="inscricoes.html">Inscrições</a>
+            <a href="acessos.html">Gerenciar acessos</a>
+            <a href="importar.html#recentes">Processos recentes</a>
+        </nav>
+    </header>
+
+    <main class="conteudo inscricao-pagina">
+        <a href="inscricoes.html" class="voltar">← Voltar</a>
+
+        <div class="inscricao-cabecalho">
+            <h1 class="titulo" id="titulo-inscricao">Inscrição</h1>
+            <p class="candidato" id="candidato"></p>
+            <p class="subtitulo">Clique no nome de cada documento para abrir o arquivo e marque OK ou Não OK. Ao marcar
+                Não OK, escreva o motivo.</p>
+        </div>
+
+        <div class="documentos" id="documentos"></div>
+
+        <div class="cartao resumo">
+            <div>
+                <strong id="resumo-titulo"></strong>
+                <span id="resumo-contagem"></span>
+            </div>
+            <button type="button" class="botao" id="botao-salvar">Salvar avaliação</button>
+        </div>
+
+        <template id="modelo-documento">
+            <div class="cartao documento">
+                <div class="documento-linha">
+                    <div class="documento-dados">
+                        <button type="button" class="documento-nome"></button>
+                        <span class="documento-arquivo"></span>
+                    </div>
+                    <div class="documento-botoes">
+                        <button type="button" class="botao-ok">OK</button>
+                        <button type="button" class="botao-nao-ok">Não OK</button>
+                    </div>
+                </div>
+                <div class="documento-motivo">
+                    <label>O que está errado ou faltando?</label>
+                    <textarea placeholder="Ex.: A imagem está cortada."></textarea>
+                </div>
+            </div>
+        </template>
+    </main>
+
+    <footer class="rodape">
+        <p class="rodape-instituicao">
+            <strong>Instituto de Computação</strong><br>
+            <strong>Universidade Federal de Alagoas</strong>
+        </p>
+        <p class="rodape-contato">
+            <span>Av. Lourival Melo Mota, S/N, Maceió - AL</span>
+            <a href="mailto:secretaria@ic.ufal.br">secretaria@ic.ufal.br</a>
+            <span>(82) 3214-1401</span>
+        </p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="js/dados.js"></script>
+    <script src="js/topo.js"></script>
+    <script src="js/inscricao.js"></script>
+</body>
+
+</html>

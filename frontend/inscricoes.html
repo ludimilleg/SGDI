@@ -1,11 +1,87 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscrições | SGDI</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/inscricoes.css">
 </head>
+
 <body>
-    
+    <header class="topo">
+        <div class="topo-marca">
+            <button type="button" class="topo-menu" id="botao-menu" aria-label="Abrir menu">
+                <span></span><span></span><span></span>
+            </button>
+            <span class="topo-logo">SGDI</span>
+            <span class="topo-nome">Sistema de Gestão de Documentos para Inscrição</span>
+        </div>
+
+        <div class="topo-usuario">
+            <span class="topo-iniciais" id="iniciais">--</span>
+            <a href="index.html" class="topo-sair">Sair</a>
+        </div>
+
+        <nav class="menu" id="menu" hidden>
+            <h2>Menu</h2>
+            <a href="importar.html">Importar inscrições</a>
+            <a href="inscricoes.html">Inscrições</a>
+            <a href="acessos.html">Gerenciar acessos</a>
+            <a href="importar.html#recentes">Processos recentes</a>
+        </nav>
+    </header>
+
+    <main class="conteudo">
+        <a href="importar.html" class="voltar">← Voltar</a>
+
+        <div class="cabecalho">
+            <div>
+                <h1 class="titulo" id="titulo-processo">Inscrições</h1>
+                <p class="subtitulo" id="subtitulo-processo"></p>
+            </div>
+            <a href="relatorio.html" class="botao botao-secundario">Gerar relatório</a>
+        </div>
+
+        <div class="ferramentas">
+            <div class="legenda">
+                <span class="legenda-item"><span class="bolinha ok"></span><span>Documentos OK (<span id="conta-ok">0</span>)</span></span>
+                <span class="legenda-item"><span class="bolinha pendente"></span><span>Com pendência (<span id="conta-pendente">0</span>)</span></span>
+                <span class="legenda-item"><span class="bolinha"></span><span>A revisar (<span id="conta-revisar">0</span>)</span></span>
+            </div>
+            <input type="search" id="busca" class="busca" placeholder="Buscar por número ou nome">
+        </div>
+
+        <div class="grade" id="grade-inscricoes"></div>
+        <p class="busca-vazia" id="busca-vazia" hidden>Nenhuma inscrição encontrada para essa busca.</p>
+
+        <template id="modelo-inscricao">
+            <a class="cartao inscricao">
+                <span class="inscricao-rotulo">Inscrição</span>
+                <span class="inscricao-numero"></span>
+                <span class="inscricao-candidato"></span>
+                <span class="inscricao-status"></span>
+                <span class="inscricao-detalhe"></span>
+            </a>
+        </template>
+    </main>
+
+    <footer class="rodape">
+        <p class="rodape-instituicao">
+            <strong>Instituto de Computação</strong><br>
+            <strong>Universidade Federal de Alagoas</strong>
+        </p>
+        <p class="rodape-contato">
+            <span>Av. Lourival Melo Mota, S/N, Maceió - AL</span>
+            <a href="mailto:secretaria@ic.ufal.br">secretaria@ic.ufal.br</a>
+            <span>(82) 3214-1401</span>
+        </p>
+    </footer>
+
+    <script src="js/dados.js"></script>
+    <script src="js/topo.js"></script>
+    <script src="js/inscricoes.js"></script>
 </body>
+
 </html>
