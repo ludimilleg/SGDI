@@ -99,7 +99,7 @@ botaoImportar.addEventListener("click", function ()
   {
     botaoImportar.textContent = "Importando...";
     botaoImportar.disabled = true;
-    setTimeout(function () { window.location.href = "inscricoes.html"; }, 800);
+    importarProcesso(campoNome.value.trim(), arquivoEscolhido);
   }
 });
 
@@ -126,3 +126,142 @@ botaoRemover.addEventListener("click", function ()
   areaEscolhido.hidden = true;
   area.classList.remove("com-arquivo");
 });
+
+const listaRecentes = document.getElementById("recentes");
+const recentesVazio = document.getElementById("recentes-vazio");
+
+function lerInscricoesDoZip(zip) {
+  const caminhos = Object.keys(zip.files).filter(function (caminho) {
+    const nome = caminho.split("/").pop();
+    return !zip.files[caminho].dir
+      && !caminho.startsWith("__MACOSX")
+      && !nome.startsWith(".")
+      && nome !== "Thumbs.db"
+      && nome !== "desktop.ini";
+  });
+
+  let partes = caminhos.map(function (caminho) {
+    return caminho.split("/");
+  });
+
+  while (partes.length > 0 && partes.every(function (parte) {
+    return parte.length > 2 && parte[0] === partes[0][0];
+  })) {
+    partes = partes.map(function (parte) {
+      return parte.slice(1);
+    });
+  }
+
+  const inscricoes = {};
+
+  partes.forEach(function (parte, posicao) {
+    if (parte.length < 2) {
+      return;
+    }
+    const pasta = parte[0];
+    const nomeArquivo = parte[parte.length - 1];
+
+    if (!inscricoes[pasta]) {
+      const encontrado = pasta.match(/^(\d+)\s*[-_]*\s*(.*)$/);
+      inscricoes[pasta] = {
+        numero: encontrado ? encontrado[1] : pasta,
+        candidato: encontrado ? encontrado[2].replace(/_/g, " ").trim() : "",
+        pasta: pasta,
+        documentos: []
+      };
+    }
+
+    inscricoes[pasta].documentos.push({
+      arquivo: nomeArquivo,
+      caminho: caminhos[posicao],
+      tipo: identificarTipo(nomeArquivo),
+      resultado: null,
+      observacao: ""
+    });
+  });
+
+  const nomesDosTipos = TIPOS_DOCUMENTO.map(function (tipo) {
+    return tipo.nome;
+  });
+
+  function ordemDoTipo(documento) {
+    const posicao = nomesDosTipos.indexOf(documento.tipo);
+    return posicao === -1 ? nomesDosTipos.length : posicao;
+  }
+
+  return Object.values(inscricoes)
+    .sort(function (a, b) {
+      return a.numero.localeCompare(b.numero, "pt-BR", { numeric: true });
+    })
+    .map(function (inscricao) {
+      inscricao.documentos.sort(function (a, b) {
+        return ordemDoTipo(a) - ordemDoTipo(b) || a.arquivo.localeCompare(b.arquivo, "pt-BR");
+      });
+      return inscricao;
+    });
+}
+
+function mostrarFalha(mensagem) {
+  erroArquivo.textContent = mensagem;
+  botaoImportar.textContent = "Importar inscrições";
+  botaoImportar.disabled = false;
+}
+
+async function importarProcesso(nome, arquivo) {
+  let zip;
+  try {
+    zip = await JSZip.loadAsync(arquivo);
+  } catch (erro) {
+    mostrarFalha("Não consegui abrir esse .zip. Veja se ele abre normalmente no seu computador.");
+    return;
+  }
+
+  const inscricoes = lerInscricoesDoZip(zip);
+  if (inscricoes.length === 0) {
+    mostrarFalha("Não achei pastas de candidatos nesse .zip. Cada candidato precisa ter a sua pasta.");
+    return;
+  }
+
+  const processo = {
+    id: String(Date.now()),
+    nome: nome,
+    arquivoZip: arquivo.name,
+    dataCriacao: new Date().toISOString(),
+    instituicao: "UNIVERSIDADE FEDERAL DE ALAGOAS",
+    edital: "",
+    descricao: "Processo seletivo " + nome,
+    acessos: [],
+    inscricoes: inscricoes
+  };
+
+  try {
+    await guardarZip(processo.id, arquivo);
+  } catch (erro) {
+    console.warn("O .zip não foi guardado no navegador; os documentos não vão abrir.", erro);
+  }
+
+  salvarProcesso(processo);
+  window.location.href = "inscricoes.html?p=" + processo.id;
+}
+
+function mostrarRecentes() {
+  const processos = lerProcessos();
+  recentesVazio.hidden = processos.length > 0;
+
+  processos.forEach(function (processo) {
+    const revisadas = processo.inscricoes.filter(function (inscricao) {
+      return estadoInscricao(inscricao) !== "PENDENTE";
+    }).length;
+
+    const cartao = copiarModelo("modelo-recente");
+    cartao.href = "inscricoes.html?p=" + processo.id;
+    cartao.querySelector("strong").textContent = processo.nome;
+    cartao.querySelector("span").textContent =
+      plural(processo.inscricoes.length, "inscrição", "inscrições") + ", " +
+      plural(revisadas, "revisada", "revisadas") +
+      " · importado em " + formatarData(processo.dataCriacao);
+    listaRecentes.appendChild(cartao);
+  });
+}
+
+mostrarRecentes();

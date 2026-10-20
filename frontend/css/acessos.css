@@ -1,0 +1,78 @@
+.acessos {
+  max-width: 940px;
+}
+
+.pessoas {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pessoa {
+  display: grid;
+  grid-template-columns: 36px 1fr 180px 80px;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+}
+
+.pessoa.removendo {
+  background: var(--vermelho-fundo);
+  border-color: var(--vermelho-borda);
+}
+
+.pessoa-iniciais {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--azul-claro);
+  color: var(--azul-escuro);
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pessoa-dados {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 13px;
+}
+
+.pessoa-nome {
+  font-size: 15px;
+  color: var(--azul-escuro);
+}
+
+.pessoa-papel {
+  font-size: 14px;
+}
+
+.pessoa-remover {
+  border: none;
+  background: none;
+  color: var(--vermelho-ic);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  justify-self: end;
+}
+
+.pessoa-remover:hover {
+  text-decoration: underline;
+}
+
+.novo-titulo {
+  margin-top: 40px;
+}
+
+.novo-acesso {
+  padding: 24px;
+}
+
+.novo-acesso-botao {
+  display: flex;
+  justify-content: flex-end;
+}

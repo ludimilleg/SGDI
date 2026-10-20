@@ -175,3 +175,5 @@
 }
 
 #botao-remover:hover { color: var(--cinza-texto); text-decoration: underline; }
+
+.recente + .recente { margin-top: 8px; }

@@ -17,6 +17,10 @@
     <!-- Barra do topo: marca do sistema + botão de sair -->
     <header class="topo">
         <div class="topo-marca">
+            <button type="button" class="topo-menu" id="botao-menu" aria-label="Abrir menu">
+                <span></span><span></span><span></span>
+            </button>
+
             <span class="topo-logo">SGDI</span>
             <span class="topo-nome">Sistema de Gestão de Documentos para Inscrição</span>
         </div>
@@ -26,6 +30,15 @@
             <span class="topo-iniciais" id="iniciais">--</span>
             <a href="index.html" class="topo-sair">Sair</a>
         </div>
+
+        <nav class="menu" id="menu" hidden>
+            <h2>Menu</h2>
+            <a href="importar.html">Importar inscrições</a>
+            <a href="inscricoes.html">Inscrições</a>
+            <a href="acessos.html">Gerenciar acessos</a>
+            <a href="importar.html#recentes">Processos recentes</a>
+        </nav>
+
     </header>
 
     <!-- Conteúdo da tela: importar o .zip de um processo seletivo -->
@@ -62,11 +75,17 @@
         <button type="button" id="botao-importar">Importar inscrições</button>
 
         <!-- Processos já importados (exemplo fixo até ligar no back) -->
-        <section class="recentes">
+        <section class="recentes" id="recentes">
             <h2>Processos recentes</h2>
-            <!-- Preenchido pelo JS quando o back-end tiver a lista de processos -->
-            <p class="recentes-vazio">Nenhum processo importado ainda.</p>
+            <p class="recentes-vazio" id="recentes-vazio">Nenhum processo importado ainda.</p>
+            <template id="modelo-recente">
+                <a class="recente">
+                    <strong></strong>
+                    <span></span>
+                </a>
+            </template>
         </section>
+
     </main>
 
 
@@ -84,8 +103,10 @@
     </footer>
 
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="js/dados.js"></script>
     <script src="js/topo.js"></script>
-    <script src="js/importar.js"></script>   <!-- Comportamento da tela: arrastar e soltar o .zip -->
+    <script src="js/importar.js"></script> <!-- Comportamento da tela: arrastar e soltar o .zip -->
 
 
 </body>
