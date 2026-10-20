@@ -127,3 +127,45 @@ async function lerZip(idProcesso) {
     };
   });
 }
+
+
+function contarPendencias(inscricao) {
+  return inscricao.documentos.filter(function (documento) {
+    return documento.resultado === "NAO_OK";
+  }).length;
+}
+
+function excluirProcesso(idProcesso) {
+  const restantes = lerProcessos().filter(function (processo) {
+    return processo.id !== idProcesso;
+  });
+  localStorage.setItem("sgdiProcessos", JSON.stringify(restantes));
+  if (localStorage.getItem("sgdiProcessoAtual") === idProcesso) {
+    localStorage.removeItem("sgdiProcessoAtual");
+  }
+}
+
+async function apagarZip(idProcesso) {
+  const banco = await abrirBanco();
+  return new Promise(function (resolver, rejeitar) {
+    const transacao = banco.transaction("zips", "readwrite");
+    transacao.objectStore("zips").delete(idProcesso);
+    transacao.oncomplete = resolver;
+    transacao.onerror = function () {
+      rejeitar(transacao.error);
+    };
+  });
+}
+
+function pegarCargo(email) {
+  const emailProcurado = email.toLowerCase();
+  for (const processo of lerProcessos()) {
+    const pessoa = processo.acessos.find(function (acesso) {
+      return acesso.email === emailProcurado;
+    });
+    if (pessoa) {
+      return pessoa.cargo || "Banca Avaliadora";
+    }
+  }
+  return "Gerente do processo";
+}

@@ -60,3 +60,9 @@ function mostrarAviso(texto) {
     aviso.remove();
   }, 2500);
 }
+
+
+if (email) 
+{
+  iniciais.title = email + "\n" + pegarCargo(email);
+}

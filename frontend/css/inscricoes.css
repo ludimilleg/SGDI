@@ -125,3 +125,13 @@
 .inscricao.pendente .inscricao-status {
   color: var(--vermelho-ic);
 }
+
+
+.inscricao-detalhe {
+  font-size: 13px;
+  color: var(--texto-escuro);
+}
+
+.inscricao-detalhe:empty {
+  display: none;
+}

@@ -10,6 +10,8 @@ const campoNovoEmail = document.getElementById("novo-email");
 const campoNovaSenha = document.getElementById("nova-senha");
 const erroNovoNome = document.getElementById("erro-novo-nome");
 const erroNovoEmail = document.getElementById("erro-novo-email");
+const campoNovoCargo = document.getElementById("novo-cargo");
+const erroNovoCargo = document.getElementById("erro-novo-cargo");
 const erroNovaSenha = document.getElementById("erro-nova-senha");
 let pessoaParaRemover = null;
 let cartaoParaRemover = null;
@@ -38,7 +40,7 @@ function mostrarPessoas() {
   listaPessoas.innerHTML = "";
 
   processo.acessos.forEach(function (pessoa) {
-    const cartao = montarPessoa(pessoa.nome, pessoa.email, "Banca Avaliadora", pegarIniciais(pessoa.nome));
+    const cartao = montarPessoa(pessoa.nome, pessoa.email, pessoa.cargo || "Banca Avaliadora", pegarIniciais(pessoa.nome));
     cartao.querySelector(".pessoa-remover").addEventListener("click", function () {
       abrirConfirmacao(cartao, pessoa);
     });
@@ -108,6 +110,7 @@ formAcesso.addEventListener("submit", function (evento) {
 
   const nome = campoNovoNome.value.trim();
   const email = campoNovoEmail.value.trim().toLowerCase();
+  const cargo = campoNovoCargo.value.trim();
   const senha = campoNovaSenha.value;
   const jaTemAcesso = processo.acessos.some(function (pessoa) {
     return pessoa.email === email;
@@ -131,6 +134,14 @@ formAcesso.addEventListener("submit", function (evento) {
     limparErro(campoNovoEmail, erroNovoEmail);
   }
 
+  if (cargo === "") {
+    mostrarErro(campoNovoCargo, erroNovoCargo, "Descreva o cargo que a pessoa vai exercer.");
+    tudoCerto = false;
+  } else {
+    limparErro(campoNovoCargo, erroNovoCargo);
+  }
+
+
   if (senha.length < 8) {
     mostrarErro(campoNovaSenha, erroNovaSenha, "A senha precisa ter pelo menos 8 caracteres.");
     tudoCerto = false;
@@ -142,7 +153,7 @@ formAcesso.addEventListener("submit", function (evento) {
     return;
   }
 
-  processo.acessos.push({ nome: nome, email: email });
+  processo.acessos.push({ nome: nome, email: email, cargo: cargo });
   salvarProcesso(processo);
   formAcesso.reset();
   mostrarPessoas();

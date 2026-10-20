@@ -59,6 +59,11 @@
                 <p class="erro" id="erro-novo-email"></p>
             </div>
             <div class="campo">
+                <label for="novo-cargo">Cargo</label>
+                <input type="text" id="novo-cargo" name="novo-cargo" placeholder="Descreva o cargo. Ex.: membro da banca avaliadora, secretário">
+                <p class="erro" id="erro-novo-cargo"></p>
+            </div>
+            <div class="campo">
                 <label for="nova-senha">Senha</label>
                 <input type="password" id="nova-senha" name="nova-senha" placeholder="Crie uma senha para a pessoa">
                 <p class="erro" id="erro-nova-senha"></p>
@@ -84,7 +89,8 @@
     <div class="fundo-escuro" id="confirmacao" hidden>
         <div class="janela" role="dialog" aria-modal="true" aria-labelledby="confirmacao-titulo">
             <h2 id="confirmacao-titulo">Remover acesso?</h2>
-            <p><strong id="confirmacao-nome"></strong> não poderá mais abrir nem revisar o processo <span id="confirmacao-processo"></span>.</p>
+            <p><strong id="confirmacao-nome"></strong> não poderá mais abrir nem revisar o processo <span
+                    id="confirmacao-processo"></span>.</p>
             <div class="janela-botoes">
                 <button type="button" class="botao botao-neutro" id="botao-cancelar">Cancelar</button>
                 <button type="button" class="botao botao-perigo" id="botao-confirmar">Remover</button>

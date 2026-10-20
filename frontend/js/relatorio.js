@@ -66,10 +66,6 @@ CAMPOS_CABECALHO.forEach(function (campo) {
   });
 });
 
-document.getElementById("botao-imprimir").addEventListener("click", function () {
-  window.print();
-});
-
 document.getElementById("botao-pdf").addEventListener("click", function () {
   mostrarAviso("Escolha \"Salvar como PDF\" na janela de impressão.");
   setTimeout(function () {

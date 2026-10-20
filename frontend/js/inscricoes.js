@@ -6,8 +6,8 @@ const busca = document.getElementById("busca");
 const buscaVazia = document.getElementById("busca-vazia");
 
 const APARENCIA = {
-  DEFERIDA: { classe: "ok", texto: "✓ Documentos OK" },
-  INDEFERIDA: { classe: "pendente", texto: "! Com pendência" },
+  DEFERIDA: { classe: "ok", texto: "Documentos OK" },
+  INDEFERIDA: { classe: "pendente", texto: "Com pendência" },
   PENDENTE: { classe: "", texto: "A revisar" }
 };
 
@@ -34,10 +34,23 @@ function mostrarInscricoes() {
     cartao.querySelector(".inscricao-candidato").textContent = inscricao.candidato;
 
     let status = APARENCIA[estado].texto;
+    let detalhe = "";
+    const faltam = inscricao.documentos.length - avaliados;
+    const pendencias = contarPendencias(inscricao);
+
     if (estado === "PENDENTE" && avaliados > 0) {
       status = "Em revisão: " + avaliados + " de " + inscricao.documentos.length;
     }
+
+    if (estado === "INDEFERIDA" && faltam > 0) {
+      detalhe = plural(pendencias, "pendência", "pendências") + " · " +
+        plural(faltam, "documento a revisar", "documentos a revisar");
+    } else if (estado === "INDEFERIDA") {
+      detalhe = "Revisão concluída com " + plural(pendencias, "pendência", "pendências");
+    }
+
     cartao.querySelector(".inscricao-status").textContent = status;
+    cartao.querySelector(".inscricao-detalhe").textContent = detalhe;
 
     cartao.dataset.busca = normalizar(inscricao.numero + " " + inscricao.candidato);
     grade.appendChild(cartao);

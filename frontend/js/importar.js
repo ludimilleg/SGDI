@@ -244,7 +244,16 @@ async function importarProcesso(nome, arquivo) {
   window.location.href = "inscricoes.html?p=" + processo.id;
 }
 
+const confirmacao = document.getElementById("confirmacao");
+const confirmacaoNome = document.getElementById("confirmacao-nome");
+let processoParaExcluir = null;
+let cartaoParaExcluir = null;
+
 function mostrarRecentes() {
+  listaRecentes.querySelectorAll(".recente").forEach(function (cartao) {
+    cartao.remove();
+  });
+
   const processos = lerProcessos();
   recentesVazio.hidden = processos.length > 0;
 
@@ -254,14 +263,57 @@ function mostrarRecentes() {
     }).length;
 
     const cartao = copiarModelo("modelo-recente");
-    cartao.href = "inscricoes.html?p=" + processo.id;
-    cartao.querySelector("strong").textContent = processo.nome;
-    cartao.querySelector("span").textContent =
+    const link = cartao.querySelector(".recente-link");
+    link.href = "inscricoes.html?p=" + processo.id;
+    link.querySelector("strong").textContent = processo.nome;
+    link.querySelector("span").textContent =
       plural(processo.inscricoes.length, "inscrição", "inscrições") + ", " +
       plural(revisadas, "revisada", "revisadas") +
       " · importado em " + formatarData(processo.dataCriacao);
+
+    cartao.querySelector(".recente-excluir").addEventListener("click", function () {
+      processoParaExcluir = processo;
+      cartaoParaExcluir = cartao;
+      cartao.classList.add("excluindo");
+      confirmacaoNome.textContent = processo.nome;
+      confirmacao.hidden = false;
+    });
+
     listaRecentes.appendChild(cartao);
   });
 }
+
+function fecharConfirmacao() {
+  confirmacao.hidden = true;
+  if (cartaoParaExcluir) {
+    cartaoParaExcluir.classList.remove("excluindo");
+  }
+  processoParaExcluir = null;
+  cartaoParaExcluir = null;
+}
+
+document.getElementById("botao-cancelar").addEventListener("click", fecharConfirmacao);
+
+confirmacao.addEventListener("click", function (evento) {
+  if (evento.target === confirmacao) {
+    fecharConfirmacao();
+  }
+});
+
+document.addEventListener("keydown", function (evento) {
+  if (evento.key === "Escape" && !confirmacao.hidden) {
+    fecharConfirmacao();
+  }
+});
+
+document.getElementById("botao-confirmar").addEventListener("click", function () {
+  const nome = processoParaExcluir.nome;
+  const id = processoParaExcluir.id;
+  excluirProcesso(id);
+  apagarZip(id).catch(function () {});
+  fecharConfirmacao();
+  mostrarRecentes();
+  mostrarAviso("Processo " + nome + " excluído.");
+});
 
 mostrarRecentes();
