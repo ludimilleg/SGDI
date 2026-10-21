@@ -7,6 +7,7 @@ const campoEmail = document.getElementById("email");
 const campoSenha = document.getElementById("senha");
 const erroEmail = document.getElementById("erro-email");
 const erroSenha = document.getElementById("erro-senha");
+const erroGeral = document.getElementById("erro-geral");
 
 
 // Funções que mostram e limpam o erro de um campo
@@ -26,6 +27,7 @@ function limparErro(campo, areaErro)
 form.addEventListener("submit", function (evento) 
 {
   evento.preventDefault();   // não deixa a página recarregar
+  erroGeral.textContent = "";
 
   const email = campoEmail.value.trim();   // trim = tira espaços das pontas
   const senha = campoSenha.value;
@@ -72,27 +74,19 @@ form.addEventListener("submit", function (evento)
     }
 });
 
-
-
-// Pra Entrar no sistema
-// Por enquanto é simulado: qualquer e-mail e senha válidos entram.
-// Quando o alinhar com o back estiver pronto, aqui vai a chamada para /api/usuarios/login/.
 function entrar(email, senha) 
 {
-  sessionStorage.setItem("emailUsuario", email); // guarda quem entrou
+  sessionStorage.setItem("emailUsuario", email);
   const botao = form.querySelector("button");
-  botao.textContent = "Entrando...";   // mostra que está carregando
-  botao.disabled = true;               // evita clicar duas vezes
+  botao.textContent = "Entrando...";
+  botao.disabled = true;
 
   setTimeout(function () 
   {
-    window.location.href = "importar.html";   // vai pra tela de importar
-  }, 800);                                    // espera 0,8 segundo
+    window.location.href = "importar.html";
+  }, 800);
 }
 
-
-// Bug encontrado: Ao voltar pela seta do navegador, a página volta "congelada".
-// Resolvendo ele: Isso destrava o botão sempre que a página aparece de novo.
 window.addEventListener("pageshow", function () 
 {
   const botao = form.querySelector("button");

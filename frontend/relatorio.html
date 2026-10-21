@@ -68,6 +68,10 @@
                 <input type="text" id="descricao"
                     placeholder="Ex.: Abertura de processo seletivo para o curso de Mestrado em Informática">
             </div>
+            <label class="relatorio-opcao-nome">
+                <input type="checkbox" id="incluir-nome" aria-controls="previa">
+                Incluir nome dos candidatos no relatório final
+            </label>
         </section>
 
         <section class="cartao previa" id="previa">
@@ -86,7 +90,7 @@
             <table class="previa-tabela">
                 <thead>
                     <tr>
-                        <th>Inscrição</th>
+                        <th id="cabecalho-inscricao">Inscrição</th>
                         <th>Justificativa do indeferimento</th>
                     </tr>
                 </thead>

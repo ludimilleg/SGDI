@@ -46,16 +46,24 @@
         <h2 class="secao-titulo">Pessoas com acesso</h2>
         <div class="pessoas" id="lista-pessoas"></div>
 
+        <section class="cartao distribuicao">
+            <div>
+                <h2>Distribuição das inscrições</h2>
+                <p id="resumo-distribuicao"></p>
+            </div>
+            <button type="button" class="botao" id="botao-distribuir">Distribuir inscrições</button>
+        </section>
+
         <h2 class="secao-titulo novo-titulo">Criar novo acesso</h2>
         <form id="form-acesso" class="cartao novo-acesso" novalidate>
             <div class="campo">
                 <label for="novo-nome">Nome</label>
-                <input type="text" id="novo-nome" name="novo-nome" placeholder="Nome da pessoa">
+                <input type="text" id="novo-nome" name="novo-nome" placeholder="Nome">
                 <p class="erro" id="erro-novo-nome"></p>
             </div>
             <div class="campo">
                 <label for="novo-email">E-mail</label>
-                <input type="email" id="novo-email" name="novo-email" placeholder="E-mail da pessoa">
+                <input type="email" id="novo-email" name="novo-email" placeholder="E-mail"    >
                 <p class="erro" id="erro-novo-email"></p>
             </div>
             <div class="campo">
@@ -65,7 +73,7 @@
             </div>
             <div class="campo">
                 <label for="nova-senha">Senha</label>
-                <input type="password" id="nova-senha" name="nova-senha" placeholder="Crie uma senha para a pessoa">
+                <input type="password" id="nova-senha" name="nova-senha" placeholder="Crie uma senha">
                 <p class="erro" id="erro-nova-senha"></p>
             </div>
             <div class="novo-acesso-botao">
