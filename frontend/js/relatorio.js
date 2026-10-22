@@ -1,5 +1,28 @@
 const processo = abrirProcessoAtual();
 const CAMPOS_CABECALHO = ["instituicao", "edital", "descricao"];
+const incluirNome = document.getElementById("incluir-nome");
+
+function identificacao(inscricao) {
+  const candidato = (inscricao.candidato || "").trim();
+  return incluirNome.checked && candidato
+    ? inscricao.numero + " - " + candidato
+    : inscricao.numero;
+}
+
+function preencherIdentificacao(celula, inscricao) {
+  const numero = document.createElement("span");
+  numero.textContent = inscricao.numero;
+  celula.appendChild(numero);
+
+  const candidato = (inscricao.candidato || "").trim();
+  if (incluirNome.checked && candidato) {
+    const nome = document.createElement("span");
+    nome.className = "previa-candidato";
+    nome.textContent = candidato;
+    celula.appendChild(document.createElement("br"));
+    celula.appendChild(nome);
+  }
+}
 
 function montarRelatorio() {
   const deferidas = [];
@@ -9,7 +32,7 @@ function montarRelatorio() {
   processo.inscricoes.forEach(function (inscricao) {
     const estado = estadoInscricao(inscricao);
     if (estado === "DEFERIDA") {
-      deferidas.push(inscricao.numero);
+      deferidas.push(identificacao(inscricao));
     } else if (estado === "INDEFERIDA") {
       indeferidas.push(inscricao);
     } else {
@@ -32,6 +55,8 @@ function montarRelatorio() {
     deferidas.length > 0 ? juntarLista(deferidas) + "." : "Nenhuma inscrição deferida.";
 
   const tabela = document.getElementById("tabela-indeferidas");
+  document.getElementById("cabecalho-inscricao").textContent =
+    incluirNome.checked ? "Inscrição e candidato" : "Inscrição";
   tabela.innerHTML = "";
 
   if (indeferidas.length === 0) {
@@ -51,10 +76,12 @@ function montarRelatorio() {
       });
 
     const linha = tabela.insertRow();
-    linha.insertCell().textContent = inscricao.numero;
+    preencherIdentificacao(linha.insertCell(), inscricao);
     linha.insertCell().textContent = motivos.join("; ") + ".";
   });
 }
+
+incluirNome.addEventListener("change", montarRelatorio);
 
 CAMPOS_CABECALHO.forEach(function (campo) {
   const entrada = document.getElementById(campo);
@@ -79,6 +106,8 @@ document.getElementById("botao-word").addEventListener("click", function () {
     "<style>body{font-family:Arial,sans-serif;color:#1F2A44}" +
     ".previa-topo{text-align:center}.previa-brasao{display:none}" +
     "table{border-collapse:collapse;width:100%}th,td{border:1px solid #B7CDED;padding:8px;text-align:left}" +
+    "th:first-child,td:first-child{width:270px;min-width:270px}" +
+    ".previa-candidato{font-weight:400}" +
     "th{background:#E6F0FA}</style>";
   const conteudo = "<html><head><meta charset='UTF-8'>" + estilo + "</head><body>" + previa.innerHTML + "</body></html>";
   const arquivo = new Blob(["﻿", conteudo], { type: "application/msword" });

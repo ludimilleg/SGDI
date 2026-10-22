@@ -76,3 +76,31 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.distribuicao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  margin-top: 24px;
+}
+
+.distribuicao h2 {
+  margin: 0 0 4px;
+  font-size: 15px;
+  color: var(--azul-escuro);
+}
+
+.distribuicao p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--cinza-texto);
+}
+
+@media (max-width: 640px) {
+  .distribuicao {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
