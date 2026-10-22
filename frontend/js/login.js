@@ -74,19 +74,24 @@ form.addEventListener("submit", function (evento)
     }
 });
 
+// Pra Entrar no sistema
+// Por enquanto é simulado: qualquer e-mail e senha válidos entram.
+// Quando o alinhar com o back estiver pronto, aqui vai a chamada para /api/usuarios/login/.
 function entrar(email, senha) 
 {
-  sessionStorage.setItem("emailUsuario", email);
+  sessionStorage.setItem("emailUsuario", email); // guarda quem entrou
   const botao = form.querySelector("button");
-  botao.textContent = "Entrando...";
-  botao.disabled = true;
+  botao.textContent = "Entrando...";   // mostra que está carregando
+  botao.disabled = true;               // evita clicar duas vezes
 
   setTimeout(function () 
   {
-    window.location.href = "importar.html";
-  }, 800);
+    window.location.href = "importar.html";   // vai pra tela de importar
+  }, 800);                                    // espera 0,8 segundo
 }
 
+// Bug encontrado: Ao voltar pela seta do navegador, a página volta "congelada".
+// Resolvendo ele: Isso destrava o botão sempre que a página aparece de novo.
 window.addEventListener("pageshow", function () 
 {
   const botao = form.querySelector("button");
