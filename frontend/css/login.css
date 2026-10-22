@@ -1,16 +1,14 @@
-
-
 /* SGDI | login.css: estilos só da tela de login */
 
 /* As duas metades da tela, lado a lado e do mesmo tamanho */
-.login 
+.login
 {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
 
 /* Painel azul da esquerda */
-.login-apresentacao 
+.login-apresentacao
 {
   background: linear-gradient(var(--azul-medio), var(--azul-escuro));
   color: var(--branco);
@@ -22,7 +20,8 @@
   position: relative;       /* referência pro texto do pé (abaixo) */
 }
 
-.login-apresentacao h1 
+/* Título grande do painel */
+.login-apresentacao h1
 {
   font-family: var(--fonte-titulo);
   font-size: 40px;
@@ -30,7 +29,8 @@
   max-width: 480px;
 }
 
-.login-apresentacao p 
+/* Texto de apresentação embaixo do título */
+.login-apresentacao p
 {
   color: var(--azul-claro);
   font-size: 17px;
@@ -38,7 +38,7 @@
 }
 
 /* Linha de recursos (menor e presa no pé do painel) */
-.login-apresentacao .login-recursos 
+.login-apresentacao .login-recursos
 {
   position: absolute;
   bottom: 24px;
@@ -48,7 +48,7 @@
 }
 
 /* Metade da direita: formulário centralizado */
-.login-formulario 
+.login-formulario
 {
   display: flex;
   flex-direction: column;
@@ -59,53 +59,59 @@
   padding: 48px;
 }
 
-.login-formulario h2 
+/* Título Login */
+.login-formulario h2
 {
   font-family: var(--fonte-titulo);
   font-size: 28px;
   color: var(--azul-escuro);
 }
 
-.login-aviso 
+/* Aviso de acesso restrito, logo abaixo do título */
+.login-aviso
 {
   font-size: 15px;
-  margin: 4px 0 32px;       /* 4px em cima, 0 dos lados, 32px embaixo */
+  margin: 4px 0 32px;  /* 4px em cima, 0 dos lados, 32px embaixo */
 }
 
 /* Campos um embaixo do outro */
-#form-login 
+#form-login
 {
   display: flex;
   flex-direction: column;
 }
 
-#form-login label 
+/* Rótulos E-mail e Senha */
+#form-login label
 {
   font-size: 14px;
-  font-weight: 600;          /* semi-negrito */
+  font-weight: 600;  /* semi-negrito */
   color: var(--azul-escuro);
   margin-bottom: 8px;
 }
 
-#form-login input 
+/* Caixas de e-mail e senha */
+#form-login input
 {
   height: 44px;
   padding: 0 14px;
   border: 1px solid transparent;
-  border-radius: 4px;        /* cantinhos arredondados */
+  border-radius: 4px;  /* cantinhos arredondados */
   background: var(--cinza-borda);
-  font: inherit;             /* usa a mesma fonte da página */
+  font: inherit;       /* usa a mesma fonte da página */
   color: var(--texto-escuro);
   margin-bottom: 24px;
 }
 
-#form-login input::placeholder 
+/* Texto de exemplo dentro da caixa */
+#form-login input::placeholder
 {
   color: var(--cinza-exemplo);
 }
 
 /* Botão Entrar: largura toda, azul, texto em maiúsculas */
-#form-login button {
+#form-login button
+{
   height: 44px;
   margin-top: 8px;
   border: none;
@@ -120,19 +126,22 @@
 }
 
 /* Mouse em cima do botão: fica um azul mais forte */
-#form-login button:hover {
+#form-login button:hover
+{
   background: var(--azul-ppgi);
 }
 
 /* Campo selecionado: fundo branco e borda azul */
-#form-login input:focus {
+#form-login input:focus
+{
   outline: none;
   background: var(--branco);
   border-color: var(--azul-medio);
 }
 
 /* Campo com problema: borda e fundo avermelhados */
-#form-login input.campo-erro {
+#form-login input.campo-erro
+{
   border-color: #F04A50;
   background: #FDEDEE;
 }

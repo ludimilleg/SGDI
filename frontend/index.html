@@ -11,13 +11,11 @@
     <!-- Estilos: base.css (todas as telas) + login.css (só esta tela) -->
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/login.css">
-
 </head>
 
 <body>
     <!-- Login: painel de apresentação (esquerda) + formulário (direita) -->
     <main class="login">
-
         <!-- Painel azul com o nome do sistema -->
         <section class="login-apresentacao">
             <h1>Sistema de Gestão de Documentos para Inscrição</h1>
@@ -32,18 +30,21 @@
             <h2>Login</h2>
             <p class="login-aviso">(Acesso restrito à equipe da secretaria e da coordenação do PPGI.)</p>
             <form id="form-login" novalidate>
+                <!-- Campo de e-mail (o erro aparece no parágrafo logo abaixo) -->
                 <label for="email">E-mail</label>
                 <input type="email" name="email" id="email" placeholder="Ex.: nome@ic.ufal.br">
                 <p class="erro" id="erro-email"></p>
+
+                <!-- Campo de senha -->
                 <label for="senha">Senha</label>
                 <input type="password" name="senha" id="senha">
                 <p class="erro" id="erro-senha"></p>
+
+                <!-- Erro geral do login e botão Entrar -->
                 <p class="erro" id="erro-geral"></p>
                 <button type="submit">Entrar</button>
             </form>
-
         </section>
-
     </main>
 
     <!-- Rodapé institucional (igual em todas as telas) -->
@@ -58,12 +59,9 @@
             <span>(82) 3214-1401</span>
         </p>
     </footer>
-    
 
     <!-- Comportamento da tela: validação e redirecionamento -->
     <script src="js/login.js"></script>
-
-
 </body>
 
 </html>

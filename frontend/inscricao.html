@@ -1,3 +1,5 @@
+<!-- SGDI | Tela de revisão de uma inscrição -->
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -5,12 +7,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscrição | SGDI</title>
+
+    <!-- Estilos: base.css (todas as telas) + inscricao.css (só esta tela) -->
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/inscricao.css">
 </head>
 
 <body>
+    <!-- Barra do topo: menu, marca do sistema, iniciais do usuário e Sair -->
     <header class="topo">
+        <!-- Botão do menu (três linhas), sigla e nome do sistema -->
         <div class="topo-marca">
             <button type="button" class="topo-menu" id="botao-menu" aria-label="Abrir menu">
                 <span></span><span></span><span></span>
@@ -19,11 +25,13 @@
             <span class="topo-nome">Sistema de Gestão de Documentos para Inscrição</span>
         </div>
 
+        <!-- Iniciais do usuário + Sair (passando o mouse nas iniciais aparece o e-mail e o cargo) -->
         <div class="topo-usuario">
             <span class="topo-iniciais" id="iniciais">--</span>
             <a href="index.html" class="topo-sair">Sair</a>
         </div>
 
+        <!-- Menu que o botão das três linhas abre e fecha (o topo.js marca a tela atual) -->
         <nav class="menu" id="menu" hidden>
             <h2>Menu</h2>
             <a href="importar.html">Importar inscrições</a>
@@ -33,9 +41,11 @@
         </nav>
     </header>
 
+    <!-- Conteúdo da tela: documentos de uma inscrição -->
     <main class="conteudo inscricao-pagina">
         <a href="inscricoes.html" class="voltar">← Voltar</a>
 
+        <!-- Número da inscrição, candidato e instrução -->
         <div class="inscricao-cabecalho">
             <h1 class="titulo" id="titulo-inscricao">Inscrição</h1>
             <p class="candidato" id="candidato"></p>
@@ -43,8 +53,10 @@
                 Não OK, escreva o motivo.</p>
         </div>
 
+        <!-- Lista de documentos (o inscricao.js monta um cartão para cada um) -->
         <div class="documentos" id="documentos"></div>
 
+        <!-- Resumo da avaliação + Salvar (fica preso no pé da tela) -->
         <div class="cartao resumo">
             <div>
                 <strong id="resumo-titulo"></strong>
@@ -53,8 +65,10 @@
             <button type="button" class="botao" id="botao-salvar">Salvar avaliação</button>
         </div>
 
+        <!-- Modelo do cartão de cada documento -->
         <template id="modelo-documento">
             <div class="cartao documento">
+                <!-- Tipo e nome do arquivo na esquerda, OK e Não OK na direita -->
                 <div class="documento-linha">
                     <div class="documento-dados">
                         <button type="button" class="documento-nome"></button>
@@ -65,6 +79,8 @@
                         <button type="button" class="botao-nao-ok">Não OK</button>
                     </div>
                 </div>
+
+                <!-- Motivo (só aparece quando o documento está Não OK) -->
                 <div class="documento-motivo">
                     <label>O que está errado ou faltando?</label>
                     <textarea placeholder="Ex.: A imagem está cortada."></textarea>
@@ -73,6 +89,7 @@
         </template>
     </main>
 
+    <!-- Rodapé institucional (igual em todas as telas) -->
     <footer class="rodape">
         <p class="rodape-instituicao">
             <strong>Instituto de Computação</strong><br>
@@ -85,7 +102,10 @@
         </p>
     </footer>
 
+    <!-- JSZip: abre o .zip guardado pra mostrar cada documento -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <!-- Funções comuns (dados.js), barra do topo (topo.js) e comportamento desta tela (inscricao.js) -->
     <script src="js/dados.js"></script>
     <script src="js/topo.js"></script>
     <script src="js/inscricao.js"></script>

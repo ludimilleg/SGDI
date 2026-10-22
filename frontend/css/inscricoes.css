@@ -1,4 +1,8 @@
-.ferramentas {
+/* SGDI | inscricoes.css: estilos só da tela com a lista de inscrições */
+
+/* Linha entre o cabeçalho e a grade: legenda na esquerda, busca na direita */
+.ferramentas
+{
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -6,13 +10,17 @@
   margin-bottom: 16px;
 }
 
-.legenda {
+/* Legenda das cores, com os itens lado a lado */
+.legenda
+{
   display: flex;
   gap: 24px;
   font-size: 13px;
 }
 
-.busca {
+/* Caixa de busca por número ou nome */
+.busca
+{
   width: 280px;
   height: 40px;
   padding: 0 14px;
@@ -23,115 +31,154 @@
   color: var(--texto-escuro);
 }
 
-.busca:focus {
+/* Busca selecionada: borda azul */
+.busca:focus
+{
   outline: none;
   border-color: var(--azul-medio);
 }
 
-.busca-vazia {
+/* Frase que aparece quando a busca não encontra nada */
+.busca-vazia
+{
   font-size: 14px;
   color: var(--cinza-exemplo);
   margin-top: 8px;
 }
 
-.legenda-item {
+/* Cada item da legenda: bolinha + texto com a contagem */
+.legenda-item
+{
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.bolinha {
+/* Bolinha da legenda (branca para as que faltam revisar) */
+.bolinha
+{
   width: 10px;
   height: 10px;
-  border-radius: 50%;
+  border-radius: 50%;  /* deixa redondo */
   border: 1px solid var(--cinza-borda);
   background: var(--branco);
 }
 
-.bolinha.ok {
+/* Bolinha verde: documentos OK */
+.bolinha.ok
+{
   background: var(--verde-fundo);
   border-color: var(--verde);
 }
 
-.bolinha.pendente {
+/* Bolinha vermelha: com pendência */
+.bolinha.pendente
+{
   background: var(--vermelho-fundo);
   border-color: var(--vermelho-ic);
 }
 
-.grade {
+/* Grade com os cartões das inscrições */
+.grade
+{
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr);  /* quatro colunas do mesmo tamanho */
   gap: 16px;
 }
 
-.inscricao {
+/* Cartão de cada inscrição (é um link pra tela da inscrição) */
+.inscricao
+{
   display: flex;
   flex-direction: column;
   gap: 4px;
   padding: 16px;
   color: var(--cinza-texto);
-  text-decoration: none;
-  transition: transform 0.15s;
+  text-decoration: none;        /* tira o sublinhado do link */
+  transition: transform 0.15s;  /* suaviza a subida do cartão no hover */
 }
 
-.inscricao:hover {
+/* Mouse em cima do cartão: borda azul e ele sobe um pouquinho */
+.inscricao:hover
+{
   border-color: var(--azul-medio);
   transform: translateY(-2px);
 }
 
-.inscricao-rotulo {
+/* Palavra "Inscrição" em cima do número */
+.inscricao-rotulo
+{
   font-size: 13px;
 }
 
-.inscricao-numero {
+/* Número da inscrição, grande */
+.inscricao-numero
+{
   font-family: var(--fonte-titulo);
   font-size: 24px;
   font-weight: 700;
   color: var(--azul-escuro);
 }
 
-.inscricao-candidato {
+/* Nome do candidato */
+.inscricao-candidato
+{
   font-size: 13px;
   color: var(--texto-escuro);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: nowrap;      /* nome numa linha só... */
+  overflow: hidden;         /* ...o que passar fica escondido... */
+  text-overflow: ellipsis;  /* ...e aparecem as reticências */
 }
 
-.inscricao-candidato:empty {
-  display: none;
+/* Sem nome do candidato */
+.inscricao-candidato:empty
+{
+  display: none;  /* some quando está vazio */
 }
 
-.inscricao-status {
+/* Situação da inscrição (Documentos OK, Com pendência, A revisar) */
+.inscricao-status
+{
   font-size: 14px;
   font-weight: 600;
   margin-top: 6px;
 }
 
-.inscricao.ok {
+/* Inscrição com todos os documentos OK: cartão verde */
+.inscricao.ok
+{
   background: var(--verde-fundo);
   border-color: var(--verde-borda);
 }
 
-.inscricao.ok .inscricao-status {
+/* Texto da situação em verde */
+.inscricao.ok .inscricao-status
+{
   color: var(--verde);
 }
 
-.inscricao.pendente {
+/* Inscrição com pendência: cartão vermelho */
+.inscricao.pendente
+{
   background: var(--vermelho-fundo);
   border-color: var(--vermelho-borda);
 }
 
-.inscricao.pendente .inscricao-status {
+/* Texto da situação em vermelho */
+.inscricao.pendente .inscricao-status
+{
   color: var(--vermelho-ic);
 }
 
-
-.inscricao-detalhe {
+/* Detalhe embaixo da situação (pendências e documentos a revisar) */
+.inscricao-detalhe
+{
   font-size: 13px;
   color: var(--texto-escuro);
 }
 
-.inscricao-detalhe:empty {
-  display: none;
+/* Sem detalhe */
+.inscricao-detalhe:empty
+{
+  display: none;  /* some quando está vazio */
 }

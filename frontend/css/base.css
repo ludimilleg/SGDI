@@ -1,35 +1,36 @@
-
 /* SGDI | base.css: fontes, cores e ajustes comuns a todas as telas */
 
 /* Importação das fontes: roboto slab (títulos) e inter (textos) */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto+Slab:wght@600;700&display=swap");
 
 /* Cores e fontes do sistema, com nomes fáceis de lembrar */
-:root 
+:root
 {
-    --azul-escuro: #243B6B;    /* títulos, rodapé, início do degradê */
-    --azul-ppgi: #1D4594;    /* links e destaques */
-    --azul-medio: #4A6FB3;    /* botões, fim do degradê */
-    --azul-claro: #E6F0FA;    /* textos sobre o azul, fundos leves */
-    --azul-suave: #B7CDED;    /* textos menores sobre o azul */
-    --cinza-borda: #D6DFEC;    /* bordas e fundo dos campos */
-    --cinza-texto: #56627A;    /* textos comuns */
-    --cinza-exemplo: #8391A7;    /* texto de exemplo nos campos */
-    --texto-escuro: #1F2A44;    /* textos fortes */
-    --vermelho-ic: #E31B23;     /* erros e ações perigosas */
-    --branco: #FFFFFF;
-    --fonte-titulo: "Roboto Slab", serif;
-    --fonte-texto: "Inter", sans-serif;
+  --azul-escuro: #243B6B;                /* títulos, rodapé, início do degradê */
+  --azul-ppgi: #1D4594;                  /* links e destaques */
+  --azul-medio: #4A6FB3;                 /* botões, fim do degradê */
+  --azul-claro: #E6F0FA;                 /* textos sobre o azul, fundos leves */
+  --azul-suave: #B7CDED;                 /* textos menores sobre o azul */
+  --cinza-borda: #D6DFEC;                /* bordas e fundo dos campos */
+  --cinza-texto: #56627A;                /* textos comuns */
+  --cinza-exemplo: #8391A7;              /* texto de exemplo nos campos */
+  --texto-escuro: #1F2A44;               /* textos fortes */
+  --vermelho-ic: #E31B23;                /* erros e ações perigosas */
+  --branco: #FFFFFF;                     /* fundo das telas e dos cartões */
+  --fonte-titulo: "Roboto Slab", serif;    /* fonte dos títulos */
+  --fonte-texto: "Inter", sans-serif;      /* fonte dos textos */
 }
 
 /* Zera as margens que o navegador coloca sozinho */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;  /* a largura passa a contar a borda e o espaço interno */
 }
 
-body 
+/* Página inteira: fonte, cor do texto e fundo branco */
+body
 {
   font-family: var(--fonte-texto);
   color: var(--cinza-texto);
@@ -40,63 +41,72 @@ body
 }
 
 /* O conteúdo cresce e empurra o rodapé pro fim da tela */
-main 
+main
 {
   flex: 1;
 }
 
 /* Rodapé institucional */
-.rodape 
+.rodape
 {
   background: var(--azul-escuro);
   color: var(--azul-claro);
   font-size: 12px;
   padding: 16px 48px;
-  display: flex;          /* instituição e contato lado a lado */
+  display: flex;                   /* instituição e contato lado a lado */
   align-items: center;
-  justify-content: space-between; /* instituição na esquerda, contato na direita */;             /* espaço entre os dois blocos */
+  justify-content: space-between;  /* instituição na esquerda, contato na direita */
 }
 
-.rodape-instituicao 
+/* Nome do instituto e da universidade, com a fonte dos títulos */
+.rodape-instituicao
 {
   font-family: var(--fonte-titulo);
   color: var(--branco);
   font-size: 13px;
 }
 
-.rodape a 
+/* E-mail do rodapé */
+.rodape a
 {
-  color: inherit;         /* o link fica da mesma cor do texto */
+  color: inherit;  /* o link fica da mesma cor do texto */
 }
 
 /* Itens do contato lado a lado, com uma linha fina entre eles */
-.rodape-contato 
+.rodape-contato
 {
   display: flex;
   gap: 24px;
 }
 
-.rodape-contato > * + * 
+/* Do segundo item em diante: linha fina na esquerda e um respiro depois dela */
+.rodape-contato > * + *
 {
   border-left: 1px solid var(--azul-suave);
   padding-left: 24px;
 }
 
 /* Barra do topo (telas internas) */
-.topo 
+.topo
 {
   background: var(--branco);
   border-bottom: 1px solid var(--cinza-borda);
   padding: 12px 48px;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* marca na esquerda, Sair na direita */
+  justify-content: space-between;  /* marca na esquerda, usuário na direita */
 }
 
-.topo-marca { display: flex; align-items: center; gap: 12px; }
+/* Botão do menu, sigla e nome do sistema lado a lado */
+.topo-marca
+{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
 /* Quadradinho azul com a sigla */
-.topo-logo 
+.topo-logo
 {
   background: var(--azul-ppgi);
   color: var(--branco);
@@ -106,10 +116,16 @@ main
   border-radius: 4px;
 }
 
-.topo-nome { font-family: var(--fonte-titulo); font-weight: 600; color: var(--azul-escuro); }
+/* Nome do sistema ao lado da sigla */
+.topo-nome
+{
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  color: var(--azul-escuro);
+}
 
 /* Botão de sair, só com contorno */
-.topo-sair 
+.topo-sair
 {
   color: var(--azul-medio);
   border: 1px solid var(--azul-medio);
@@ -117,58 +133,83 @@ main
   padding: 6px 16px;
   font-size: 14px;
   font-weight: 600;
-  text-decoration: none; /* tira o sublinhado do link */
+  text-decoration: none;  /* tira o sublinhado do link */
 }
 
-.topo-sair:hover { background: var(--azul-claro); }
+/* Mouse em cima do Sair: fundo azul clarinho */
+.topo-sair:hover
+{
+  background: var(--azul-claro);
+}
 
 /* Mensagens de erro (o JavaScript escreve o texto nelas) */
-.erro {
+.erro
+{
   color: #F04A50;
   font-size: 13px;
   font-weight: 500;
-  margin: -18px 0 18px;
+  margin: -18px 0 18px;  /* sobe pra perto do campo e afasta do próximo */
 }
 
-.erro:empty 
+/* Erro sem texto */
+.erro:empty
 {
-  display: none;           /* sem texto, ela nem ocupa espaço */
+  display: none;  /* sem texto, ela nem ocupa espaço */
 }
 
 /* Iniciais do usuário + Sair, lado a lado */
-.topo-usuario { display: flex; align-items: center; gap: 16px; }
+.topo-usuario
+{
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
 
-/* Bolinha com as iniciais */
-.topo-iniciais 
+/* Bolinha com as iniciais (passando o mouse aparece o e-mail e o cargo) */
+.topo-iniciais
 {
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: 50%;  /* deixa redondo */
   background: var(--azul-claro);
   color: var(--azul-ppgi);
   font-size: 13px;
   font-weight: 600;
-  display: flex;
+  display: flex;       /* letras bem no meio da bolinha */
   align-items: center;
   justify-content: center;
 }
 
+/* Cores extras: vermelho dos erros e verde do que está OK */
 :root
 {
-  --vermelho-erro: #F04A50;
-  --vermelho-fundo: #FDEDEE;
-  --vermelho-borda: #F2A7AA;
-  --verde: #1E7F4F;
-  --verde-fundo: #E8F5EE;
-  --verde-borda: #9FD3B8;
+  --vermelho-erro: #F04A50;   /* borda dos campos com erro */
+  --vermelho-fundo: #FDEDEE;  /* fundo de erros e pendências */
+  --vermelho-borda: #F2A7AA;  /* borda de erros e pendências */
+  --verde: #1E7F4F;           /* texto e bolinha do que está OK */
+  --verde-fundo: #E8F5EE;     /* fundo do que está OK */
+  --verde-borda: #9FD3B8;     /* borda do que está OK */
 }
 
-[hidden] { display: none !important; }
+/* Tudo que tem o atributo hidden some da tela */
+[hidden]
+{
+  display: none !important;  /* !important ganha de qualquer outro display */
+}
 
-button { font: inherit; }
+/* Botões usam a mesma fonte da página */
+button
+{
+  font: inherit;
+}
 
-.topo { position: relative; }
+/* Referência pro menu abrir logo abaixo da barra do topo */
+.topo
+{
+  position: relative;
+}
 
+/* Botão do menu: quadradinho com três linhas */
 .topo-menu
 {
   width: 40px;
@@ -176,14 +217,15 @@ button { font: inherit; }
   border: 1px solid var(--cinza-borda);
   border-radius: 6px;
   background: var(--branco);
-  display: flex;
-  flex-direction: column;
+  display: flex;           /* empilha as três linhas... */
+  flex-direction: column;  /* ...uma embaixo da outra */
   align-items: center;
   justify-content: center;
   gap: 4px;
-  cursor: pointer;
+  cursor: pointer;         /* mãozinha ao passar o mouse */
 }
 
+/* Cada uma das três linhas do botão */
 .topo-menu span
 {
   width: 18px;
@@ -192,22 +234,28 @@ button { font: inherit; }
   background: var(--azul-escuro);
 }
 
-.topo-menu:hover { background: var(--azul-claro); }
+/* Mouse em cima do botão do menu */
+.topo-menu:hover
+{
+  background: var(--azul-claro);
+}
 
+/* Menu que abre ao clicar no botão */
 .menu
 {
-  position: absolute;
-  top: 64px;
-  left: 48px;
+  position: absolute;                             /* solto por cima da página */
+  top: 64px;                                      /* logo abaixo da barra do topo */
+  left: 48px;                                     /* alinhado com o botão */
   width: 260px;
   background: var(--branco);
   border: 1px solid var(--cinza-borda);
   border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(31, 42, 68, 0.15);
+  box-shadow: 0 8px 24px rgba(31, 42, 68, 0.15);  /* sombra leve embaixo */
   padding: 16px 12px;
-  z-index: 10;
+  z-index: 10;                                    /* fica na frente do conteúdo */
 }
 
+/* Título do menu, com uma linha embaixo */
 .menu h2
 {
   font-family: var(--fonte-titulo);
@@ -218,6 +266,7 @@ button { font: inherit; }
   margin-bottom: 8px;
 }
 
+/* Links do menu, um por linha */
 .menu a
 {
   display: block;
@@ -228,17 +277,29 @@ button { font: inherit; }
   font-size: 15px;
 }
 
-.menu a:hover { background: var(--azul-claro); }
-.menu a.atual { background: var(--azul-claro); font-weight: 600; }
+/* Mouse em cima de um link do menu */
+.menu a:hover
+{
+  background: var(--azul-claro);
+}
 
+/* Link da tela que está aberta */
+.menu a.atual
+{
+  background: var(--azul-claro);
+  font-weight: 600;
+}
+
+/* Área central das telas internas, com largura máxima */
 .conteudo
 {
   width: 100%;
   max-width: 1056px;
-  margin: 0 auto;
-  padding: 32px 24px 48px;
+  margin: 0 auto;           /* centraliza na horizontal */
+  padding: 32px 24px 48px;  /* 32px em cima, 24px dos lados, 48px embaixo */
 }
 
+/* Link de voltar, acima do título */
 .voltar
 {
   display: inline-block;
@@ -249,17 +310,23 @@ button { font: inherit; }
   margin-bottom: 12px;
 }
 
-.voltar:hover { text-decoration: underline; }
+/* Mouse em cima do voltar: aparece o sublinhado */
+.voltar:hover
+{
+  text-decoration: underline;
+}
 
+/* Cabeçalho das telas: título na esquerda, botões na direita */
 .cabecalho
 {
   display: flex;
-  align-items: flex-start;
+  align-items: flex-start;  /* tudo alinhado pelo topo */
   justify-content: space-between;
   gap: 24px;
   margin-bottom: 32px;
 }
 
+/* Título grande de cada tela */
 .titulo
 {
   font-family: var(--fonte-titulo);
@@ -267,8 +334,14 @@ button { font: inherit; }
   color: var(--azul-escuro);
 }
 
-.subtitulo { font-size: 16px; margin-top: 6px; }
+/* Texto logo abaixo do título */
+.subtitulo
+{
+  font-size: 16px;
+  margin-top: 6px;
+}
 
+/* Botão padrão: azul, texto em maiúsculas */
 .botao
 {
   height: 44px;
@@ -278,26 +351,66 @@ button { font: inherit; }
   background: var(--azul-medio);
   color: var(--branco);
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  text-transform: uppercase;  /* "Salvar" vira "SALVAR" */
+  letter-spacing: 1px;        /* um respiro entre as letras */
+  cursor: pointer;            /* mãozinha ao passar o mouse */
+  text-decoration: none;      /* sem sublinhado quando o botão é um link */
+  display: inline-flex;       /* texto no meio do botão... */
+  align-items: center;        /* ...na altura... */
+  justify-content: center;    /* ...e na largura */
 }
 
-.botao:hover { background: var(--azul-ppgi); border-color: var(--azul-ppgi); }
+/* Mouse em cima do botão: fica um azul mais forte */
+.botao:hover
+{
+  background: var(--azul-ppgi);
+  border-color: var(--azul-ppgi);
+}
 
-.botao-secundario { background: var(--branco); color: var(--azul-ppgi); }
-.botao-secundario:hover { background: var(--azul-claro); color: var(--azul-ppgi); }
+/* Botão secundário: fundo branco e texto azul */
+.botao-secundario
+{
+  background: var(--branco);
+  color: var(--azul-ppgi);
+}
 
-.botao-perigo { background: var(--vermelho-ic); border-color: var(--vermelho-ic); }
-.botao-perigo:hover { background: #B9141B; border-color: #B9141B; }
+/* Mouse em cima do botão secundário */
+.botao-secundario:hover
+{
+  background: var(--azul-claro);
+  color: var(--azul-ppgi);
+}
 
-.botao-neutro { background: var(--branco); border-color: var(--cinza-borda); color: var(--cinza-texto); }
-.botao-neutro:hover { background: var(--azul-claro); border-color: var(--cinza-borda); }
+/* Botão de perigo (excluir, remover): vermelho */
+.botao-perigo
+{
+  background: var(--vermelho-ic);
+  border-color: var(--vermelho-ic);
+}
 
+/* Mouse em cima do botão de perigo: vermelho mais escuro */
+.botao-perigo:hover
+{
+  background: #B9141B;
+  border-color: #B9141B;
+}
+
+/* Botão neutro (cancelar): branco com borda cinza */
+.botao-neutro
+{
+  background: var(--branco);
+  border-color: var(--cinza-borda);
+  color: var(--cinza-texto);
+}
+
+/* Mouse em cima do botão neutro */
+.botao-neutro:hover
+{
+  background: var(--azul-claro);
+  border-color: var(--cinza-borda);
+}
+
+/* Campo de formulário: rótulo, caixa e erro, um embaixo do outro */
 .campo
 {
   display: flex;
@@ -305,6 +418,7 @@ button { font: inherit; }
   margin-bottom: 20px;
 }
 
+/* Rótulo do campo */
 .campo label
 {
   font-size: 14px;
@@ -313,20 +427,26 @@ button { font: inherit; }
   margin-bottom: 8px;
 }
 
+/* Caixa onde a pessoa digita */
 .campo input,
 .campo textarea
 {
   height: 44px;
   padding: 0 14px;
-  border: 1px solid transparent;
+  border: 1px solid transparent;  /* borda invisível, só aparece no foco */
   border-radius: 4px;
   background: var(--cinza-borda);
-  font: inherit;
+  font: inherit;                  /* usa a mesma fonte da página */
   color: var(--texto-escuro);
 }
 
-.campo input::placeholder { color: var(--cinza-exemplo); }
+/* Texto de exemplo dentro da caixa */
+.campo input::placeholder
+{
+  color: var(--cinza-exemplo);
+}
 
+/* Campo selecionado: fundo branco e borda azul */
 .campo input:focus,
 .campo textarea:focus
 {
@@ -335,10 +455,20 @@ button { font: inherit; }
   border-color: var(--azul-medio);
 }
 
-.campo input.campo-erro { border-color: var(--vermelho-erro); background: var(--vermelho-fundo); }
+/* Campo com problema: borda e fundo avermelhados */
+.campo input.campo-erro
+{
+  border-color: var(--vermelho-erro);
+  background: var(--vermelho-fundo);
+}
 
-.campo .erro { margin: 6px 0 0; }
+/* Erro dentro de um campo: fica colado embaixo da caixa */
+.campo .erro
+{
+  margin: 6px 0 0;
+}
 
+/* Cartão branco com borda, usado em várias telas */
 .cartao
 {
   background: var(--branco);
@@ -346,6 +476,7 @@ button { font: inherit; }
   border-radius: 10px;
 }
 
+/* Título de cada seção */
 .secao-titulo
 {
   font-family: var(--fonte-titulo);
@@ -354,27 +485,30 @@ button { font: inherit; }
   margin-bottom: 12px;
 }
 
+/* Fundo escuro atrás das janelas de confirmação */
 .fundo-escuro
 {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 20;
+  position: fixed;                 /* preso na tela, mesmo rolando a página */
+  inset: 0;                        /* cobre a tela inteira */
+  background: rgba(0, 0, 0, 0.4);  /* preto 40% transparente */
+  display: flex;                   /* janela no meio da tela... */
+  align-items: center;             /* ...na altura... */
+  justify-content: center;         /* ...e na largura */
+  z-index: 20;                     /* fica na frente do menu */
 }
 
+/* Janela de confirmação */
 .janela
 {
   width: 440px;
-  max-width: calc(100% - 32px);
+  max-width: calc(100% - 32px);  /* em tela pequena, deixa 16px de cada lado */
   background: var(--branco);
   border-radius: 12px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
   padding: 24px;
 }
 
+/* Título da janela */
 .janela h2
 {
   font-family: var(--fonte-titulo);
@@ -383,8 +517,14 @@ button { font: inherit; }
   margin-bottom: 12px;
 }
 
-.janela p { font-size: 15px; line-height: 1.5; }
+/* Texto da janela */
+.janela p
+{
+  font-size: 15px;
+  line-height: 1.5;
+}
 
+/* Botões da janela, alinhados na direita */
 .janela-botoes
 {
   display: flex;
@@ -393,17 +533,18 @@ button { font: inherit; }
   margin-top: 24px;
 }
 
+/* Aviso que aparece no pé da tela depois de uma ação */
 .aviso
 {
-  position: fixed;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
+  position: fixed;              /* preso na tela */
+  bottom: 24px;                 /* 24px acima do fim da tela */
+  left: 50%;                    /* começa no meio da tela... */
+  transform: translateX(-50%);  /* ...e volta metade da própria largura pra ficar centralizado */
   background: var(--azul-escuro);
   color: var(--branco);
   padding: 12px 20px;
   border-radius: 6px;
   font-size: 14px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  z-index: 30;
+  z-index: 30;                  /* fica na frente de tudo, até da janela */
 }

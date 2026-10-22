@@ -1,3 +1,5 @@
+<!-- SGDI | Tela de gerenciar acessos -->
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -5,12 +7,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciar acessos | SGDI</title>
+
+    <!-- Estilos: base.css (todas as telas) + acessos.css (só esta tela) -->
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/acessos.css">
 </head>
 
 <body>
+    <!-- Barra do topo: menu, marca do sistema, iniciais do usuário e Sair -->
     <header class="topo">
+        <!-- Botão do menu (três linhas), sigla e nome do sistema -->
         <div class="topo-marca">
             <button type="button" class="topo-menu" id="botao-menu" aria-label="Abrir menu">
                 <span></span><span></span><span></span>
@@ -19,11 +25,13 @@
             <span class="topo-nome">Sistema de Gestão de Documentos para Inscrição</span>
         </div>
 
+        <!-- Iniciais do usuário + Sair (passando o mouse nas iniciais aparece o e-mail e o cargo) -->
         <div class="topo-usuario">
             <span class="topo-iniciais" id="iniciais">--</span>
             <a href="index.html" class="topo-sair">Sair</a>
         </div>
 
+        <!-- Menu que o botão das três linhas abre e fecha (o topo.js marca a tela atual) -->
         <nav class="menu" id="menu" hidden>
             <h2>Menu</h2>
             <a href="importar.html">Importar inscrições</a>
@@ -33,9 +41,11 @@
         </nav>
     </header>
 
+    <!-- Conteúdo da tela: quem pode abrir e revisar o processo -->
     <main class="conteudo acessos">
         <a href="inscricoes.html" class="voltar">← Voltar</a>
 
+        <!-- Título e nome do processo -->
         <div class="cabecalho">
             <div>
                 <h1 class="titulo">Gerenciar acessos</h1>
@@ -43,36 +53,49 @@
             </div>
         </div>
 
+        <!-- Pessoas com acesso (o acessos.js monta a lista) -->
         <h2 class="secao-titulo">Pessoas com acesso</h2>
         <div class="pessoas" id="lista-pessoas"></div>
 
+        <!-- Formulário para criar um novo acesso -->
         <h2 class="secao-titulo novo-titulo">Criar novo acesso</h2>
         <form id="form-acesso" class="cartao novo-acesso" novalidate>
+            <!-- Campo do nome -->
             <div class="campo">
                 <label for="novo-nome">Nome</label>
                 <input type="text" id="novo-nome" name="novo-nome" placeholder="Nome da pessoa">
                 <p class="erro" id="erro-novo-nome"></p>
             </div>
+
+            <!-- Campo do e-mail -->
             <div class="campo">
                 <label for="novo-email">E-mail</label>
                 <input type="email" id="novo-email" name="novo-email" placeholder="E-mail da pessoa">
                 <p class="erro" id="erro-novo-email"></p>
             </div>
+
+            <!-- Campo do cargo que a pessoa vai exercer -->
             <div class="campo">
                 <label for="novo-cargo">Cargo</label>
-                <input type="text" id="novo-cargo" name="novo-cargo" placeholder="Descreva o cargo. Ex.: membro da banca avaliadora, secretário">
+                <input type="text" id="novo-cargo" name="novo-cargo"
+                    placeholder="Descreva o cargo. Ex.: membro da banca avaliadora, secretário">
                 <p class="erro" id="erro-novo-cargo"></p>
             </div>
+
+            <!-- Campo da senha -->
             <div class="campo">
                 <label for="nova-senha">Senha</label>
                 <input type="password" id="nova-senha" name="nova-senha" placeholder="Crie uma senha para a pessoa">
                 <p class="erro" id="erro-nova-senha"></p>
             </div>
+
+            <!-- Botão Criar acesso, na direita -->
             <div class="novo-acesso-botao">
                 <button type="submit" class="botao">Criar acesso</button>
             </div>
         </form>
 
+        <!-- Modelo do cartão de cada pessoa: iniciais, nome e e-mail, cargo e Remover -->
         <template id="modelo-pessoa">
             <div class="cartao pessoa">
                 <span class="pessoa-iniciais"></span>
@@ -86,6 +109,7 @@
         </template>
     </main>
 
+    <!-- Janela de confirmação para remover um acesso -->
     <div class="fundo-escuro" id="confirmacao" hidden>
         <div class="janela" role="dialog" aria-modal="true" aria-labelledby="confirmacao-titulo">
             <h2 id="confirmacao-titulo">Remover acesso?</h2>
@@ -98,6 +122,7 @@
         </div>
     </div>
 
+    <!-- Rodapé institucional (igual em todas as telas) -->
     <footer class="rodape">
         <p class="rodape-instituicao">
             <strong>Instituto de Computação</strong><br>
@@ -110,6 +135,7 @@
         </p>
     </footer>
 
+    <!-- Funções comuns (dados.js), barra do topo (topo.js) e comportamento desta tela (acessos.js) -->
     <script src="js/dados.js"></script>
     <script src="js/topo.js"></script>
     <script src="js/acessos.js"></script>

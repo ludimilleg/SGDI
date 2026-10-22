@@ -1,28 +1,33 @@
-
 /* SGDI | importar.css: estilos só da tela de importar */
 
 /* Coluna central, com largura limitada */
-.importar 
+.importar
 {
   width: 100%;
   max-width: 720px;
-  margin: 0 auto;     
+  margin: 0 auto;          /* centraliza na horizontal */
   padding: 48px 24px;
-  display: flex;
-  flex-direction: column;
+  display: flex;           /* título, campos e botões... */
+  flex-direction: column;  /* ...um embaixo do outro */
 }
 
-.importar h1 
+/* Título da tela */
+.importar h1
 {
   font-family: var(--fonte-titulo);
   font-size: 32px;
   color: var(--azul-escuro);
 }
 
-.importar-subtitulo { font-size: 16px; margin: 8px 0 32px; }
+/* Texto logo abaixo do título */
+.importar-subtitulo
+{
+  font-size: 16px;
+  margin: 8px 0 32px;  /* 8px em cima, 0 dos lados, 32px embaixo */
+}
 
-/* Campo do nome do processo (mesmo visual do login) */
-.importar label 
+/* Rótulos Nome do processo e Arquivo .zip */
+.importar label
 {
   font-size: 14px;
   font-weight: 600;
@@ -30,7 +35,8 @@
   margin-bottom: 8px;
 }
 
-#nome-processo 
+/* Campo do nome do processo (mesmo visual do login) */
+#nome-processo
 {
   height: 44px;
   padding: 0 14px;
@@ -42,50 +48,64 @@
   margin-bottom: 24px;
 }
 
-#nome-processo::placeholder { color: var(--cinza-exemplo); }
+/* Texto de exemplo dentro do campo */
+#nome-processo::placeholder
+{
+  color: var(--cinza-exemplo);
+}
 
-#nome-processo:focus 
+/* Campo selecionado: fundo branco e borda azul */
+#nome-processo:focus
 {
   outline: none;
   background: var(--branco);
   border-color: var(--azul-medio);
 }
 
-
 /* Área de arrastar e soltar (borda tracejada) */
-.area-arquivo 
+.area-arquivo
 {
-  border: 2px dashed var(--azul-suave);
+  border: 2px dashed var(--azul-suave);  /* borda tracejada */
   border-radius: 8px;
   background: var(--azul-claro);
   padding: 40px 24px;
   display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
   gap: 8px;
   text-align: center;
-  position: relative;
+  position: relative;                    /* referência pro botão Remover no canto */
 }
 
 /* Setinha dentro de um círculo */
-.area-icone 
+.area-icone
 {
   width: 48px;
   height: 48px;
-  border-radius: 50%;  
+  border-radius: 50%;  /* deixa redondo */
   background: var(--branco);
   color: var(--azul-medio);
   font-size: 24px;
-  display: flex;
+  display: flex;       /* setinha bem no meio do círculo */
   align-items: center;
   justify-content: center;
 }
 
-.area-titulo { font-weight: 600; color: var(--azul-escuro); }
-.area-ou { font-size: 13px; }
+/* Frase "Arraste o arquivo .zip para cá" */
+.area-titulo
+{
+  font-weight: 600;
+  color: var(--azul-escuro);
+}
+
+/* Palavra "ou", menorzinha */
+.area-ou
+{
+  font-size: 13px;
+}
 
 /* Botão "Escolher arquivo", só com contorno */
-#botao-escolher 
+#botao-escolher
 {
   border: 1px solid var(--azul-medio);
   border-radius: 4px;
@@ -97,21 +117,48 @@
   cursor: pointer;
 }
 
-#botao-escolher:hover { background: var(--azul-claro); }
+/* Mouse em cima do Escolher arquivo */
+#botao-escolher:hover
+{
+  background: var(--azul-claro);
+}
 
-/* Nome do arquivo escolhido (some quando está vazio) */
-.area-nome { font-size: 14px; font-weight: 600; color: #2E7D4F; }
-.area-nome:empty { display: none; }
+/* Nome do arquivo escolhido, em verde */
+.area-nome
+{
+  font-size: 14px;
+  font-weight: 600;
+  color: #2E7D4F;
+}
 
-/* Estados que o JS vai ligar e desligar */
-.area-arquivo.arrastando { border-color: var(--azul-medio); background: var(--azul-suave); } /* arquivo em cima da área */
-.area-arquivo.com-arquivo { border-color: #2E7D4F; background: #EAF6EE; }  /* arquivo escolhido: fica verde */
+/* Sem arquivo escolhido */
+.area-nome:empty
+{
+  display: none;  /* some quando está vazio */
+}
+
+/* Estados que o JS vai ligar e desligar: arquivo em cima da área */
+.area-arquivo.arrastando
+{
+  border-color: var(--azul-medio);
+  background: var(--azul-suave);
+}
+
+/* Arquivo escolhido: a área fica verde */
+.area-arquivo.com-arquivo
+{
+  border-color: #2E7D4F;
+  background: #EAF6EE;
+}
 
 /* Erro do arquivo: fica logo abaixo da área */
-#erro-arquivo { margin: 8px 0 0; }
+#erro-arquivo
+{
+  margin: 8px 0 0;
+}
 
 /* Botão principal (mesmo visual do ENTRAR do login) */
-#botao-importar 
+#botao-importar
 {
   height: 44px;
   margin-top: 24px;
@@ -121,17 +168,25 @@
   color: var(--branco);
   font: inherit;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  cursor: pointer;
+  text-transform: uppercase;  /* texto em maiúsculas */
+  letter-spacing: 1px;        /* um respiro entre as letras */
+  cursor: pointer;            /* mãozinha ao passar o mouse */
 }
 
-#botao-importar:hover { background: var(--azul-ppgi); }
+/* Mouse em cima do botão: fica um azul mais forte */
+#botao-importar:hover
+{
+  background: var(--azul-ppgi);
+}
 
 /* Processos recentes */
-.recentes { margin-top: 48px; }
+.recentes
+{
+  margin-top: 48px;
+}
 
-.recentes h2 
+/* Título "Processos recentes" */
+.recentes h2
 {
   font-family: var(--fonte-titulo);
   font-size: 18px;
@@ -140,7 +195,7 @@
 }
 
 /* Cada processo vira um cartãozinho clicável */
-.recente 
+.recente
 {
   display: flex;
   flex-direction: column;
@@ -151,49 +206,89 @@
   text-decoration: none;
 }
 
-.recente strong { color: var(--azul-escuro); }
-.recente span { font-size: 13px; color: var(--cinza-texto); }
-.recente:hover { border-color: var(--azul-medio); background: var(--azul-claro); }
+/* Nome do processo no cartão */
+.recente strong
+{
+  color: var(--azul-escuro);
+}
 
-#nome-processo.campo-erro { border-color: #F04A50; background: #FDEDEE; }
-.recentes-vazio { font-size: 14px; color: var(--cinza-exemplo); }
+/* Data e quantidade de inscrições, embaixo do nome */
+.recente span
+{
+  font-size: 13px;
+  color: var(--cinza-texto);
+}
 
+/* Mouse em cima do cartão: borda azul e fundo clarinho */
+.recente:hover
+{
+  border-color: var(--azul-medio);
+  background: var(--azul-claro);
+}
 
+/* Nome do processo vazio: borda e fundo avermelhados */
+#nome-processo.campo-erro
+{
+  border-color: #F04A50;
+  background: #FDEDEE;
+}
+
+/* Frase que aparece quando ainda não tem nenhum processo */
+.recentes-vazio
+{
+  font-size: 14px;
+  color: var(--cinza-exemplo);
+}
 
 /* Botão Remover: cinza, no canto superior direito da área */
-#botao-remover 
+#botao-remover
 {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  border: none;
-  background: none;
+  position: absolute;  /* preso no canto da área... */
+  top: 12px;           /* ...12px do topo... */
+  right: 12px;         /* ...e 12px da direita */
+  border: none;        /* sem borda... */
+  background: none;    /* ...e sem fundo, parece um link */
   color: var(--cinza-exemplo);
   font: inherit;
   font-size: 13px;
   cursor: pointer;
 }
 
-#botao-remover:hover { color: var(--cinza-texto); text-decoration: underline; }
+/* Mouse em cima do Remover: fica mais escuro e sublinhado */
+#botao-remover:hover
+{
+  color: var(--cinza-texto);
+  text-decoration: underline;
+}
 
-.recente + .recente { margin-top: 8px; }
+/* Espaço entre um cartão e outro */
+.recente + .recente
+{
+  margin-top: 8px;
+}
 
-.recente {
+/* Cartão em linha: link na esquerda, Excluir na direita */
+.recente
+{
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
 }
 
-.recente-link {
-  flex: 1;
+/* Link com o nome e os dados do processo */
+.recente-link
+{
+  flex: 1;  /* ocupa todo o espaço que sobra */
   display: flex;
   flex-direction: column;
   gap: 4px;
   text-decoration: none;
 }
 
-.recente-excluir {
+/* Botão Excluir: texto vermelho, sem borda e sem fundo */
+.recente-excluir
+{
   border: none;
   background: none;
   color: var(--vermelho-ic);
@@ -202,6 +297,15 @@
   cursor: pointer;
 }
 
-.recente-excluir:hover { text-decoration: underline; }
+/* Mouse em cima do Excluir: aparece o sublinhado */
+.recente-excluir:hover
+{
+  text-decoration: underline;
+}
 
-.recente.excluindo { border-color: var(--vermelho-borda); background: var(--vermelho-fundo); }
+/* Cartão que está sendo excluído (enquanto a janela de confirmação está aberta) */
+.recente.excluindo
+{
+  border-color: var(--vermelho-borda);
+  background: var(--vermelho-fundo);
+}

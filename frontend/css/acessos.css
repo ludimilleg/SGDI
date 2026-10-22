@@ -1,78 +1,106 @@
-.acessos {
+/* SGDI | acessos.css: estilos só da tela de gerenciar acessos */
+
+/* Conteúdo desta tela um pouco mais estreito que o das outras */
+.acessos
+{
   max-width: 940px;
 }
 
-.pessoas {
+/* Lista de pessoas com acesso, uma embaixo da outra */
+.pessoas
+{
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.pessoa {
+/* Cartão de cada pessoa em colunas: iniciais, nome e e-mail, cargo, Remover */
+.pessoa
+{
   display: grid;
-    grid-template-columns: 36px 1fr 240px 80px;
-  align-items: center;
+  grid-template-columns: 36px 1fr 240px 80px;  /* a coluna do nome fica com o espaço que sobra */
+  align-items: center;                         /* tudo no meio da altura */
   gap: 16px;
   padding: 14px 16px;
 }
 
-.pessoa.removendo {
+/* Pessoa que está sendo removida (enquanto a janela de confirmação está aberta) */
+.pessoa.removendo
+{
   background: var(--vermelho-fundo);
   border-color: var(--vermelho-borda);
 }
 
-.pessoa-iniciais {
+/* Bolinha com as iniciais da pessoa */
+.pessoa-iniciais
+{
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: 50%;  /* deixa redondo */
   background: var(--azul-claro);
   color: var(--azul-escuro);
   font-size: 13px;
   font-weight: 600;
-  display: flex;
+  display: flex;       /* letras bem no meio da bolinha */
   align-items: center;
   justify-content: center;
 }
 
-.pessoa-dados {
+/* Nome em cima e e-mail embaixo */
+.pessoa-dados
+{
   display: flex;
   flex-direction: column;
   gap: 2px;
   font-size: 13px;
 }
 
-.pessoa-nome {
+/* Nome da pessoa, um pouco maior */
+.pessoa-nome
+{
   font-size: 15px;
   color: var(--azul-escuro);
 }
 
-.pessoa-papel {
+/* Cargo da pessoa */
+.pessoa-papel
+{
   font-size: 14px;
 }
 
-.pessoa-remover {
+/* Botão Remover: texto vermelho, sem borda e sem fundo */
+.pessoa-remover
+{
   border: none;
   background: none;
   color: var(--vermelho-ic);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  justify-self: end;
+  justify-self: end;  /* encosta na direita da coluna */
 }
 
-.pessoa-remover:hover {
+/* Mouse em cima do Remover: aparece o sublinhado */
+.pessoa-remover:hover
+{
   text-decoration: underline;
 }
 
-.novo-titulo {
+/* Título "Criar novo acesso", afastado da lista */
+.novo-titulo
+{
   margin-top: 40px;
 }
 
-.novo-acesso {
+/* Cartão do formulário de novo acesso */
+.novo-acesso
+{
   padding: 24px;
 }
 
-.novo-acesso-botao {
+/* Botão Criar acesso na direita */
+.novo-acesso-botao
+{
   display: flex;
   justify-content: flex-end;
 }

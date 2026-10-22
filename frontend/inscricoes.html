@@ -1,3 +1,5 @@
+<!-- SGDI | Tela da lista de inscrições -->
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -5,12 +7,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscrições | SGDI</title>
+
+    <!-- Estilos: base.css (todas as telas) + inscricoes.css (só esta tela) -->
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/inscricoes.css">
 </head>
 
 <body>
+    <!-- Barra do topo: menu, marca do sistema, iniciais do usuário e Sair -->
     <header class="topo">
+        <!-- Botão do menu (três linhas), sigla e nome do sistema -->
         <div class="topo-marca">
             <button type="button" class="topo-menu" id="botao-menu" aria-label="Abrir menu">
                 <span></span><span></span><span></span>
@@ -19,11 +25,13 @@
             <span class="topo-nome">Sistema de Gestão de Documentos para Inscrição</span>
         </div>
 
+        <!-- Iniciais do usuário + Sair (passando o mouse nas iniciais aparece o e-mail e o cargo) -->
         <div class="topo-usuario">
             <span class="topo-iniciais" id="iniciais">--</span>
             <a href="index.html" class="topo-sair">Sair</a>
         </div>
 
+        <!-- Menu que o botão das três linhas abre e fecha (o topo.js marca a tela atual) -->
         <nav class="menu" id="menu" hidden>
             <h2>Menu</h2>
             <a href="importar.html">Importar inscrições</a>
@@ -33,9 +41,11 @@
         </nav>
     </header>
 
+    <!-- Conteúdo da tela: inscrições do processo -->
     <main class="conteudo">
         <a href="importar.html" class="voltar">← Voltar</a>
 
+        <!-- Título com o nome do processo e botão do relatório -->
         <div class="cabecalho">
             <div>
                 <h1 class="titulo" id="titulo-processo">Inscrições</h1>
@@ -44,18 +54,24 @@
             <a href="relatorio.html" class="botao botao-secundario">Gerar relatório</a>
         </div>
 
+        <!-- Legenda das cores (com a contagem) e busca -->
         <div class="ferramentas">
             <div class="legenda">
-                <span class="legenda-item"><span class="bolinha ok"></span><span>Documentos OK (<span id="conta-ok">0</span>)</span></span>
-                <span class="legenda-item"><span class="bolinha pendente"></span><span>Com pendência (<span id="conta-pendente">0</span>)</span></span>
-                <span class="legenda-item"><span class="bolinha"></span><span>A revisar (<span id="conta-revisar">0</span>)</span></span>
+                <span class="legenda-item"><span class="bolinha ok"></span><span>Documentos OK (<span
+                            id="conta-ok">0</span>)</span></span>
+                <span class="legenda-item"><span class="bolinha pendente"></span><span>Com pendência (<span
+                            id="conta-pendente">0</span>)</span></span>
+                <span class="legenda-item"><span class="bolinha"></span><span>A revisar (<span
+                            id="conta-revisar">0</span>)</span></span>
             </div>
             <input type="search" id="busca" class="busca" placeholder="Buscar por número ou nome">
         </div>
 
+        <!-- Grade de cartões (o inscricoes.js preenche) e frase de busca vazia -->
         <div class="grade" id="grade-inscricoes"></div>
         <p class="busca-vazia" id="busca-vazia" hidden>Nenhuma inscrição encontrada para essa busca.</p>
 
+        <!-- Modelo do cartão de cada inscrição -->
         <template id="modelo-inscricao">
             <a class="cartao inscricao">
                 <span class="inscricao-rotulo">Inscrição</span>
@@ -67,6 +83,7 @@
         </template>
     </main>
 
+    <!-- Rodapé institucional (igual em todas as telas) -->
     <footer class="rodape">
         <p class="rodape-instituicao">
             <strong>Instituto de Computação</strong><br>
@@ -79,6 +96,7 @@
         </p>
     </footer>
 
+    <!-- Funções comuns (dados.js), barra do topo (topo.js) e comportamento desta tela (inscricoes.js) -->
     <script src="js/dados.js"></script>
     <script src="js/topo.js"></script>
     <script src="js/inscricoes.js"></script>

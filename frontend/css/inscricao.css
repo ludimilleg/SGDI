@@ -1,72 +1,97 @@
-.inscricao-pagina {
+/* SGDI | inscricao.css: estilos só da tela de revisão de uma inscrição */
+
+/* Conteúdo desta tela um pouco mais estreito que o das outras */
+.inscricao-pagina
+{
   max-width: 928px;
 }
 
-.inscricao-cabecalho {
+/* Título, candidato e instrução centralizados */
+.inscricao-cabecalho
+{
   text-align: center;
   max-width: 600px;
-  margin: 0 auto 32px;
+  margin: 0 auto 32px;  /* centraliza e deixa 32px embaixo */
 }
 
-.candidato {
+/* Nome do candidato, logo abaixo do título */
+.candidato
+{
   font-size: 17px;
   font-weight: 600;
   color: var(--texto-escuro);
   margin-top: 4px;
 }
 
-.documentos {
+/* Lista de documentos, um cartão embaixo do outro */
+.documentos
+{
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.documento {
+/* Cartão de cada documento */
+.documento
+{
   padding: 16px 24px;
 }
 
-.documento-linha {
+/* Linha do cartão: dados do documento na esquerda, botões na direita */
+.documento-linha
+{
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
 }
 
-.documento-dados {
+/* Tipo do documento em cima e nome do arquivo embaixo */
+.documento-dados
+{
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-.documento-nome {
-  border: none;
-  background: none;
+/* Tipo do documento: parece um link e abre o arquivo */
+.documento-nome
+{
+  border: none;                /* sem borda... */
+  background: none;            /* ...e sem fundo de botão */
   padding: 0;
   text-align: left;
   font-size: 15px;
   font-weight: 600;
   color: var(--azul-ppgi);
-  text-decoration: underline;
-  cursor: pointer;
+  text-decoration: underline;  /* sublinhado de link */
+  cursor: pointer;             /* mãozinha ao passar o mouse */
 }
 
-.documento-nome:hover {
+/* Mouse em cima do tipo do documento: azul mais escuro */
+.documento-nome:hover
+{
   color: var(--azul-escuro);
 }
 
-.documento-arquivo {
+/* Nome do arquivo, menorzinho */
+.documento-arquivo
+{
   font-size: 13px;
 }
 
-
-.documento-botoes {
+/* Botões OK e Não OK lado a lado */
+.documento-botoes
+{
   display: flex;
   gap: 8px;
-  flex-shrink: 0;
+  flex-shrink: 0;  /* não deixa os botões encolherem */
 }
 
+/* Botões OK e Não OK ainda sem marcar: brancos com borda cinza */
 .botao-ok,
-.botao-nao-ok {
+.botao-nao-ok
+{
   height: 36px;
   padding: 0 16px;
   border: 2px solid var(--cinza-borda);
@@ -77,25 +102,33 @@
   cursor: pointer;
 }
 
+/* Mouse em cima dos botões OK e Não OK */
 .botao-ok:hover,
-.botao-nao-ok:hover {
+.botao-nao-ok:hover
+{
   background: var(--azul-claro);
 }
 
-.documento-motivo {
-  display: none;
+/* Área do motivo (só aparece quando o documento está Não OK) */
+.documento-motivo
+{
+  display: none;  /* começa escondida */
   flex-direction: column;
   margin-top: 16px;
 }
 
-.documento-motivo label {
+/* Pergunta "O que está errado ou faltando?" */
+.documento-motivo label
+{
   font-size: 13px;
   font-weight: 600;
   color: var(--azul-escuro);
   margin-bottom: 6px;
 }
 
-.documento-motivo textarea {
+/* Caixa onde a pessoa escreve o motivo */
+.documento-motivo textarea
+{
   min-height: 56px;
   padding: 10px 12px;
   border: 1px solid var(--vermelho-borda);
@@ -103,66 +136,88 @@
   font: inherit;
   font-size: 14px;
   color: var(--texto-escuro);
-  resize: vertical;
+  resize: vertical;  /* a caixa só cresce pra baixo */
 }
 
-.documento-motivo textarea:focus {
+/* Caixa do motivo selecionada: borda vermelha mais forte */
+.documento-motivo textarea:focus
+{
   outline: none;
   border-color: var(--vermelho-ic);
 }
 
-.documento.ok {
+/* Documento marcado como OK: cartão verde */
+.documento.ok
+{
   background: var(--verde-fundo);
   border-color: var(--verde-borda);
 }
 
-.documento.ok .botao-ok {
+/* Botão OK marcado: verde com texto branco */
+.documento.ok .botao-ok
+{
   background: var(--verde);
   border-color: var(--verde);
   color: var(--branco);
 }
 
-.documento.nao-ok {
+/* Documento marcado como Não OK: cartão vermelho */
+.documento.nao-ok
+{
   background: var(--vermelho-fundo);
   border-color: var(--vermelho-borda);
 }
 
-.documento.nao-ok .botao-nao-ok {
+/* Botão Não OK marcado: vermelho com texto branco */
+.documento.nao-ok .botao-nao-ok
+{
   background: var(--vermelho-ic);
   border-color: var(--vermelho-ic);
   color: var(--branco);
 }
 
-.documento.nao-ok .documento-motivo {
+/* Documento Não OK: mostra a área do motivo */
+.documento.nao-ok .documento-motivo
+{
   display: flex;
 }
 
-.documento.sem-motivo textarea {
+/* Não OK sem motivo na hora de salvar: destaca a caixa */
+.documento.sem-motivo textarea
+{
   border-color: var(--vermelho-ic);
-  box-shadow: 0 0 0 2px var(--vermelho-borda);
+  box-shadow: 0 0 0 2px var(--vermelho-borda);  /* contorno vermelho em volta da caixa */
 }
 
-.resumo {
-  position: sticky;
-  bottom: 16px;
+/* Resumo da avaliação com o botão Salvar, preso no pé da tela */
+.resumo
+{
+  position: sticky;                               /* acompanha a rolagem... */
+  bottom: 16px;                                   /* ...e para 16px acima do fim da tela */
   margin-top: 24px;
   padding: 16px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 8px 24px rgba(31, 42, 68, 0.12);
+  box-shadow: 0 8px 24px rgba(31, 42, 68, 0.12);  /* sombra pra destacar dos cartões */
 }
 
-.resumo div {
+/* Número da inscrição em cima e contagem embaixo */
+.resumo div
+{
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
-.resumo strong {
+/* Número da inscrição no resumo */
+.resumo strong
+{
   color: var(--azul-escuro);
 }
 
-.resumo span {
+/* Contagem de OK, Não OK e sem avaliação */
+.resumo span
+{
   font-size: 13px;
 }

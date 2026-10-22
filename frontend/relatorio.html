@@ -1,3 +1,5 @@
+<!-- SGDI | Tela do relatório de homologação -->
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -5,12 +7,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relatório | SGDI</title>
+
+    <!-- Estilos: base.css (todas as telas) + relatorio.css (só esta tela) -->
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/relatorio.css">
 </head>
 
 <body>
+    <!-- Barra do topo: menu, marca do sistema, iniciais do usuário e Sair -->
     <header class="topo">
+        <!-- Botão do menu (três linhas), sigla e nome do sistema -->
         <div class="topo-marca">
             <button type="button" class="topo-menu" id="botao-menu" aria-label="Abrir menu">
                 <span></span><span></span><span></span>
@@ -19,11 +25,13 @@
             <span class="topo-nome">Sistema de Gestão de Documentos para Inscrição</span>
         </div>
 
+        <!-- Iniciais do usuário + Sair (passando o mouse nas iniciais aparece o e-mail e o cargo) -->
         <div class="topo-usuario">
             <span class="topo-iniciais" id="iniciais">--</span>
             <a href="index.html" class="topo-sair">Sair</a>
         </div>
 
+        <!-- Menu que o botão das três linhas abre e fecha (o topo.js marca a tela atual) -->
         <nav class="menu" id="menu" hidden>
             <h2>Menu</h2>
             <a href="importar.html">Importar inscrições</a>
@@ -33,14 +41,18 @@
         </nav>
     </header>
 
+    <!-- Conteúdo da tela: relatório de homologação do processo -->
     <main class="conteudo">
         <a href="inscricoes.html" class="voltar">← Voltar</a>
 
+        <!-- Título, resumo e botões de exportar -->
         <div class="cabecalho">
             <div>
                 <h1 class="titulo">Relatório de homologação</h1>
                 <p class="subtitulo" id="subtitulo-relatorio"></p>
             </div>
+
+            <!-- Dica + botões JPEG, Word e PDF -->
             <div class="relatorio-exportar">
                 <p class="relatorio-dica">Escolha como deseja exportar</p>
                 <div class="relatorio-botoes">
@@ -51,8 +63,10 @@
             </div>
         </div>
 
+        <!-- Aviso das inscrições que ainda faltam revisar -->
         <p class="cartao relatorio-alerta" id="alerta-pendentes" hidden></p>
 
+        <!-- Dados do cabeçalho do relatório (o que é digitado aqui aparece na prévia) -->
         <section class="cartao relatorio-dados">
             <h2>Cabeçalho do relatório</h2>
             <div class="campo">
@@ -70,18 +84,20 @@
             </div>
         </section>
 
+        <!-- Prévia do relatório (é ela que vai pro JPEG, pro Word e pro PDF) -->
         <section class="cartao previa" id="previa">
             <div class="previa-topo">
-                <span class="previa-brasao">UFAL</span>
                 <p class="previa-instituicao" id="previa-instituicao"></p>
                 <p class="previa-edital" id="previa-edital"></p>
                 <p id="previa-descricao"></p>
                 <h2 class="previa-titulo">Homologação das inscrições: resultado final</h2>
             </div>
 
+            <!-- Deferidas: números separados por vírgula -->
             <h3>Inscrições deferidas:</h3>
             <p id="lista-deferidas"></p>
 
+            <!-- Indeferidas: tabela com o número e a justificativa -->
             <h3>Inscrições indeferidas:</h3>
             <table class="previa-tabela">
                 <thead>
@@ -95,6 +111,7 @@
         </section>
     </main>
 
+    <!-- Rodapé institucional (igual em todas as telas) -->
     <footer class="rodape">
         <p class="rodape-instituicao">
             <strong>Instituto de Computação</strong><br>
@@ -107,7 +124,10 @@
         </p>
     </footer>
 
+    <!-- html2canvas: transforma a prévia em imagem pro JPEG -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <!-- Funções comuns (dados.js), barra do topo (topo.js) e comportamento desta tela (relatorio.js) -->
     <script src="js/dados.js"></script>
     <script src="js/topo.js"></script>
     <script src="js/relatorio.js"></script>

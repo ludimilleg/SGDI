@@ -1,3 +1,5 @@
+<!-- SGDI | Tela de importar inscrições -->
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -7,30 +9,29 @@
     <title>Importar | SGDI</title>
 
     <!-- Estilos: base.css (todas as telas) + importar.css (só esta tela) -->
-
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/importar.css">
 </head>
 
 <body>
-
-    <!-- Barra do topo: marca do sistema + botão de sair -->
+    <!-- Barra do topo: menu, marca do sistema, iniciais do usuário e Sair -->
     <header class="topo">
+        <!-- Botão do menu (três linhas), sigla e nome do sistema -->
         <div class="topo-marca">
             <button type="button" class="topo-menu" id="botao-menu" aria-label="Abrir menu">
                 <span></span><span></span><span></span>
             </button>
-
             <span class="topo-logo">SGDI</span>
             <span class="topo-nome">Sistema de Gestão de Documentos para Inscrição</span>
         </div>
 
-        <!-- Iniciais do usuário + sair -->
+        <!-- Iniciais do usuário + Sair (passando o mouse nas iniciais aparece o e-mail e o cargo) -->
         <div class="topo-usuario">
             <span class="topo-iniciais" id="iniciais">--</span>
             <a href="index.html" class="topo-sair">Sair</a>
         </div>
 
+        <!-- Menu que o botão das três linhas abre e fecha (o topo.js marca a tela atual) -->
         <nav class="menu" id="menu" hidden>
             <h2>Menu</h2>
             <a href="importar.html">Importar inscrições</a>
@@ -38,7 +39,6 @@
             <a href="acessos.html">Gerenciar acessos</a>
             <a href="importar.html#recentes">Processos recentes</a>
         </nav>
-
     </header>
 
     <!-- Conteúdo da tela: importar o .zip de um processo seletivo -->
@@ -55,29 +55,32 @@
         <!-- Área de arrastar e soltar o .zip -->
         <label>Arquivo .zip</label>
         <div class="area-arquivo" id="area-arquivo">
+            <!-- Setinha, frase e botão de escolher -->
             <span class="area-icone">↑</span>
             <p class="area-titulo">Arraste o arquivo .zip para cá</p>
             <p class="area-ou">ou</p>
             <button type="button" id="botao-escolher">Escolher arquivo</button>
 
-            <!-- Arquivo escolhido + remover (escondido até ter arquivo) -->
+            <!-- Nome do arquivo escolhido + Remover (só aparece depois de escolher) -->
             <p id="area-escolhido" hidden>
                 <span class="area-nome" id="nome-arquivo"></span>
                 <button type="button" id="botao-remover">✕ Remover</button>
             </p>
 
+            <!-- Input de arquivo escondido (o botão Escolher arquivo clica nele) -->
             <input type="file" name="arquivo" id="arquivo" accept=".zip" hidden="hidden">
         </div>
 
+        <!-- Erro do arquivo e botão principal -->
         <p class="erro" id="erro-arquivo"></p>
-
-        <!-- Botão que envia a importação -->
         <button type="button" id="botao-importar">Importar inscrições</button>
 
-        <!-- Processos já importados (exemplo fixo até ligar no back) -->
+        <!-- Processos recentes (o importar.js monta um cartão para cada processo) -->
         <section class="recentes" id="recentes">
             <h2>Processos recentes</h2>
             <p class="recentes-vazio" id="recentes-vazio">Nenhum processo importado ainda.</p>
+
+            <!-- Modelo do cartão de cada processo: link com nome e dados + Excluir -->
             <template id="modelo-recente">
                 <div class="recente">
                     <a class="recente-link">
@@ -88,9 +91,9 @@
                 </div>
             </template>
         </section>
-
     </main>
 
+    <!-- Janela de confirmação para excluir um processo -->
     <div class="fundo-escuro" id="confirmacao" hidden>
         <div class="janela" role="dialog" aria-modal="true" aria-labelledby="confirmacao-titulo">
             <h2 id="confirmacao-titulo">Excluir processo?</h2>
@@ -116,13 +119,13 @@
         </p>
     </footer>
 
-
+    <!-- JSZip: biblioteca que abre o .zip direto no navegador -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <!-- Funções comuns (dados.js), barra do topo (topo.js) e comportamento desta tela (importar.js) -->
     <script src="js/dados.js"></script>
     <script src="js/topo.js"></script>
-    <script src="js/importar.js"></script> <!-- Comportamento da tela: arrastar e soltar o .zip -->
-
-
+    <script src="js/importar.js"></script>
 </body>
 
 </html>
