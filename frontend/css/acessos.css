@@ -1,43 +1,44 @@
 .acessos {
   max-width: 940px;
+} /*largura , o ponto antes significa que é uma classe*/
+
+.pessoas { /*lista de pessoas,   */
+  display: flex; /*oraganiza os elementos dentro de um conteiner*/
+  flex-direction: column; /* seão organizados em coluna um embaixo do outro*/
+  gap: 12px; /*espaçamento entre os elementos*/ 
 }
 
-.pessoas {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
+/* organiza os cartões de pessoas */
 .pessoa {
-  display: grid;
-    grid-template-columns: 36px 1fr 240px 80px;
-  align-items: center;
-  gap: 16px;
-  padding: 14px 16px;
+  display: grid; /* ativa o grid que organiza em linhas e colunas */
+    grid-template-columns: 36px 1fr 240px 80px; /* quatro colunas p os dados*/
+  align-items: center; /*alinha vertical*/
+  gap: 16px; /*define espa~o de 16 pix */
+  padding: 14px 16px; /*espaço verical e horizontal interno*/
 }
 
-.pessoa.removendo {
-  background: var(--vermelho-fundo);
-  border-color: var(--vermelho-borda);
+.pessoa.removendo { /*se a pessoa for removida muda a aparencia*/
+  background: var(--vermelho-fundo); /* cor de fundo vermelho*/
+  border-color: var(--vermelho-borda); /* cor da borda */
 }
 
-.pessoa-iniciais {
+.pessoa-iniciais { /*estiliza inicl das pessoa*/ 
   width: 36px;
   height: 36px;
   border-radius: 50%;
   background: var(--azul-claro);
-  color: var(--azul-escuro);
+  color: var(--azul-escuro); /*cor do texto*/
   font-size: 13px;
   font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; /*ativa o flexbox para organizar o conteudo*/
+  align-items: center; /*centraliza vertiacalmente*/
+  justify-content: center; /*horizontalmente*/
 }
 
 .pessoa-dados {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+  display: flex; /*ativa flex box*/
+  flex-direction: column; /*org vert*/
+  gap: 2px; /*espaço de 2pixel entre nome e email*/
   font-size: 13px;
 }
 
@@ -51,25 +52,25 @@
 }
 
 .pessoa-remover {
-  border: none;
-  background: none;
+  border: none; /*remove a borda padra*/
+  background: none; /*remove o fundo padra*/
   color: var(--vermelho-ic);
   font-size: 14px;
   font-weight: 600;
-  cursor: pointer;
-  justify-self: end;
+  cursor: pointer; /*o mouse vira mão*/
+  justify-self: end; /*alinah o botão ao final da sua linha*/
 }
 
 .pessoa-remover:hover {
-  text-decoration: underline;
+  text-decoration: underline; /*efeito passar mouse para remover*/
 }
 
 .novo-titulo {
-  margin-top: 40px;
+  margin-top: 40px; /*espaço p criar novo acesso*/
 }
 
 .novo-acesso {
-  padding: 24px;
+  padding: 24px; /*espaço interno*/
 }
 
 .novo-acesso-botao {

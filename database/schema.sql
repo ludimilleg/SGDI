@@ -6,15 +6,15 @@
 -- O secretário gerencia o sistema.
 -- Os avaliadores participam das comissões.
 
-CREATE TABLE usuario (
-    id_usuario INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    nome VARCHAR(80) NOT NULL,
-    email VARCHAR(254) NOT NULL UNIQUE,
-    senha_hash VARCHAR(128) NOT NULL,
+-- CREATE TABLE usuario (
+--    id_usuario INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+--    nome VARCHAR(80) NOT NULL,
+--    email VARCHAR(254) NOT NULL UNIQUE,
+--    senha_hash VARCHAR(128) NOT NULL,
 
-    tipo_usuario VARCHAR(20) NOT NULL
-        CHECK (tipo_usuario IN ('SECRETARIO', 'AVALIADOR'))
-);
+--    tipo_usuario VARCHAR(20) NOT NULL
+--        CHECK (tipo_usuario IN ('SECRETARIO', 'AVALIADOR'))
+-- );
 
 
 -- 2. PROCESSOS SELETIVOS
@@ -45,9 +45,9 @@ CREATE TABLE acesso_processo (
         REFERENCES processo_seletivo(id_processo_seletivo)
         ON DELETE CASCADE,
 
-    id_usuario INTEGER NOT NULL
-        REFERENCES usuario(id_usuario)
-        ON DELETE CASCADE,
+    id_usuario BIGINT NOT NULL
+        REFERENCES usuarios_usuario(id)
+        ON DELETE CASCADE
 
     PRIMARY KEY (id_processo_seletivo, id_usuario)
 );
@@ -63,9 +63,9 @@ CREATE TABLE importacao (
         REFERENCES processo_seletivo(id_processo_seletivo)
         ON DELETE CASCADE,
 
-    id_usuario INTEGER NOT NULL
-        REFERENCES usuario(id_usuario)
-        ON DELETE RESTRICT,
+    id_usuario BIGINT NOT NULL
+        REFERENCES usuarios_usuario(id)
+        ON DELETE CASCADE
 
     nome_arquivo_zip VARCHAR(255) NOT NULL,
 
@@ -182,9 +182,9 @@ CREATE TABLE avaliacao (
         REFERENCES documento(id_documento)
         ON DELETE CASCADE,
 
-    id_usuario INTEGER NOT NULL
-        REFERENCES usuario(id_usuario)
-        ON DELETE RESTRICT,
+    id_usuario BIGINT NOT NULL
+        REFERENCES usuarios_usuario(id)
+        ON DELETE CASCADE
 
     resultado VARCHAR(10) NOT NULL
         CHECK (resultado IN ('OK', 'NAO_OK')),

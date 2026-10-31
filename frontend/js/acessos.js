@@ -13,27 +13,29 @@ const erroNovoEmail = document.getElementById("erro-novo-email");
 const campoNovoCargo = document.getElementById("novo-cargo");
 const erroNovoCargo = document.getElementById("erro-novo-cargo");
 const erroNovaSenha = document.getElementById("erro-nova-senha");
-let pessoaParaRemover = null;
+let pessoaParaRemover = null; //permite reatribuir a var
 let cartaoParaRemover = null;
+//document. pega o valor pelo id no html
 
+//função recebe um nome e retrna as inical
 function pegarIniciais(nome) {
-  const partes = nome.split(" ").filter(function (parte) {
+  const partes = nome.split(" ").filter(function (parte) {//para cada palavra no noe a gente divide
     return parte !== "";
   });
-  let letras = partes[0][0];
+  let letras = partes[0][0];//o 1 pega maria o 2 segundo pega m
   if (partes.length > 1) {
-    letras += partes[partes.length - 1][0];
+    letras += partes[partes.length - 1][0];//tem outro nome
   }
-  return letras.toUpperCase();
+  return letras.toUpperCase();//converte para maiuscula
 }
 
 function montarPessoa(nome, email, papel, iniciais) {
-  const cartao = copiarModelo("modelo-pessoa");
-  cartao.querySelector(".pessoa-iniciais").textContent = iniciais;
+  const cartao = copiarModelo("modelo-pessoa"); //devolve uma copia do html 
+  cartao.querySelector(".pessoa-iniciais").textContent = iniciais; //query procura o primeiro elemento do css selecionad, textoxte transforma em texto
   cartao.querySelector(".pessoa-nome").textContent = nome;
   cartao.querySelector(".pessoa-email").textContent = email;
   cartao.querySelector(".pessoa-papel").textContent = papel;
-  return cartao;
+  return cartao;  //devolve o cartõa para a função que chamou, so monta não coloca na lista
 }
 
 function mostrarPessoas() {
