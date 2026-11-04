@@ -21,12 +21,52 @@
   --fonte-texto: "Inter", sans-serif;      /* fonte dos textos */
 }
 
+/* Tema do Bootstrap: troca as cores e a fonte padrão dele pelas do SGDI
+   O Bootstrap lê essas variáveis (todas começam com --bs) pra pintar os componentes */
+:root
+{
+  --bs-body-font-family: var(--fonte-texto);    /* fonte de toda a página */
+  --bs-body-color: var(--cinza-texto);          /* cor do texto comum */
+  --bs-body-bg: var(--branco);                  /* fundo da página */
+  --bs-primary: #4A6FB3;                        /* azul principal (mesmo do --azul-medio) */
+  --bs-primary-rgb: 74, 111, 179;               /* o mesmo azul em números, usado nas transparências */
+  --bs-link-color-rgb: 29, 69, 148;             /* cor dos links (o --azul-ppgi em números) */
+  --bs-link-hover-color-rgb: 36, 59, 107;       /* link com o mouse em cima (o --azul-escuro em números) */
+  --bs-border-color: #D6DFEC;                   /* bordas (mesmo do --cinza-borda) */
+  --bs-form-invalid-color: #F04A50;             /* texto do erro embaixo do campo */
+  --bs-form-invalid-border-color: #F04A50;      /* borda do campo com erro */
+}
+
 /* Zera as margens que o navegador coloca sozinho */
 *
 {
   margin: 0;
   padding: 0;
   box-sizing: border-box;  /* a largura passa a contar a borda e o espaço interno */
+}
+
+/* O Reboot (a parte do Bootstrap que padroniza a página) coloca margem em títulos e parágrafos
+   Aqui a gente tira de novo, pra manter os espaços que já estavam certos em cada tela */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p
+{
+  margin: 0;
+}
+
+/* O Reboot também deixa os títulos mais finos, aqui eles voltam a ser negrito */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6
+{
+  font-weight: 700;
 }
 
 /* Página inteira: fonte, cor do texto e fundo branco */
@@ -124,31 +164,13 @@ main
   color: var(--azul-escuro);
 }
 
-/* Botão de sair, só com contorno */
-.topo-sair
-{
-  color: var(--azul-medio);
-  border: 1px solid var(--azul-medio);
-  border-radius: 4px;
-  padding: 6px 16px;
-  font-size: 14px;
-  font-weight: 600;
-  text-decoration: none;  /* tira o sublinhado do link */
-}
-
-/* Mouse em cima do Sair: fundo azul clarinho */
-.topo-sair:hover
-{
-  background: var(--azul-claro);
-}
-
-/* Mensagens de erro (o JavaScript escreve o texto nelas) */
+/* Mensagens de erro que não ficam embaixo de um campo (ex.: erro do arquivo .zip)
+   As que ficam embaixo de um campo agora usam o invalid-feedback do Bootstrap */
 .erro
 {
   color: #F04A50;
   font-size: 13px;
   font-weight: 500;
-  margin: -18px 0 18px;  /* sobe pra perto do campo e afasta do próximo */
 }
 
 /* Erro sem texto */
@@ -240,19 +262,17 @@ button
   background: var(--azul-claro);
 }
 
-/* Menu que abre ao clicar no botão */
+/* Menu que abre ao clicar no botão (dropdown-menu do Bootstrap com o visual do SGDI)
+   A posição logo abaixo do botão agora é calculada pelo Bootstrap, por isso não tem top e left aqui */
 .menu
 {
-  position: absolute;                             /* solto por cima da página */
-  top: 64px;                                      /* logo abaixo da barra do topo */
-  left: 48px;                                     /* alinhado com o botão */
+  --bs-dropdown-spacer: 10px;                     /* distância entre o botão e o menu */
   width: 260px;
   background: var(--branco);
   border: 1px solid var(--cinza-borda);
   border-radius: 10px;
   box-shadow: 0 8px 24px rgba(31, 42, 68, 0.15);  /* sombra leve embaixo */
   padding: 16px 12px;
-  z-index: 10;                                    /* fica na frente do conteúdo */
 }
 
 /* Título do menu, com uma linha embaixo */
@@ -283,10 +303,12 @@ button
   background: var(--azul-claro);
 }
 
-/* Link da tela que está aberta */
-.menu a.atual
+/* Link da tela que está aberta (o topo.js coloca a classe active do Bootstrap nele)
+   A cor precisa vir aqui porque o active do Bootstrap pinta o texto de branco */
+.menu a.active
 {
   background: var(--azul-claro);
+  color: var(--azul-escuro);
   font-weight: 600;
 }
 
@@ -341,85 +363,84 @@ button
   margin-top: 6px;
 }
 
-/* Botão padrão: azul, texto em maiúsculas */
-.botao
+/* Botões do Bootstrap (classe btn) com o jeito dos botões do SGDI
+   As variáveis --bs-btn mudam tamanho, borda e fonte de todos os botões de uma vez */
+.btn
 {
-  height: 44px;
-  padding: 0 24px;
-  border: 2px solid var(--azul-medio);
-  border-radius: 4px;
-  background: var(--azul-medio);
-  color: var(--branco);
-  font-weight: 600;
-  text-transform: uppercase;  /* "Salvar" vira "SALVAR" */
-  letter-spacing: 1px;        /* um respiro entre as letras */
-  cursor: pointer;            /* mãozinha ao passar o mouse */
-  text-decoration: none;      /* sem sublinhado quando o botão é um link */
-  display: inline-flex;       /* texto no meio do botão... */
-  align-items: center;        /* ...na altura... */
-  justify-content: center;    /* ...e na largura */
+  --bs-btn-padding-x: 24px;     /* espaço dos lados */
+  --bs-btn-padding-y: 8px;      /* espaço em cima e embaixo (o botão fica com 44px de altura) */
+  --bs-btn-font-weight: 600;    /* semi negrito */
+  --bs-btn-border-width: 2px;
+  --bs-btn-border-radius: 4px;  /* cantinhos arredondados */
+  text-transform: uppercase;    /* "Salvar" vira "SALVAR" */
+  letter-spacing: 1px;          /* um respiro entre as letras */
 }
 
-/* Mouse em cima do botão: fica um azul mais forte */
-.botao:hover
+/* Botão pequeno (btn-sm): usado no Sair, no Escolher arquivo e no OK e Não OK, sem maiúsculas */
+.btn-sm
 {
-  background: var(--azul-ppgi);
-  border-color: var(--azul-ppgi);
+  --bs-btn-padding-x: 16px;
+  --bs-btn-padding-y: 6px;
+  --bs-btn-font-size: 14px;
+  --bs-btn-border-width: 1px;
+  text-transform: none;    /* mantém o texto como foi escrito */
+  letter-spacing: normal;
 }
 
-/* Botão secundário: fundo branco e texto azul */
-.botao-secundario
+/* Botão principal (btn-primary): azul médio, azul mais forte com o mouse em cima */
+.btn-primary
 {
-  background: var(--branco);
-  color: var(--azul-ppgi);
+  --bs-btn-bg: var(--azul-medio);
+  --bs-btn-border-color: var(--azul-medio);
+  --bs-btn-hover-bg: var(--azul-ppgi);              /* mouse em cima */
+  --bs-btn-hover-border-color: var(--azul-ppgi);
+  --bs-btn-active-bg: var(--azul-escuro);           /* na hora do clique */
+  --bs-btn-active-border-color: var(--azul-escuro);
+  --bs-btn-disabled-bg: var(--azul-medio);          /* travado (ex.: "Entrando...") */
+  --bs-btn-disabled-border-color: var(--azul-medio);
+  --bs-btn-focus-shadow-rgb: 74, 111, 179;          /* contorno quando chega pelo Tab */
 }
 
-/* Mouse em cima do botão secundário */
-.botao-secundario:hover
+/* Botão secundário (btn-outline-primary): fundo branco, texto e borda azuis */
+.btn-outline-primary
 {
-  background: var(--azul-claro);
-  color: var(--azul-ppgi);
+  --bs-btn-color: var(--azul-ppgi);
+  --bs-btn-border-color: var(--azul-medio);
+  --bs-btn-hover-color: var(--azul-ppgi);
+  --bs-btn-hover-bg: var(--azul-claro);              /* mouse em cima: fundo azul clarinho */
+  --bs-btn-hover-border-color: var(--azul-medio);
+  --bs-btn-active-color: var(--azul-ppgi);
+  --bs-btn-active-bg: var(--azul-suave);
+  --bs-btn-active-border-color: var(--azul-medio);
+  --bs-btn-focus-shadow-rgb: 74, 111, 179;
 }
 
-/* Botão de perigo (excluir, remover): vermelho */
-.botao-perigo
+/* Botão de perigo (btn-danger), usado no Excluir e no Remover: vermelho */
+.btn-danger
 {
-  background: var(--vermelho-ic);
-  border-color: var(--vermelho-ic);
+  --bs-btn-bg: var(--vermelho-ic);
+  --bs-btn-border-color: var(--vermelho-ic);
+  --bs-btn-hover-bg: #B9141B;            /* vermelho mais escuro com o mouse em cima */
+  --bs-btn-hover-border-color: #B9141B;
+  --bs-btn-active-bg: #B9141B;
+  --bs-btn-active-border-color: #B9141B;
 }
 
-/* Mouse em cima do botão de perigo: vermelho mais escuro */
-.botao-perigo:hover
+/* Botão neutro (btn-outline-secondary), usado no Cancelar: branco com borda cinza */
+.btn-outline-secondary
 {
-  background: #B9141B;
-  border-color: #B9141B;
+  --bs-btn-color: var(--cinza-texto);
+  --bs-btn-border-color: var(--cinza-borda);
+  --bs-btn-hover-color: var(--cinza-texto);
+  --bs-btn-hover-bg: var(--azul-claro);
+  --bs-btn-hover-border-color: var(--cinza-borda);
+  --bs-btn-active-color: var(--cinza-texto);
+  --bs-btn-active-bg: var(--azul-claro);
+  --bs-btn-active-border-color: var(--cinza-borda);
 }
 
-/* Botão neutro (cancelar): branco com borda cinza */
-.botao-neutro
-{
-  background: var(--branco);
-  border-color: var(--cinza-borda);
-  color: var(--cinza-texto);
-}
-
-/* Mouse em cima do botão neutro */
-.botao-neutro:hover
-{
-  background: var(--azul-claro);
-  border-color: var(--cinza-borda);
-}
-
-/* Campo de formulário: rótulo, caixa e erro, um embaixo do outro */
-.campo
-{
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-}
-
-/* Rótulo do campo */
-.campo label
+/* Rótulo dos campos (form-label do Bootstrap) */
+.form-label
 {
   font-size: 14px;
   font-weight: 600;
@@ -427,53 +448,58 @@ button
   margin-bottom: 8px;
 }
 
-/* Caixa onde a pessoa digita */
-.campo input,
-.campo textarea
+/* Caixa onde a pessoa digita (form-control do Bootstrap): fundo cinza claro e borda invisível */
+.form-control
 {
-  height: 44px;
-  padding: 0 14px;
-  border: 1px solid transparent;  /* borda invisível, só aparece no foco */
+  padding: 9px 14px;              /* deixa a caixa com 44px de altura */
+  border-color: transparent;      /* borda invisível, só aparece no foco */
   border-radius: 4px;
-  background: var(--cinza-borda);
-  font: inherit;                  /* usa a mesma fonte da página */
+  background-color: var(--cinza-borda);
   color: var(--texto-escuro);
 }
 
 /* Texto de exemplo dentro da caixa */
-.campo input::placeholder
+.form-control::placeholder
 {
   color: var(--cinza-exemplo);
 }
 
-/* Campo selecionado: fundo branco e borda azul */
-.campo input:focus,
-.campo textarea:focus
+/* Campo selecionado: fundo branco, borda azul e um brilho azul em volta */
+.form-control:focus
 {
-  outline: none;
-  background: var(--branco);
+  background-color: var(--branco);
   border-color: var(--azul-medio);
+  box-shadow: 0 0 0 4px rgba(74, 111, 179, 0.2);  /* azul médio 20% transparente */
+  color: var(--texto-escuro);
 }
 
-/* Campo com problema: borda e fundo avermelhados */
-.campo input.campo-erro
+/* Campo com problema (o JS coloca a classe is-invalid): fundo avermelhado
+   A borda vermelha e o iconezinho de alerta já vêm do Bootstrap */
+.form-control.is-invalid
 {
-  border-color: var(--vermelho-erro);
-  background: var(--vermelho-fundo);
+  background-color: var(--vermelho-fundo);
 }
 
-/* Erro dentro de um campo: fica colado embaixo da caixa */
-.campo .erro
+/* Mensagem de erro embaixo do campo (invalid-feedback do Bootstrap) */
+.invalid-feedback
 {
-  margin: 6px 0 0;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 6px;
 }
 
-/* Cartão branco com borda, usado em várias telas */
-.cartao
+/* Caixa de erro geral (alert) sem texto */
+.alert:empty
 {
-  background: var(--branco);
-  border: 1px solid var(--cinza-borda);
-  border-radius: 10px;
+  display: none;  /* só aparece quando o JS escreve alguma coisa nela */
+}
+
+/* Cartão do Bootstrap (card) com a borda e os cantos do SGDI, usado em várias telas */
+.card
+{
+  --bs-card-border-color: var(--cinza-borda);
+  --bs-card-border-radius: 10px;
+  --bs-card-bg: var(--branco);
 }
 
 /* Título de cada seção */
@@ -485,24 +511,17 @@ button
   margin-bottom: 12px;
 }
 
-/* Fundo escuro atrás das janelas de confirmação */
-.fundo-escuro
+/* Janela de confirmação (modal do Bootstrap): largura de 440px
+   O fundo escuro atrás dela agora é criado pelo próprio Bootstrap */
+.modal
 {
-  position: fixed;                 /* preso na tela, mesmo rolando a página */
-  inset: 0;                        /* cobre a tela inteira */
-  background: rgba(0, 0, 0, 0.4);  /* preto 40% transparente */
-  display: flex;                   /* janela no meio da tela... */
-  align-items: center;             /* ...na altura... */
-  justify-content: center;         /* ...e na largura */
-  z-index: 20;                     /* fica na frente do menu */
+  --bs-modal-width: 440px;
 }
 
-/* Janela de confirmação */
+/* Caixa branca da janela */
 .janela
 {
-  width: 440px;
-  max-width: calc(100% - 32px);  /* em tela pequena, deixa 16px de cada lado */
-  background: var(--branco);
+  border: none;
   border-radius: 12px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
   padding: 24px;
@@ -533,18 +552,23 @@ button
   margin-top: 24px;
 }
 
-/* Aviso que aparece no pé da tela depois de uma ação */
+/* Aviso que aparece no pé da tela depois de uma ação (toast do Bootstrap)
+   As variáveis --bs-toast trocam as cores e o espaço interno dele */
 .aviso
 {
-  position: fixed;              /* preso na tela */
-  bottom: 24px;                 /* 24px acima do fim da tela */
-  left: 50%;                    /* começa no meio da tela... */
-  transform: translateX(-50%);  /* ...e volta metade da própria largura pra ficar centralizado */
-  background: var(--azul-escuro);
-  color: var(--branco);
-  padding: 12px 20px;
-  border-radius: 6px;
-  font-size: 14px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  z-index: 30;                  /* fica na frente de tudo, até da janela */
+  --bs-toast-bg: var(--azul-escuro);         /* fundo azul escuro */
+  --bs-toast-color: var(--branco);           /* texto branco */
+  --bs-toast-border-width: 0;                /* sem borda */
+  --bs-toast-border-radius: 6px;
+  --bs-toast-padding-x: 20px;
+  --bs-toast-padding-y: 12px;
+  --bs-toast-font-size: 14px;
+  --bs-toast-box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  width: auto;                               /* do tamanho do texto, não os 350px do Bootstrap */
+  max-width: calc(100% - 32px);              /* em tela pequena, deixa 16px de cada lado */
+  position: fixed;                           /* preso na tela */
+  bottom: 24px;                              /* 24px acima do fim da tela */
+  left: 50%;                                 /* começa no meio da tela... */
+  transform: translateX(-50%);               /* ...e volta metade da própria largura pra ficar centralizado */
+  z-index: 1090;                             /* fica na frente de tudo, até da janela do Bootstrap */
 }

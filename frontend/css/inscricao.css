@@ -80,33 +80,36 @@
   font-size: 13px;
 }
 
-/* Botões OK e Não OK lado a lado */
+/* Botões OK e Não OK juntos (btn-group no HTML) */
 .documento-botoes
 {
-  display: flex;
-  gap: 8px;
   flex-shrink: 0;  /* não deixa os botões encolherem */
 }
 
-/* Botões OK e Não OK ainda sem marcar: brancos com borda cinza */
-.botao-ok,
-.botao-nao-ok
+/* Botão OK ainda sem marcar (btn-outline-success): texto verde e fundo verde clarinho no mouse */
+.botao-ok
 {
-  height: 36px;
-  padding: 0 16px;
-  border: 2px solid var(--cinza-borda);
-  border-radius: 4px;
-  background: var(--branco);
-  color: var(--cinza-texto);
-  font-weight: 600;
-  cursor: pointer;
+  --bs-btn-color: var(--verde);
+  --bs-btn-border-color: var(--verde-borda);
+  --bs-btn-hover-color: var(--verde);
+  --bs-btn-hover-bg: var(--verde-fundo);
+  --bs-btn-hover-border-color: var(--verde);
+  --bs-btn-active-color: var(--branco);
+  --bs-btn-active-bg: var(--verde);
+  --bs-btn-active-border-color: var(--verde);
 }
 
-/* Mouse em cima dos botões OK e Não OK */
-.botao-ok:hover,
-.botao-nao-ok:hover
+/* Botão Não OK ainda sem marcar (btn-outline-danger): texto vermelho e fundo vermelho clarinho no mouse */
+.botao-nao-ok
 {
-  background: var(--azul-claro);
+  --bs-btn-color: var(--vermelho-ic);
+  --bs-btn-border-color: var(--vermelho-borda);
+  --bs-btn-hover-color: var(--vermelho-ic);
+  --bs-btn-hover-bg: var(--vermelho-fundo);
+  --bs-btn-hover-border-color: var(--vermelho-ic);
+  --bs-btn-active-color: var(--branco);
+  --bs-btn-active-bg: var(--vermelho-ic);
+  --bs-btn-active-border-color: var(--vermelho-ic);
 }
 
 /* Área do motivo (só aparece quando o documento está Não OK) */
@@ -117,33 +120,30 @@
   margin-top: 16px;
 }
 
-/* Pergunta "O que está errado ou faltando?" */
-.documento-motivo label
+/* Pergunta "O que está errado ou faltando?" (form-label), um pouco menor que nos outros campos */
+.documento-motivo .form-label
 {
   font-size: 13px;
-  font-weight: 600;
-  color: var(--azul-escuro);
   margin-bottom: 6px;
 }
 
-/* Caixa onde a pessoa escreve o motivo */
+/* Caixa onde a pessoa escreve o motivo (form-control): branca com borda vermelha clarinha */
 .documento-motivo textarea
 {
   min-height: 56px;
   padding: 10px 12px;
-  border: 1px solid var(--vermelho-borda);
+  border-color: var(--vermelho-borda);
   border-radius: 6px;
-  font: inherit;
+  background-color: var(--branco);
   font-size: 14px;
-  color: var(--texto-escuro);
   resize: vertical;  /* a caixa só cresce pra baixo */
 }
 
-/* Caixa do motivo selecionada: borda vermelha mais forte */
+/* Caixa do motivo selecionada: borda vermelha mais forte e brilho vermelho em volta */
 .documento-motivo textarea:focus
 {
-  outline: none;
   border-color: var(--vermelho-ic);
+  box-shadow: 0 0 0 4px rgba(227, 27, 35, 0.15);  /* vermelho 15% transparente */
 }
 
 /* Documento marcado como OK: cartão verde */
@@ -197,6 +197,7 @@
   margin-top: 24px;
   padding: 16px 24px;
   display: flex;
+  flex-direction: row;  /* o card do Bootstrap empilha, aqui fica um do lado do outro */
   align-items: center;
   justify-content: space-between;
   box-shadow: 0 8px 24px rgba(31, 42, 68, 0.12);  /* sombra pra destacar dos cartões */

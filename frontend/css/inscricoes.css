@@ -18,24 +18,15 @@
   font-size: 13px;
 }
 
-/* Caixa de busca por número ou nome */
+/* Caixa de busca por número ou nome (form-control no HTML): branca, com borda e um pouco menor
+   O foco com borda azul vem do .form-control:focus do base.css */
 .busca
 {
   width: 280px;
-  height: 40px;
-  padding: 0 14px;
-  border: 1px solid var(--cinza-borda);
-  border-radius: 4px;
-  font: inherit;
+  padding: 7px 14px;  /* deixa a caixa com 40px de altura */
+  border-color: var(--cinza-borda);
+  background-color: var(--branco);
   font-size: 14px;
-  color: var(--texto-escuro);
-}
-
-/* Busca selecionada: borda azul */
-.busca:focus
-{
-  outline: none;
-  border-color: var(--azul-medio);
 }
 
 /* Frase que aparece quando a busca não encontra nada */

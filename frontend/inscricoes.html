@@ -8,6 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscrições | SGDI</title>
 
+    <!-- Bootstrap: biblioteca de componentes prontos (botões, campos, janelas, menus)
+         Vem antes dos nossos estilos pra que as cores e o layout do SGDI fiquem por cima dele -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+
     <!-- Estilos: base.css (todas as telas) + inscricoes.css (só esta tela) -->
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/inscricoes.css">
@@ -16,11 +20,24 @@
 <body>
     <!-- Barra do topo: menu, marca do sistema, iniciais do usuário e Sair -->
     <header class="topo">
-        <!-- Botão do menu (três linhas), sigla e nome do sistema -->
-        <div class="topo-marca">
-            <button type="button" class="topo-menu" id="botao-menu" aria-label="Abrir menu">
+        <!-- Botão do menu (três linhas), sigla e nome do sistema
+             A classe dropdown do Bootstrap liga o botão ao menu que está logo abaixo dele -->
+        <div class="topo-marca dropdown">
+            <!-- data-bs-toggle="dropdown": o Bootstrap abre e fecha o menu sozinho ao clicar -->
+            <button type="button" class="topo-menu" id="botao-menu" data-bs-toggle="dropdown" aria-expanded="false"
+                aria-label="Abrir menu">
                 <span></span><span></span><span></span>
             </button>
+
+            <!-- Menu que o botão abre (dropdown-menu fica escondido até o clique, o topo.js marca a tela atual) -->
+            <nav class="dropdown-menu menu" id="menu">
+                <h2 class="dropdown-header">Menu</h2>
+                <a class="dropdown-item" href="importar.html">Importar inscrições</a>
+                <a class="dropdown-item" href="inscricoes.html">Inscrições</a>
+                <a class="dropdown-item" href="acessos.html">Gerenciar acessos</a>
+                <a class="dropdown-item" href="importar.html#recentes">Processos recentes</a>
+            </nav>
+
             <span class="topo-logo">SGDI</span>
             <span class="topo-nome">Sistema de Gestão de Documentos para Inscrição</span>
         </div>
@@ -28,17 +45,9 @@
         <!-- Iniciais do usuário + Sair (passando o mouse nas iniciais aparece o e-mail e o cargo) -->
         <div class="topo-usuario">
             <span class="topo-iniciais" id="iniciais">--</span>
-            <a href="index.html" class="topo-sair">Sair</a>
+            <!-- btn btn-outline-primary btn-sm: botão pequeno do Bootstrap, só com contorno -->
+            <a href="index.html" class="btn btn-outline-primary btn-sm topo-sair">Sair</a>
         </div>
-
-        <!-- Menu que o botão das três linhas abre e fecha (o topo.js marca a tela atual) -->
-        <nav class="menu" id="menu" hidden>
-            <h2>Menu</h2>
-            <a href="importar.html">Importar inscrições</a>
-            <a href="inscricoes.html">Inscrições</a>
-            <a href="acessos.html">Gerenciar acessos</a>
-            <a href="importar.html#recentes">Processos recentes</a>
-        </nav>
     </header>
 
     <!-- Conteúdo da tela: inscrições do processo -->
@@ -51,7 +60,8 @@
                 <h1 class="titulo" id="titulo-processo">Inscrições</h1>
                 <p class="subtitulo" id="subtitulo-processo"></p>
             </div>
-            <a href="relatorio.html" class="botao botao-secundario">Gerar relatório</a>
+            <!-- btn btn-outline-primary: botão do Bootstrap só com contorno azul (aqui é um link) -->
+            <a href="relatorio.html" class="btn btn-outline-primary" id="botao-relatorio">Gerar relatório</a>
         </div>
 
         <!-- Legenda das cores (com a contagem) e busca -->
@@ -64,16 +74,17 @@
                 <span class="legenda-item"><span class="bolinha"></span><span>A revisar (<span
                             id="conta-revisar">0</span>)</span></span>
             </div>
-            <input type="search" id="busca" class="busca" placeholder="Buscar por número ou nome">
+            <!-- form-control: caixa do Bootstrap, a classe busca deixa ela branca e menor -->
+            <input type="search" id="busca" class="form-control busca" placeholder="Buscar por número ou nome">
         </div>
 
         <!-- Grade de cartões (o inscricoes.js preenche) e frase de busca vazia -->
         <div class="grade" id="grade-inscricoes"></div>
         <p class="busca-vazia" id="busca-vazia" hidden>Nenhuma inscrição encontrada para essa busca.</p>
 
-        <!-- Modelo do cartão de cada inscrição -->
+        <!-- Modelo do cartão de cada inscrição (card: cartão do Bootstrap com borda e cantos arredondados) -->
         <template id="modelo-inscricao">
-            <a class="cartao inscricao">
+            <a class="card inscricao">
                 <span class="inscricao-rotulo">Inscrição</span>
                 <span class="inscricao-numero"></span>
                 <span class="inscricao-candidato"></span>
@@ -95,6 +106,10 @@
             <span>(82) 3214-1401</span>
         </p>
     </footer>
+
+    <!-- JavaScript do Bootstrap: faz o menu, as janelas e os avisos abrirem e fecharem
+         Vem antes dos nossos scripts porque eles usam o bootstrap.Modal e o bootstrap.Toast -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Funções comuns (dados.js), barra do topo (topo.js) e comportamento desta tela (inscricoes.js) -->
     <script src="js/dados.js"></script>

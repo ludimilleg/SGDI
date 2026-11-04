@@ -98,9 +98,40 @@
   padding: 24px;
 }
 
-/* Botão Criar acesso na direita */
-.novo-acesso-botao
+/* Cartão da distribuição: título e resumo na esquerda, botão na direita */
+.distribuicao
 {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: row;             /* o card do Bootstrap empilha, aqui fica um do lado do outro */
+  align-items: center;
+  justify-content: space-between;  /* texto na esquerda, botão na direita */
+  gap: 16px;
+  padding: 18px 20px;
+  margin-top: 24px;                /* afasta da lista de pessoas */
+}
+
+/* Título "Distribuição das inscrições" */
+.distribuicao h2
+{
+  margin: 0 0 4px;
+  font-size: 15px;
+  color: var(--azul-escuro);
+}
+
+/* Resumo de quantas inscrições foram distribuídas */
+.distribuicao p
+{
+  margin: 0;
+  font-size: 13px;
+  color: var(--cinza-texto);
+}
+
+/* Em tela estreita, o botão vai pra baixo do texto */
+@media (max-width: 640px)
+{
+  .distribuicao
+  {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }

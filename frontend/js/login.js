@@ -6,24 +6,26 @@ const campoEmail = document.getElementById("email");
 const campoSenha = document.getElementById("senha");
 const erroEmail = document.getElementById("erro-email");
 const erroSenha = document.getElementById("erro-senha");
+const erroGeral = document.getElementById("erro-geral");
 
 // Funções que mostram e limpam o erro de um campo
 function mostrarErro(campo, areaErro, mensagem)
 {
   areaErro.textContent = mensagem;    // escreve a mensagem
-  campo.classList.add("campo-erro");  // pinta a borda de vermelho
+  campo.classList.add("is-invalid");  // classe do Bootstrap: borda vermelha e mostra o invalid-feedback
 }
 
 function limparErro(campo, areaErro)
 {
   areaErro.textContent = "";             // apaga a mensagem
-  campo.classList.remove("campo-erro");  // volta a borda ao normal
+  campo.classList.remove("is-invalid");  // volta a borda ao normal e esconde o invalid-feedback
 }
 
 // Quando a pessoa clica em ENTRAR
 form.addEventListener("submit", function (evento)
 {
   evento.preventDefault();  // não deixa a página recarregar
+  erroGeral.textContent = "";  // apaga o erro geral da tentativa anterior
 
   const email = campoEmail.value.trim();  // trim = tira espaços das pontas
   const senha = campoSenha.value;

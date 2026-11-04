@@ -80,13 +80,13 @@ botaoImportar.addEventListener("click", function ()
   if (campoNome.value.trim() === "")
   {
     erroNome.textContent = "Informe o nome do processo.";
-    campoNome.classList.add("campo-erro");
+    campoNome.classList.add("is-invalid");  // borda vermelha do Bootstrap e mostra o erro embaixo
     tudoCerto = false;
   }
   else
   {
     erroNome.textContent = "";
-    campoNome.classList.remove("campo-erro");
+    campoNome.classList.remove("is-invalid");
   }
 
   // Confere se tem arquivo escolhido
@@ -117,7 +117,7 @@ window.addEventListener("pageshow", function ()
 campoNome.addEventListener("input", function ()
 {
   erroNome.textContent = "";
-  campoNome.classList.remove("campo-erro");
+  campoNome.classList.remove("is-invalid");
 });
 
 // Remover: volta a área ao estado inicial
@@ -295,6 +295,7 @@ async function importarProcesso(nome, arquivo)
 
 // Janela de confirmação para excluir um processo recente
 const confirmacao = document.getElementById("confirmacao");
+const janelaConfirmacao = new bootstrap.Modal(confirmacao);  // liga a janela (modal) do Bootstrap
 const confirmacaoNome = document.getElementById("confirmacao-nome");
 let processoParaExcluir = null;  // processo que vai ser excluído
 let cartaoParaExcluir = null;    // cartão dele na lista
@@ -337,44 +338,23 @@ function mostrarRecentes()
       cartaoParaExcluir = cartao;
       cartao.classList.add("excluindo");
       confirmacaoNome.textContent = processo.nome;
-      confirmacao.hidden = false;
+      janelaConfirmacao.show();  // abre a janela
     });
 
     listaRecentes.appendChild(cartao);
   });
 }
 
-// Fecha a janela e desmarca o cartão
-function fecharConfirmacao()
+// Toda vez que a janela termina de fechar, desmarca o cartão
+// Vale pro Cancelar, pro Esc, pro clique fora e pro Excluir, porque o Bootstrap avisa com o evento hidden.bs.modal
+confirmacao.addEventListener("hidden.bs.modal", function ()
 {
-  confirmacao.hidden = true;
   if (cartaoParaExcluir)
   {
     cartaoParaExcluir.classList.remove("excluindo");
   }
   processoParaExcluir = null;
   cartaoParaExcluir = null;
-}
-
-// Cancelar fecha sem excluir
-document.getElementById("botao-cancelar").addEventListener("click", fecharConfirmacao);
-
-// Clique no fundo escuro, fora da janela, também fecha
-confirmacao.addEventListener("click", function (evento)
-{
-  if (evento.target === confirmacao)
-  {
-    fecharConfirmacao();
-  }
-});
-
-// Esc também fecha
-document.addEventListener("keydown", function (evento)
-{
-  if (evento.key === "Escape" && !confirmacao.hidden)
-  {
-    fecharConfirmacao();
-  }
 });
 
 // Excluir de vez: apaga o processo e o .zip guardado e atualiza a lista
@@ -384,7 +364,7 @@ document.getElementById("botao-confirmar").addEventListener("click", function ()
   const id = processoParaExcluir.id;
   excluirProcesso(id);
   apagarZip(id).catch(function () {});  // se o .zip já não existir, segue sem erro
-  fecharConfirmacao();
+  janelaConfirmacao.hide();             // fecha a janela
   mostrarRecentes();
   mostrarAviso("Processo " + nome + " excluído.");
 });

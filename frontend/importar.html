@@ -8,6 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Importar | SGDI</title>
 
+    <!-- Bootstrap: biblioteca de componentes prontos (botões, campos, janelas, menus)
+         Vem antes dos nossos estilos pra que as cores e o layout do SGDI fiquem por cima dele -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+
     <!-- Estilos: base.css (todas as telas) + importar.css (só esta tela) -->
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/importar.css">
@@ -16,11 +20,24 @@
 <body>
     <!-- Barra do topo: menu, marca do sistema, iniciais do usuário e Sair -->
     <header class="topo">
-        <!-- Botão do menu (três linhas), sigla e nome do sistema -->
-        <div class="topo-marca">
-            <button type="button" class="topo-menu" id="botao-menu" aria-label="Abrir menu">
+        <!-- Botão do menu (três linhas), sigla e nome do sistema
+             A classe dropdown do Bootstrap liga o botão ao menu que está logo abaixo dele -->
+        <div class="topo-marca dropdown">
+            <!-- data-bs-toggle="dropdown": o Bootstrap abre e fecha o menu sozinho ao clicar -->
+            <button type="button" class="topo-menu" id="botao-menu" data-bs-toggle="dropdown" aria-expanded="false"
+                aria-label="Abrir menu">
                 <span></span><span></span><span></span>
             </button>
+
+            <!-- Menu que o botão abre (dropdown-menu fica escondido até o clique, o topo.js marca a tela atual) -->
+            <nav class="dropdown-menu menu" id="menu">
+                <h2 class="dropdown-header">Menu</h2>
+                <a class="dropdown-item" href="importar.html">Importar inscrições</a>
+                <a class="dropdown-item" href="inscricoes.html">Inscrições</a>
+                <a class="dropdown-item" href="acessos.html">Gerenciar acessos</a>
+                <a class="dropdown-item" href="importar.html#recentes">Processos recentes</a>
+            </nav>
+
             <span class="topo-logo">SGDI</span>
             <span class="topo-nome">Sistema de Gestão de Documentos para Inscrição</span>
         </div>
@@ -28,17 +45,9 @@
         <!-- Iniciais do usuário + Sair (passando o mouse nas iniciais aparece o e-mail e o cargo) -->
         <div class="topo-usuario">
             <span class="topo-iniciais" id="iniciais">--</span>
-            <a href="index.html" class="topo-sair">Sair</a>
+            <!-- btn btn-outline-primary btn-sm: botão pequeno do Bootstrap, só com contorno -->
+            <a href="index.html" class="btn btn-outline-primary btn-sm topo-sair">Sair</a>
         </div>
-
-        <!-- Menu que o botão das três linhas abre e fecha (o topo.js marca a tela atual) -->
-        <nav class="menu" id="menu" hidden>
-            <h2>Menu</h2>
-            <a href="importar.html">Importar inscrições</a>
-            <a href="inscricoes.html">Inscrições</a>
-            <a href="acessos.html">Gerenciar acessos</a>
-            <a href="importar.html#recentes">Processos recentes</a>
-        </nav>
     </header>
 
     <!-- Conteúdo da tela: importar o .zip de um processo seletivo -->
@@ -47,19 +56,23 @@
         <p class="importar-subtitulo">Envie o arquivo .zip com as pastas dos candidatos. Cada pasta vira uma inscrição.
         </p>
 
-        <!-- Nome do processo seletivo -->
-        <label for="nome-processo">Nome do processo</label>
-        <input type="text" name="nome-processo" id="nome-processo" placeholder="Ex.: Mestrado 2027.1">
-        <p class="erro" id="erro-nome"></p>
+        <!-- Nome do processo seletivo (mesmo esquema de campo do login: form-label, form-control e invalid-feedback) -->
+        <div class="mb-4">
+            <label for="nome-processo" class="form-label">Nome do processo</label>
+            <input type="text" name="nome-processo" id="nome-processo" class="form-control"
+                placeholder="Ex.: Mestrado 2027.1">
+            <p class="invalid-feedback" id="erro-nome"></p>
+        </div>
 
         <!-- Área de arrastar e soltar o .zip -->
-        <label>Arquivo .zip</label>
+        <label class="form-label">Arquivo .zip</label>
         <div class="area-arquivo" id="area-arquivo">
             <!-- Setinha, frase e botão de escolher -->
             <span class="area-icone">↑</span>
             <p class="area-titulo">Arraste o arquivo .zip para cá</p>
             <p class="area-ou">ou</p>
-            <button type="button" id="botao-escolher">Escolher arquivo</button>
+            <!-- btn-sm: versão pequena do botão, sem letras maiúsculas -->
+            <button type="button" class="btn btn-outline-primary btn-sm" id="botao-escolher">Escolher arquivo</button>
 
             <!-- Nome do arquivo escolhido + Remover (só aparece depois de escolher) -->
             <p id="area-escolhido" hidden>
@@ -73,7 +86,7 @@
 
         <!-- Erro do arquivo e botão principal -->
         <p class="erro" id="erro-arquivo"></p>
-        <button type="button" id="botao-importar">Importar inscrições</button>
+        <button type="button" class="btn btn-primary" id="botao-importar">Importar inscrições</button>
 
         <!-- Processos recentes (o importar.js monta um cartão para cada processo) -->
         <section class="recentes" id="recentes">
@@ -94,14 +107,20 @@
     </main>
 
     <!-- Janela de confirmação para excluir um processo -->
-    <div class="fundo-escuro" id="confirmacao" hidden>
-        <div class="janela" role="dialog" aria-modal="true" aria-labelledby="confirmacao-titulo">
-            <h2 id="confirmacao-titulo">Excluir processo?</h2>
-            <p><strong id="confirmacao-nome"></strong> e todas as avaliações dele serão apagados. Esta ação não pode ser
-                desfeita.</p>
-            <div class="janela-botoes">
-                <button type="button" class="botao botao-neutro" id="botao-cancelar">Cancelar</button>
-                <button type="button" class="botao botao-perigo" id="botao-confirmar">Excluir</button>
+    <!-- modal fade: janela do Bootstrap, escondida até o JS chamar .show() (fade = aparece suavemente)
+         O próprio Bootstrap cria o fundo escuro e fecha a janela com Esc ou com clique fora dela -->
+    <div class="modal fade" id="confirmacao" tabindex="-1" aria-labelledby="confirmacao-titulo" aria-hidden="true">
+        <!-- modal-dialog-centered: janela no meio da altura da tela -->
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content janela">
+                <h2 id="confirmacao-titulo">Excluir processo?</h2>
+                <p><strong id="confirmacao-nome"></strong> e todas as avaliações dele serão apagados. Esta ação não pode ser
+                    desfeita.</p>
+                <div class="janela-botoes">
+                    <!-- data-bs-dismiss="modal": fecha a janela sem precisar de JavaScript nosso -->
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="botao-confirmar">Excluir</button>
+                </div>
             </div>
         </div>
     </div>
@@ -121,6 +140,10 @@
 
     <!-- JSZip: biblioteca que abre o .zip direto no navegador -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <!-- JavaScript do Bootstrap: faz o menu, as janelas e os avisos abrirem e fecharem
+         Vem antes dos nossos scripts porque eles usam o bootstrap.Modal e o bootstrap.Toast -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Funções comuns (dados.js), barra do topo (topo.js) e comportamento desta tela (importar.js) -->
     <script src="js/dados.js"></script>

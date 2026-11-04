@@ -8,16 +8,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | SGDI</title>
 
+    <!-- Bootstrap: biblioteca de componentes prontos (botões, campos, janelas, menus)
+         Vem antes dos nossos estilos pra que as cores e o layout do SGDI fiquem por cima dele -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+
     <!-- Estilos: base.css (todas as telas) + login.css (só esta tela) -->
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/login.css">
 </head>
 
 <body>
-    <!-- Login: painel de apresentação (esquerda) + formulário (direita) -->
-    <main class="login">
-        <!-- Painel azul com o nome do sistema -->
-        <section class="login-apresentacao">
+    <!-- Login: painel de apresentação (esquerda) + formulário (direita)
+         row g-0: linha do grid do Bootstrap, sem espaço entre as colunas -->
+    <main class="login row g-0">
+        <!-- Painel azul com o nome do sistema
+             col-md-6: metade da largura a partir de tela média, em celular ocupa a linha toda -->
+        <section class="login-apresentacao col-md-6">
             <h1>Sistema de Gestão de Documentos para Inscrição</h1>
             <p>Importe inscrições, revise os documentos por candidato e receba o relatório de homologação gerado
                 automaticamente.</p>
@@ -25,25 +31,34 @@
                 geração de relatório.</p>
         </section>
 
-        <!-- Formulário de acesso -->
-        <section class="login-formulario">
-            <h2>Login</h2>
-            <p class="login-aviso">(Acesso restrito à equipe da secretaria e da coordenação do PPGI.)</p>
-            <form id="form-login" novalidate>
-                <!-- Campo de e-mail (o erro aparece no parágrafo logo abaixo) -->
-                <label for="email">E-mail</label>
-                <input type="email" name="email" id="email" placeholder="Ex.: nome@ic.ufal.br">
-                <p class="erro" id="erro-email"></p>
+        <!-- Formulário de acesso, na outra metade (d-flex e align-items-center deixam ele no meio da altura) -->
+        <section class="login-formulario col-md-6 d-flex align-items-center">
+            <div class="login-caixa">
+                <h2>Login</h2>
+                <p class="login-aviso">(Acesso restrito à equipe da secretaria e da coordenação do PPGI.)</p>
+                <form id="form-login" novalidate>
+                    <!-- Campo de e-mail: mb-4 dá o espaço embaixo, form-label e form-control são o rótulo e a caixa
+                         do Bootstrap, e o invalid-feedback só aparece quando a caixa ganha a classe is-invalid -->
+                    <div class="mb-4">
+                        <label for="email" class="form-label">E-mail</label>
+                        <input type="email" name="email" id="email" class="form-control" placeholder="Ex.: nome@ic.ufal.br">
+                        <p class="invalid-feedback" id="erro-email"></p>
+                    </div>
 
-                <!-- Campo de senha -->
-                <label for="senha">Senha</label>
-                <input type="password" name="senha" id="senha">
-                <p class="erro" id="erro-senha"></p>
+                    <!-- Campo de senha (mesmo esquema do e-mail) -->
+                    <div class="mb-4">
+                        <label for="senha" class="form-label">Senha</label>
+                        <input type="password" name="senha" id="senha" class="form-control">
+                        <p class="invalid-feedback" id="erro-senha"></p>
+                    </div>
 
-                <!-- Erro geral do login e botão Entrar -->
-                <p class="erro" id="erro-geral"></p>
-                <button type="submit">Entrar</button>
-            </form>
+                    <!-- Erro geral do login (alert alert-danger: caixa vermelha do Bootstrap, some quando está vazia) -->
+                    <p class="alert alert-danger" id="erro-geral"></p>
+
+                    <!-- Botão Entrar: btn btn-primary é o botão azul do Bootstrap e w-100 ocupa a largura toda -->
+                    <button type="submit" class="btn btn-primary w-100">Entrar</button>
+                </form>
+            </div>
         </section>
     </main>
 
@@ -59,6 +74,10 @@
             <span>(82) 3214-1401</span>
         </p>
     </footer>
+
+    <!-- JavaScript do Bootstrap: faz o menu, as janelas e os avisos abrirem e fecharem
+         Vem antes dos nossos scripts porque eles usam o bootstrap.Modal e o bootstrap.Toast -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Comportamento da tela: validação e redirecionamento -->
     <script src="js/login.js"></script>

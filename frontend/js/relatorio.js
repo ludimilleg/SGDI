@@ -6,6 +6,36 @@ const processo = abrirProcessoAtual();
 // Campos do cabeçalho do relatório (o id do campo é o mesmo nome do dado no processo)
 const CAMPOS_CABECALHO = ["instituicao", "edital", "descricao"];
 
+// Caixinha "Incluir nome dos candidatos no relatório final"
+const incluirNome = document.getElementById("incluir-nome");
+
+// Identificação da inscrição em texto: só o número, ou número e nome quando a caixinha está marcada
+function identificacao(inscricao)
+{
+  const candidato = (inscricao.candidato || "").trim();
+  return incluirNome.checked && candidato
+    ? inscricao.numero + " - " + candidato
+    : inscricao.numero;  // sem nome na pasta, fica só o número
+}
+
+// Mesma ideia, mas pra célula da tabela: número em cima e nome embaixo, sem negrito
+function preencherIdentificacao(celula, inscricao)
+{
+  const numero = document.createElement("span");
+  numero.textContent = inscricao.numero;
+  celula.appendChild(numero);
+
+  const candidato = (inscricao.candidato || "").trim();
+  if (incluirNome.checked && candidato)
+  {
+    const nome = document.createElement("span");
+    nome.className = "previa-candidato";  // estilo sem negrito do relatorio.css
+    nome.textContent = candidato;
+    celula.appendChild(document.createElement("br"));  // quebra a linha entre número e nome
+    celula.appendChild(nome);
+  }
+}
+
 // Monta a prévia: lista de deferidas, tabela de indeferidas e aviso das que faltam revisar
 function montarRelatorio()
 {
@@ -19,7 +49,7 @@ function montarRelatorio()
     const estado = estadoInscricao(inscricao);
     if (estado === "DEFERIDA")
     {
-      deferidas.push(inscricao.numero);  // deferida só precisa do número
+      deferidas.push(identificacao(inscricao));  // deferida só precisa do número (e do nome, se marcado)
     }
     else if (estado === "INDEFERIDA")
     {
@@ -44,12 +74,14 @@ function montarRelatorio()
   alerta.textContent = "Ainda falta revisar " + plural(pendentes, "inscrição", "inscrições") +
     ". Elas ficam fora do relatório até terem todos os documentos avaliados.";
 
-  // Números das deferidas separados por vírgula (ex.: 48069, 48071 e 48075.)
+  // Deferidas separadas por vírgula (ex.: 48069, 48071 e 48075.)
   document.getElementById("lista-deferidas").textContent =
     deferidas.length > 0 ? juntarLista(deferidas) + "." : "Nenhuma inscrição deferida.";
 
-  // Tabela das indeferidas: limpa antes de montar de novo
+  // Tabela das indeferidas: troca o título da coluna e limpa antes de montar de novo
   const tabela = document.getElementById("tabela-indeferidas");
+  document.getElementById("cabecalho-inscricao").textContent =
+    incluirNome.checked ? "Inscrição e candidato" : "Inscrição";
   tabela.innerHTML = "";
 
   // Nenhuma indeferida: uma linha só, ocupando as duas colunas
@@ -77,10 +109,13 @@ function montarRelatorio()
       });
 
     const linha = tabela.insertRow();
-    linha.insertCell().textContent = inscricao.numero;
+    preencherIdentificacao(linha.insertCell(), inscricao);
     linha.insertCell().textContent = motivos.join("; ") + ".";  // motivos separados por ponto e vírgula
   });
 }
+
+// Marcou ou desmarcou a caixinha do nome: monta a prévia de novo
+incluirNome.addEventListener("change", montarRelatorio);
 
 // A cada letra digitada no cabeçalho, atualiza a prévia e salva no processo
 CAMPOS_CABECALHO.forEach(function (campo)
@@ -115,6 +150,8 @@ document.getElementById("botao-word").addEventListener("click", function ()
     "<style>body{font-family:Arial,sans-serif;color:#1F2A44}" +
     ".previa-topo{text-align:center}.previa-brasao{display:none}" +
     "table{border-collapse:collapse;width:100%}th,td{border:1px solid #B7CDED;padding:8px;text-align:left}" +
+    "th:first-child,td:first-child{width:270px;min-width:270px}" +
+    ".previa-candidato{font-weight:400}" +
     "th{background:#E6F0FA}</style>";
   const conteudo = "<html><head><meta charset='UTF-8'>" + estilo + "</head><body>" + previa.innerHTML + "</body></html>";
 

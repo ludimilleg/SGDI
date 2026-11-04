@@ -1,26 +1,13 @@
 /* SGDI | relatorio.css: estilos só da tela do relatório de homologação */
 
-/* Botões de exportar lado a lado */
-.relatorio-botoes
-{
-  display: flex;
-  gap: 8px;
-  flex-shrink: 0;  /* não deixa os botões encolherem */
-}
-
-/* Botões de exportar um pouco mais estreitos que o padrão */
-.relatorio-botoes .botao
-{
-  padding: 0 18px;
-}
-
-/* Aviso azul das inscrições que ainda faltam revisar */
+/* Aviso azul das inscrições que ainda faltam revisar (alert do Bootstrap com as cores do SGDI) */
 .relatorio-alerta
 {
   padding: 14px 18px;
   margin-bottom: 24px;
   background: var(--azul-claro);
   border-color: var(--azul-suave);
+  border-radius: 10px;
   color: var(--azul-escuro);
   font-size: 14px;
 }
@@ -39,12 +26,6 @@
   font-weight: 600;
   color: var(--cinza-texto);
   margin-bottom: 16px;
-}
-
-/* Último campo do cartão sem espaço sobrando embaixo */
-.relatorio-dados .campo:last-child
-{
-  margin-bottom: 0;
 }
 
 /* Prévia do relatório (é ela que vai pro JPEG, pro Word e pro PDF) */
@@ -115,12 +96,19 @@
   font-weight: 600;
 }
 
-/* Primeira coluna (número da inscrição) mais estreita e em negrito */
+/* Primeira coluna (número da inscrição) em negrito, larga o bastante pro nome do candidato */
 .previa-tabela td:first-child,
 .previa-tabela th:first-child
 {
-  width: 120px;
+  width: 270px;
+  min-width: 270px;  /* não deixa a coluna encolher */
   font-weight: 600;
+}
+
+/* Nome do candidato embaixo do número, sem negrito */
+.previa-candidato
+{
+  font-weight: 400;
 }
 
 /* Na impressão (Salvar como PDF) só a prévia aparece */
@@ -164,4 +152,25 @@
 {
   font-size: 12px;
   color: var(--cinza-exemplo);
+}
+
+/* Opção "Incluir nome dos candidatos" (form-check do Bootstrap: caixinha com o texto ao lado) */
+.relatorio-opcao-nome
+{
+  width: fit-content;  /* só a área do texto é clicável, não a linha toda */
+  color: var(--cinza-texto);
+  font-size: 14px;
+}
+
+/* Texto da opção: mãozinha ao passar o mouse, porque clicar nele marca a caixinha */
+.relatorio-opcao-nome .form-check-label
+{
+  cursor: pointer;
+}
+
+/* Caixinha marcada em azul escuro */
+.relatorio-opcao-nome .form-check-input:checked
+{
+  background-color: var(--azul-escuro);
+  border-color: var(--azul-escuro);
 }

@@ -1,3 +1,13 @@
+# SGDI
+
+Sistema de Gerenciamento de Documentos e Inscrições (SGDI).
+
+O repositório está dividido em:
+
+* `backend/`: API em Python, Django e Django REST Framework.
+* `frontend/`: telas em HTML, CSS e JavaScript, com Bootstrap.
+* `database/`: script do banco de dados (`schema.sql`).
+
 # Backend
 
 Backend do Sistema de Gerenciamento de Documentos e Inscrições (SGDI), desenvolvido com Python, Django e Django REST Framework.
@@ -142,3 +152,61 @@ A migração inicial do modelo `Usuario` já foi criada, mas ainda não foi apli
 * Testar o login e a geração de tokens JWT.
 * Implementar e testar rotas protegidas.
 * Implementar o gerenciamento de usuários pelo responsável pelo sistema.
+
+# Frontend
+
+Frontend do SGDI, desenvolvido com HTML, CSS e JavaScript, usando Bootstrap nos componentes.
+
+## Como executar o frontend
+
+1. Abra a pasta do repositório no VS Code.
+2. Clique em **Go Live** (extensão Live Server).
+3. Acesse `http://127.0.0.1:5500/frontend/index.html`.
+
+Por enquanto o frontend simula o sistema: o login aceita qualquer e-mail e senha válidos, e as inscrições vêm do arquivo `.zip` importado, guardadas no navegador (localStorage e IndexedDB).
+
+## Bibliotecas
+
+As bibliotecas são carregadas por CDN, sem instalação:
+
+| Biblioteca        | Para que serve                             |
+| ----------------- | ------------------------------------------ |
+| Bootstrap 5.3.8   | Componentes e grid das telas               |
+| JSZip 3.10.1      | Abrir o `.zip` das inscrições no navegador |
+| html2canvas 1.4.1 | Exportar o relatório em JPEG               |
+
+## Estrutura
+
+```text
+frontend/
+├── index.html        login
+├── importar.html     importar o .zip e processos recentes
+├── inscricoes.html   lista de inscrições do processo
+├── inscricao.html    revisão dos documentos de uma inscrição
+├── acessos.html      pessoas com acesso e distribuição das inscrições
+├── relatorio.html    relatório de homologação
+├── css/              base.css (tema e estilos comuns) + um arquivo por tela
+└── js/               dados.js (funções comuns), topo.js (barra do topo) + um arquivo por tela
+```
+
+## O que mudou com o Bootstrap
+
+* **Carregamento:** todo HTML carrega o CSS do Bootstrap antes do `base.css` e o JS do Bootstrap antes dos nossos scripts.
+* **Tema:** o `base.css` passa as cores e a fonte do SGDI para as variáveis do Bootstrap (`--bs-...`). O visual do Figma foi mantido.
+* **Botões:** `.botao`, `.botao-secundario`, `.botao-perigo` e `.botao-neutro` viraram `btn-primary`, `btn-outline-primary`, `btn-danger` e `btn-outline-secondary`.
+* **Campos:** usam `form-label` e `form-control`. O erro usa `is-invalid` e `invalid-feedback` no lugar da classe `campo-erro`.
+* **Cartões:** `.cartao` virou `card`.
+* **Menu:** virou um `dropdown`. O código que abria e fechava o menu saiu do `topo.js`.
+* **Janelas de confirmação:** as de excluir processo e remover acesso viraram `modal`. Saíram do `importar.js` e do `acessos.js` os blocos de Cancelar, Esc e clique fora.
+* **Aviso no pé da tela:** o `mostrarAviso` agora usa um `toast`, e as telas chamam ele do mesmo jeito.
+* **Grid:** o login e o formulário de novo acesso usam `row` e `col`, e se ajustam ao celular.
+* **Outros componentes:** OK e Não OK ficaram num `btn-group`, a opção de incluir o nome no relatório virou `form-check` e o aviso de pendentes virou `alert`.
+* **O que não mudou:** a lógica das telas e os arquivos `dados.js`, `inscricoes.js`, `inscricao.js` e `relatorio.js`. A prévia do relatório não usa classes do Bootstrap, para o JPEG, o Word e o PDF saírem iguais.
+
+## Vantagens do Bootstrap
+
+* **Menos código próprio:** estilos que se repetiam em várias telas agora vêm prontos (o `login.css`, por exemplo, caiu de 146 para 80 linhas).
+* **Menos JavaScript:** menu, janelas e avisos já abrem, fecham e respondem ao Esc sozinhos.
+* **Responsivo:** o grid ajusta as telas ao celular sem media queries escritas à mão.
+* **Padrão:** botões, campos e mensagens de erro ficam iguais em todas as telas, e quem entra no projeto já conhece as classes.
+* **Acessibilidade:** os componentes já vêm com foco pelo teclado e atributos para leitores de tela.

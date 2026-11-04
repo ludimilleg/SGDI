@@ -8,6 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relatório | SGDI</title>
 
+    <!-- Bootstrap: biblioteca de componentes prontos (botões, campos, janelas, menus)
+         Vem antes dos nossos estilos pra que as cores e o layout do SGDI fiquem por cima dele -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+
     <!-- Estilos: base.css (todas as telas) + relatorio.css (só esta tela) -->
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/relatorio.css">
@@ -16,11 +20,24 @@
 <body>
     <!-- Barra do topo: menu, marca do sistema, iniciais do usuário e Sair -->
     <header class="topo">
-        <!-- Botão do menu (três linhas), sigla e nome do sistema -->
-        <div class="topo-marca">
-            <button type="button" class="topo-menu" id="botao-menu" aria-label="Abrir menu">
+        <!-- Botão do menu (três linhas), sigla e nome do sistema
+             A classe dropdown do Bootstrap liga o botão ao menu que está logo abaixo dele -->
+        <div class="topo-marca dropdown">
+            <!-- data-bs-toggle="dropdown": o Bootstrap abre e fecha o menu sozinho ao clicar -->
+            <button type="button" class="topo-menu" id="botao-menu" data-bs-toggle="dropdown" aria-expanded="false"
+                aria-label="Abrir menu">
                 <span></span><span></span><span></span>
             </button>
+
+            <!-- Menu que o botão abre (dropdown-menu fica escondido até o clique, o topo.js marca a tela atual) -->
+            <nav class="dropdown-menu menu" id="menu">
+                <h2 class="dropdown-header">Menu</h2>
+                <a class="dropdown-item" href="importar.html">Importar inscrições</a>
+                <a class="dropdown-item" href="inscricoes.html">Inscrições</a>
+                <a class="dropdown-item" href="acessos.html">Gerenciar acessos</a>
+                <a class="dropdown-item" href="importar.html#recentes">Processos recentes</a>
+            </nav>
+
             <span class="topo-logo">SGDI</span>
             <span class="topo-nome">Sistema de Gestão de Documentos para Inscrição</span>
         </div>
@@ -28,17 +45,9 @@
         <!-- Iniciais do usuário + Sair (passando o mouse nas iniciais aparece o e-mail e o cargo) -->
         <div class="topo-usuario">
             <span class="topo-iniciais" id="iniciais">--</span>
-            <a href="index.html" class="topo-sair">Sair</a>
+            <!-- btn btn-outline-primary btn-sm: botão pequeno do Bootstrap, só com contorno -->
+            <a href="index.html" class="btn btn-outline-primary btn-sm topo-sair">Sair</a>
         </div>
-
-        <!-- Menu que o botão das três linhas abre e fecha (o topo.js marca a tela atual) -->
-        <nav class="menu" id="menu" hidden>
-            <h2>Menu</h2>
-            <a href="importar.html">Importar inscrições</a>
-            <a href="inscricoes.html">Inscrições</a>
-            <a href="acessos.html">Gerenciar acessos</a>
-            <a href="importar.html#recentes">Processos recentes</a>
-        </nav>
     </header>
 
     <!-- Conteúdo da tela: relatório de homologação do processo -->
@@ -55,37 +64,46 @@
             <!-- Dica + botões JPEG, Word e PDF -->
             <div class="relatorio-exportar">
                 <p class="relatorio-dica">Escolha como deseja exportar</p>
-                <div class="relatorio-botoes">
-                    <button type="button" class="botao" id="botao-jpeg">JPEG</button>
-                    <button type="button" class="botao" id="botao-word">Word</button>
-                    <button type="button" class="botao" id="botao-pdf">PDF</button>
+                <!-- d-flex gap-2: classes utilitárias do Bootstrap, botões lado a lado com 8px entre eles -->
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-primary" id="botao-jpeg">JPEG</button>
+                    <button type="button" class="btn btn-primary" id="botao-word">Word</button>
+                    <button type="button" class="btn btn-primary" id="botao-pdf">PDF</button>
                 </div>
             </div>
         </div>
 
-        <!-- Aviso das inscrições que ainda faltam revisar -->
-        <p class="cartao relatorio-alerta" id="alerta-pendentes" hidden></p>
+        <!-- Aviso das inscrições que ainda faltam revisar (alert: caixa de aviso do Bootstrap, nas cores do SGDI) -->
+        <p class="alert relatorio-alerta" id="alerta-pendentes" hidden></p>
 
         <!-- Dados do cabeçalho do relatório (o que é digitado aqui aparece na prévia) -->
-        <section class="cartao relatorio-dados">
+        <section class="card relatorio-dados">
             <h2>Cabeçalho do relatório</h2>
-            <div class="campo">
-                <label for="instituicao">Instituição</label>
-                <input type="text" id="instituicao">
+            <!-- Cada campo: div com mb-3 (espaço embaixo), rótulo form-label e caixa form-control -->
+            <div class="mb-3">
+                <label for="instituicao" class="form-label">Instituição</label>
+                <input type="text" id="instituicao" class="form-control">
             </div>
-            <div class="campo">
-                <label for="edital">Edital</label>
-                <input type="text" id="edital" placeholder="Ex.: Edital 01/2026-PPGI/CPG-PROPEP/UFAL">
+            <div class="mb-3">
+                <label for="edital" class="form-label">Edital</label>
+                <input type="text" id="edital" class="form-control" placeholder="Ex.: Edital 01/2026-PPGI/CPG-PROPEP/UFAL">
             </div>
-            <div class="campo">
-                <label for="descricao">Descrição do processo seletivo</label>
-                <input type="text" id="descricao"
+            <div class="mb-3">
+                <label for="descricao" class="form-label">Descrição do processo seletivo</label>
+                <input type="text" id="descricao" class="form-control"
                     placeholder="Ex.: Abertura de processo seletivo para o curso de Mestrado em Informática">
+            </div>
+
+            <!-- Opção de mostrar o nome do candidato junto do número
+                 form-check: caixinha de marcar do Bootstrap, com o texto ao lado -->
+            <div class="form-check relatorio-opcao-nome">
+                <input type="checkbox" id="incluir-nome" class="form-check-input" aria-controls="previa">
+                <label for="incluir-nome" class="form-check-label">Incluir nome dos candidatos no relatório final</label>
             </div>
         </section>
 
         <!-- Prévia do relatório (é ela que vai pro JPEG, pro Word e pro PDF) -->
-        <section class="cartao previa" id="previa">
+        <section class="card previa" id="previa">
             <div class="previa-topo">
                 <p class="previa-instituicao" id="previa-instituicao"></p>
                 <p class="previa-edital" id="previa-edital"></p>
@@ -97,12 +115,12 @@
             <h3>Inscrições deferidas:</h3>
             <p id="lista-deferidas"></p>
 
-            <!-- Indeferidas: tabela com o número e a justificativa -->
+            <!-- Indeferidas: tabela com o número (e o nome, se marcado) e a justificativa -->
             <h3>Inscrições indeferidas:</h3>
             <table class="previa-tabela">
                 <thead>
                     <tr>
-                        <th>Inscrição</th>
+                        <th id="cabecalho-inscricao">Inscrição</th>
                         <th>Justificativa do indeferimento</th>
                     </tr>
                 </thead>
@@ -126,6 +144,10 @@
 
     <!-- html2canvas: transforma a prévia em imagem pro JPEG -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <!-- JavaScript do Bootstrap: faz o menu, as janelas e os avisos abrirem e fecharem
+         Vem antes dos nossos scripts porque eles usam o bootstrap.Modal e o bootstrap.Toast -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Funções comuns (dados.js), barra do topo (topo.js) e comportamento desta tela (relatorio.js) -->
     <script src="js/dados.js"></script>

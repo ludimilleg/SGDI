@@ -28,8 +28,8 @@ document.querySelector(".topo-sair").addEventListener("click", function ()
   sessionStorage.removeItem("emailUsuario");
 });
 
-// Botão das três linhas e o menu que ele abre
-const botaoMenu = document.getElementById("botao-menu");
+// Menu que o botão das três linhas abre
+// Abrir, fechar, clicar fora e apertar Esc agora ficam por conta do dropdown do Bootstrap
 const menu = document.getElementById("menu");
 
 // Marca no menu o link da tela que está aberta
@@ -38,49 +38,32 @@ menu.querySelectorAll("a").forEach(function (link)
 {
   if (link.getAttribute("href") === paginaAtual)
   {
-    link.classList.add("atual");
-  }
-});
-
-// Clique no botão: abre ou fecha o menu
-botaoMenu.addEventListener("click", function (evento)
-{
-  evento.stopPropagation();    // o clique não chega no documento (que fecharia o menu)
-  menu.hidden = !menu.hidden;  // inverte: aberto fecha, fechado abre
-});
-
-// Clique dentro do menu não fecha o menu
-menu.addEventListener("click", function (evento)
-{
-  evento.stopPropagation();
-});
-
-// Clique em qualquer outro lugar da tela fecha o menu
-document.addEventListener("click", function ()
-{
-  menu.hidden = true;
-});
-
-// Esc também fecha o menu
-document.addEventListener("keydown", function (evento)
-{
-  if (evento.key === "Escape")
-  {
-    menu.hidden = true;
+    link.classList.add("active");                // classe do Bootstrap pro item atual do menu
+    link.setAttribute("aria-current", "page");  // avisa o leitor de tela que é a página aberta
   }
 });
 
 // Aviso que aparece no pé da tela depois de uma ação (usado pelas outras telas)
+// Agora é um toast do Bootstrap: ele cuida de aparecer, esperar e sumir
 function mostrarAviso(texto)
 {
+  // Caixa do aviso (toast) com o texto dentro (toast-body)
   const aviso = document.createElement("div");
-  aviso.className = "aviso";  // estilo .aviso do base.css
-  aviso.textContent = texto;
+  aviso.className = "toast aviso";      // toast do Bootstrap + posição e cores do .aviso no base.css
+  aviso.setAttribute("role", "status");  // leitor de tela lê o aviso sem interromper a pessoa
+  const corpo = document.createElement("div");
+  corpo.className = "toast-body";
+  corpo.textContent = texto;
+  aviso.appendChild(corpo);
   document.body.appendChild(aviso);
-  setTimeout(function ()
+
+  // Liga o toast: some sozinho depois de 2,5 segundos e, quando sumir, sai da página
+  const toast = new bootstrap.Toast(aviso, { delay: 2500 });
+  aviso.addEventListener("hidden.bs.toast", function ()
   {
-    aviso.remove();  // some sozinho...
-  }, 2500);          // ...depois de 2,5 segundos
+    aviso.remove();
+  });
+  toast.show();
 }
 
 // Passando o mouse nas iniciais, mostra o e-mail e, embaixo, o cargo da pessoa

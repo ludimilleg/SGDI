@@ -26,42 +26,6 @@
   margin: 8px 0 32px;  /* 8px em cima, 0 dos lados, 32px embaixo */
 }
 
-/* Rótulos Nome do processo e Arquivo .zip */
-.importar label
-{
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--azul-escuro);
-  margin-bottom: 8px;
-}
-
-/* Campo do nome do processo (mesmo visual do login) */
-#nome-processo
-{
-  height: 44px;
-  padding: 0 14px;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  background: var(--cinza-borda);
-  font: inherit;
-  color: var(--texto-escuro);
-  margin-bottom: 24px;
-}
-
-/* Texto de exemplo dentro do campo */
-#nome-processo::placeholder
-{
-  color: var(--cinza-exemplo);
-}
-
-/* Campo selecionado: fundo branco e borda azul */
-#nome-processo:focus
-{
-  outline: none;
-  background: var(--branco);
-  border-color: var(--azul-medio);
-}
-
 /* Área de arrastar e soltar (borda tracejada) */
 .area-arquivo
 {
@@ -104,23 +68,13 @@
   font-size: 13px;
 }
 
-/* Botão "Escolher arquivo", só com contorno */
+/* Botão "Escolher arquivo" (btn btn-outline-primary btn-sm no HTML): um pouco maior e com fundo branco */
 #botao-escolher
 {
-  border: 1px solid var(--azul-medio);
-  border-radius: 4px;
-  background: var(--branco);
-  color: var(--azul-medio);
-  font: inherit;
-  font-weight: 600;
-  padding: 8px 20px;
-  cursor: pointer;
-}
-
-/* Mouse em cima do Escolher arquivo */
-#botao-escolher:hover
-{
-  background: var(--azul-claro);
+  --bs-btn-padding-x: 20px;
+  --bs-btn-padding-y: 8px;
+  --bs-btn-font-size: 16px;
+  --bs-btn-bg: var(--branco);  /* o botão de contorno do Bootstrap é transparente, aqui fica branco */
 }
 
 /* Nome do arquivo escolhido, em verde */
@@ -157,26 +111,10 @@
   margin: 8px 0 0;
 }
 
-/* Botão principal (mesmo visual do ENTRAR do login) */
+/* Botão principal (o visual vem do btn btn-primary), só afastado da área do arquivo */
 #botao-importar
 {
-  height: 44px;
   margin-top: 24px;
-  border: none;
-  border-radius: 4px;
-  background: var(--azul-medio);
-  color: var(--branco);
-  font: inherit;
-  font-weight: 600;
-  text-transform: uppercase;  /* texto em maiúsculas */
-  letter-spacing: 1px;        /* um respiro entre as letras */
-  cursor: pointer;            /* mãozinha ao passar o mouse */
-}
-
-/* Mouse em cima do botão: fica um azul mais forte */
-#botao-importar:hover
-{
-  background: var(--azul-ppgi);
 }
 
 /* Processos recentes */
@@ -224,13 +162,6 @@
 {
   border-color: var(--azul-medio);
   background: var(--azul-claro);
-}
-
-/* Nome do processo vazio: borda e fundo avermelhados */
-#nome-processo.campo-erro
-{
-  border-color: #F04A50;
-  background: #FDEDEE;
 }
 
 /* Frase que aparece quando ainda não tem nenhum processo */
