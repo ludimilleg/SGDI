@@ -5,6 +5,8 @@
 -- 1. USUÁRIOS
 -- O secretário gerencia o sistema.
 -- Os avaliadores participam das comissões.
+-- Regras que dependem do perfil são validadas pela API, sem duplicar o perfil
+-- em tabelas relacionadas.
 
 CREATE TABLE usuario (
     id_usuario INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -24,14 +26,24 @@ CREATE TABLE processo_seletivo (
     id_processo_seletivo INTEGER
         GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 
+    id_usuario_responsavel INTEGER NOT NULL
+        REFERENCES usuario(id_usuario)
+        ON DELETE RESTRICT,
+
     nome VARCHAR(80) NOT NULL,
 
     data_criacao DATE NOT NULL DEFAULT CURRENT_DATE,
+
+    semestre VARCHAR(20),
 
     instituicao VARCHAR(120) NOT NULL
         DEFAULT 'UNIVERSIDADE FEDERAL DE ALAGOAS',
 
     edital VARCHAR(120),
+
+    titulo_relatorio VARCHAR(120),
+
+    texto_cabecalho TEXT,
 
     descricao TEXT
 );
@@ -45,7 +57,9 @@ CREATE TABLE acesso_processo (
         REFERENCES processo_seletivo(id_processo_seletivo)
         ON DELETE CASCADE,
 
-    id_usuario INTEGER NOT NULL
+    id_usuario INTEGER NOT NULL,
+
+    FOREIGN KEY (id_usuario)
         REFERENCES usuario(id_usuario)
         ON DELETE CASCADE,
 
@@ -55,6 +69,7 @@ CREATE TABLE acesso_processo (
 
 -- 4. IMPORTAÇÕES
 -- Registra cada ZIP importado pelo secretário.
+-- A API deve validar o perfil do usuário que iniciou a importação.
 
 CREATE TABLE importacao (
     id_importacao INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -86,8 +101,8 @@ CREATE TABLE importacao (
 
 
 -- 5. TIPOS DE DOCUMENTOS
--- Catálogo provisório para classificar os arquivos futuramente.
--- Ainda não define quais documentos são obrigatórios.
+-- Catálogo provisório para classificar os arquivos futuramente. (quase impossivel, nomeação aleatoriq)
+-- Ainda não define quais documentos são obrigatórios. 
 
 CREATE TABLE tipo_documento (
     id_tipo_documento INTEGER
@@ -102,6 +117,7 @@ CREATE TABLE tipo_documento (
 -- 6. INSCRIÇÕES
 -- Cada pasta identificada no ZIP gera uma inscrição.
 -- A identificação pode ser corrigida manualmente depois.
+-- O resultado final é calculado a partir das avaliações dos documentos.
 
 CREATE TABLE inscricao (
     id_inscricao INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -120,13 +136,6 @@ CREATE TABLE inscricao (
 
     identificacao_confirmada BOOLEAN NOT NULL DEFAULT FALSE,
 
-    estado VARCHAR(12) NOT NULL DEFAULT 'PENDENTE'
-        CHECK (estado IN (
-            'PENDENTE',
-            'DEFERIDA',
-            'INDEFERIDA'
-        )),
-
     UNIQUE (id_processo_seletivo, numero_inscricao),
 
     UNIQUE (id_processo_seletivo, nome_pasta_original),
@@ -138,7 +147,36 @@ CREATE TABLE inscricao (
 );
 
 
--- 7. DOCUMENTOS
+-- 7. DISTRIBUIÇÃO DAS INSCRIÇÕES
+-- Mantém o histórico de distribuição; somente uma atribuição pode estar ativa.
+-- A API valida que o avaliador pertence à comissão do processo.
+
+CREATE TABLE distribuicao_inscricao (
+    id_distribuicao INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+
+    id_inscricao INTEGER NOT NULL
+        REFERENCES inscricao(id_inscricao)
+        ON DELETE CASCADE,
+
+    id_usuario INTEGER NOT NULL
+        REFERENCES usuario(id_usuario)
+        ON DELETE RESTRICT,
+
+    data_distribuicao TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    ativa BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE UNIQUE INDEX uq_distribuicao_inscricao_ativa
+    ON distribuicao_inscricao (id_inscricao)
+    WHERE ativa;
+
+CREATE INDEX idx_distribuicao_inscricao_avaliador_ativo
+    ON distribuicao_inscricao (id_usuario)
+    WHERE ativa;
+
+
+-- 8. DOCUMENTOS
 -- Armazena os arquivos encontrados no ZIP.
 -- O tipo do documento pode ficar desconhecido inicialmente.
 
@@ -165,15 +203,15 @@ CREATE TABLE documento (
 
     arquivo BYTEA NOT NULL,
 
-    tipo_identificado VARCHAR(80),
-
     data_importacao TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 
--- 8. AVALIAÇÕES
--- Um único resultado compartilhado pela comissão
--- para cada documento.
+-- 9. AVALIAÇÕES
+-- O avaliador responsável registra o resultado dos documentos
+-- da inscrição que recebeu na distribuição. O responsável é obtido
+-- pela relação entre documento, inscrição e distribuição. A API deve validar
+-- que a distribuição é ativa e pertence à mesma inscrição do documento.
 
 CREATE TABLE avaliacao (
     id_avaliacao INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -182,8 +220,8 @@ CREATE TABLE avaliacao (
         REFERENCES documento(id_documento)
         ON DELETE CASCADE,
 
-    id_usuario INTEGER NOT NULL
-        REFERENCES usuario(id_usuario)
+    id_distribuicao INTEGER NOT NULL
+        REFERENCES distribuicao_inscricao(id_distribuicao)
         ON DELETE RESTRICT,
 
     resultado VARCHAR(10) NOT NULL
