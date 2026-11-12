@@ -47,7 +47,7 @@ async function abrirDocumento(documento) {
     if (janela) {
       janela.close();
     }
-    mostrarAviso("Não consegui abrir " + documento.arquivo + ". Importe o .zip de novo neste navegador.");
+    mostrarAviso("Não foi possível abrir " + documento.arquivo + ". Importe o .zip de novo neste navegador.");
   }
 }
 
