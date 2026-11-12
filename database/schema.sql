@@ -3,7 +3,7 @@
 
 
 -- 1. USUÁRIOS
--- O secretário gerencia o sistema.
+-- O secretário(tiago) gerencia o sistema.
 -- Os avaliadores participam das comissões.
 -- Regras que dependem do perfil são validadas pela API, sem duplicar o perfil
 -- em tabelas relacionadas.
@@ -116,7 +116,6 @@ CREATE TABLE tipo_documento (
 
 -- 6. INSCRIÇÕES
 -- Cada pasta identificada no ZIP gera uma inscrição.
--- A identificação pode ser corrigida manualmente depois.
 -- O resultado final é calculado a partir das avaliações dos documentos.
 
 CREATE TABLE inscricao (
@@ -126,7 +125,7 @@ CREATE TABLE inscricao (
         REFERENCES processo_seletivo(id_processo_seletivo)
         ON DELETE CASCADE,
 
-    numero_inscricao VARCHAR(50),
+    numero_inscricao VARCHAR(50) NOT NULL,
 
     nome_pasta_original VARCHAR(255) NOT NULL,
 
@@ -134,16 +133,9 @@ CREATE TABLE inscricao (
 
     candidato VARCHAR(120),
 
-    identificacao_confirmada BOOLEAN NOT NULL DEFAULT FALSE,
-
     UNIQUE (id_processo_seletivo, numero_inscricao),
 
-    UNIQUE (id_processo_seletivo, nome_pasta_original),
-
-    CHECK (
-        identificacao_confirmada = FALSE
-        OR numero_inscricao IS NOT NULL
-    )
+    UNIQUE (id_processo_seletivo, nome_pasta_original)
 );
 
 
@@ -199,12 +191,15 @@ CREATE TABLE documento (
 
     caminho_original TEXT NOT NULL,
 
-    tipo_mime VARCHAR(100),
+    tipo_mime VARCHAR(100), -- pdf, jpg, png, docx, etc
 
     arquivo BYTEA NOT NULL,
 
     data_importacao TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE INDEX idx_documento_inscricao
+    ON documento (id_inscricao);
 
 
 -- 9. AVALIAÇÕES
@@ -236,3 +231,58 @@ CREATE TABLE avaliacao (
         OR NULLIF(BTRIM(observacao), '') IS NOT NULL
     )
 );
+
+
+-- 10. STATUS DAS INSCRIÇÕES
+-- O status é derivado das avaliações para evitar armazenar um valor duplicado.
+-- Qualquer avaliação NAO_OK torna a inscrição indeferida; todas as avaliações
+-- OK tornam-na deferida; inscrições sem documentos ou com avaliação incompleta
+-- permanecem pendentes.
+
+CREATE VIEW inscricao_com_status AS
+SELECT
+    i.id_inscricao,
+    i.id_processo_seletivo,
+    i.numero_inscricao,
+    i.nome_pasta_original,
+    i.candidato,
+    COUNT(d.id_documento) AS total_documentos,
+    COUNT(a.id_avaliacao) AS documentos_avaliados,
+    COUNT(
+        CASE
+            WHEN a.resultado = 'NAO_OK' THEN a.id_avaliacao
+        END
+    ) AS documentos_nao_ok,
+    CASE
+        WHEN COUNT(
+            CASE
+                WHEN a.resultado = 'NAO_OK' THEN a.id_avaliacao
+            END
+        ) > 0 THEN 'INDEFERIDA'
+        WHEN COUNT(d.id_documento) > 0
+            AND COUNT(a.id_avaliacao) = COUNT(d.id_documento)
+            THEN 'DEFERIDA'
+        ELSE 'PENDENTE'
+    END AS status
+FROM inscricao AS i
+LEFT JOIN documento AS d
+    ON d.id_inscricao = i.id_inscricao
+LEFT JOIN avaliacao AS a
+    ON a.id_documento = d.id_documento
+GROUP BY
+    i.id_inscricao,
+    i.id_processo_seletivo,
+    i.numero_inscricao,
+    i.nome_pasta_original,
+    i.candidato;
+
+-- Contadores por processo para a listagem de inscrições.
+CREATE VIEW contagem_inscricao_por_status AS
+SELECT
+    id_processo_seletivo,
+    status,
+    COUNT(*) AS total_inscricoes
+FROM inscricao_com_status
+GROUP BY
+    id_processo_seletivo,
+    status;
