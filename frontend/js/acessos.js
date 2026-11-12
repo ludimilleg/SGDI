@@ -13,29 +13,57 @@ const erroNovoEmail = document.getElementById("erro-novo-email");
 const campoNovoCargo = document.getElementById("novo-cargo");
 const erroNovoCargo = document.getElementById("erro-novo-cargo");
 const erroNovaSenha = document.getElementById("erro-nova-senha");
-let pessoaParaRemover = null; //permite reatribuir a var
+const botaoDistribuir = document.getElementById("botao-distribuir");
+const resumoDistribuicao = document.getElementById("resumo-distribuicao");
+let pessoaParaRemover = null;
 let cartaoParaRemover = null;
-//document. pega o valor pelo id no html
 
-//função recebe um nome e retrna as inical
+function distribuirInscricoesLocal() {
+  const avaliadores = processo.acessos.filter(function (pessoa) {
+    const cargo = normalizar(pessoa.cargo || "");
+    return cargo.includes("banca avaliadora") || cargo.includes("comissao avaliadora");
+  });
+
+  processo.inscricoes.forEach(function (inscricao, indice) {
+    inscricao.avaliadorEmail = avaliadores.length > 0
+      ? avaliadores[indice % avaliadores.length].email.toLowerCase()
+      : "";
+  });
+
+  return avaliadores.length;
+}
+
+function atualizarDistribuicaoLocal() {
+  if (!processo.distribuicaoAtiva) {
+    return;
+  }
+
+  const quantidadeAvaliadores = distribuirInscricoesLocal();
+  resumoDistribuicao.textContent = quantidadeAvaliadores > 0
+    ? processo.inscricoes.length + " inscrições distribuídas entre " +
+      quantidadeAvaliadores + " avaliadores."
+    : "Cadastre pelo menos um membro da banca avaliadora.";
+  salvarProcesso(processo);
+}
+
 function pegarIniciais(nome) {
-  const partes = nome.split(" ").filter(function (parte) {//para cada palavra no noe a gente divide
+  const partes = nome.split(" ").filter(function (parte) {
     return parte !== "";
   });
-  let letras = partes[0][0];//o 1 pega maria o 2 segundo pega m
+  let letras = partes[0][0];
   if (partes.length > 1) {
-    letras += partes[partes.length - 1][0];//tem outro nome
+    letras += partes[partes.length - 1][0];
   }
-  return letras.toUpperCase();//converte para maiuscula
+  return letras.toUpperCase();
 }
 
 function montarPessoa(nome, email, papel, iniciais) {
-  const cartao = copiarModelo("modelo-pessoa"); //devolve uma copia do html 
-  cartao.querySelector(".pessoa-iniciais").textContent = iniciais; //query procura o primeiro elemento do css selecionad, textoxte transforma em texto
+  const cartao = copiarModelo("modelo-pessoa");
+  cartao.querySelector(".pessoa-iniciais").textContent = iniciais;
   cartao.querySelector(".pessoa-nome").textContent = nome;
   cartao.querySelector(".pessoa-email").textContent = email;
   cartao.querySelector(".pessoa-papel").textContent = papel;
-  return cartao;  //devolve o cartõa para a função que chamou, so monta não coloca na lista
+  return cartao;
 }
 
 function mostrarPessoas() {
@@ -91,6 +119,7 @@ botaoConfirmar.addEventListener("click", function () {
   processo.acessos = processo.acessos.filter(function (pessoa) {
     return pessoa !== pessoaParaRemover;
   });
+  atualizarDistribuicaoLocal();
   salvarProcesso(processo);
   fecharConfirmacao();
   mostrarPessoas();
@@ -156,10 +185,24 @@ formAcesso.addEventListener("submit", function (evento) {
   }
 
   processo.acessos.push({ nome: nome, email: email, cargo: cargo });
+  atualizarDistribuicaoLocal();
   salvarProcesso(processo);
   formAcesso.reset();
   mostrarPessoas();
   mostrarAviso("Acesso criado para " + nome + ".");
+});
+
+botaoDistribuir.addEventListener("click", function () {
+  const quantidadeAvaliadores = distribuirInscricoesLocal();
+  if (quantidadeAvaliadores === 0) {
+    mostrarAviso("Cadastre alguém com cargo de banca ou comissão avaliadora antes de distribuir.");
+    return;
+  }
+
+  processo.distribuicaoAtiva = true;
+  salvarProcesso(processo);
+  atualizarDistribuicaoLocal();
+  mostrarAviso("Inscrições distribuídas entre " + quantidadeAvaliadores + " avaliadores.");
 });
 
 if (processo) {
@@ -167,4 +210,7 @@ if (processo) {
     "Pessoas que podem abrir e revisar o processo " + processo.nome + ".";
   document.getElementById("confirmacao-processo").textContent = processo.nome;
   mostrarPessoas();
+  if (processo.distribuicaoAtiva) {
+    atualizarDistribuicaoLocal();
+  }
 }

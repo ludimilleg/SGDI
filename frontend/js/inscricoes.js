@@ -56,12 +56,17 @@ function mostrarInscricoes() {
     grade.appendChild(cartao);
   });
 
+  document.getElementById("busca-vazia").hidden = true;
   document.getElementById("conta-ok").textContent = contagem.DEFERIDA;
   document.getElementById("conta-pendente").textContent = contagem.INDEFERIDA;
   document.getElementById("conta-revisar").textContent = contagem.PENDENTE;
 }
 
 busca.addEventListener("input", function () {
+  if (grade.children.length === 0) {
+    buscaVazia.hidden = true;
+    return;
+  }
   const termo = normalizar(busca.value.trim());
   let visiveis = 0;
 

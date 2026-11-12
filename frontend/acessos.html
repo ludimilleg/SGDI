@@ -2,60 +2,68 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8"> <!-- á ã é  -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- ajusta a tela do usuario -->
-    <title>Gerenciar acessos | SGDI</title> <!-- o que aparece na aba de navegação -->
-    <link rel="stylesheet" href="css/base.css"> <!-- conecta esse html ao css base.css -->
-    <link rel="stylesheet" href="css/acessos.css"> <!-- link é um recurso externo, stylesheet é uma folha de estilo href é o caminho-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar acessos | SGDI</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/acessos.css">
 </head>
 
-<body><!--representa o corpo o-do documento  -->
-    <header class="topo"> <!-- header é o cabeçalho e cramos uma classe chamada topo, a gente precisa do nome para identificarno css a gente pode usar topo para referenciar essaclasse-->
-        <div class="topo-marca">  <!--1ª div   botão menu-->
-            <button type="button" class="topo-menu" id="botao-menu" aria-label="Abrir menu"> <!--a gente pode usar o nome da classe, java s pode usar o id  como não tem nome label ajuda a identificar a finalidade -->
-                <span></span><span></span><span></span> <!--tres linha horizontais  -->
+<body>
+    <header class="topo">
+        <div class="topo-marca">
+            <button type="button" class="topo-menu" id="botao-menu" aria-label="Abrir menu">
+                <span></span><span></span><span></span>
             </button>
-            <span class="topo-logo">SGDI</span> <!--coloca a logo, span envolve o texto, agente ta utilizando um texto e não uma logo real  -->
-            <span class="topo-nome">Sistema de Gestão de Documentos para Inscrição</span> <!-- nome completo -->
+            <span class="topo-logo">SGDI</span>
+            <span class="topo-nome">Sistema de Gestão de Documentos para Inscrição</span>
         </div>
 
         <div class="topo-usuario">
-            <span class="topo-iniciais" id="iniciais">--</span> <!-- altera ludimille para l, js que muda -->
-            <a href="index.html" class="topo-sair">Sair</a> <!--link para sair, logout -->
+            <span class="topo-iniciais" id="iniciais">--</span>
+            <a href="index.html" class="topo-sair">Sair</a>
         </div>
 
-        <nav class="menu" id="menu" hidden>   <!-- nav é uma area para anvegaçã em que pode ir para outras páginas-->
-            <h2>Menu</h2>  <!-- titulo de 2 nivel -->
+        <nav class="menu" id="menu" hidden>
+            <h2>Menu</h2>
             <a href="importar.html">Importar inscrições</a>
             <a href="inscricoes.html">Inscrições</a>
             <a href="acessos.html">Gerenciar acessos</a>
             <a href="importar.html#recentes">Processos recentes</a>
         </nav>
-    </header> <!-- encerra cabelalho -->
+    </header>
 
-    <main class="conteudo acessos"> <!-- conteudo da pagina principal -->
-        <a href="inscricoes.html" class="voltar">← Voltar</a> <!-- link para voltar -->
+    <main class="conteudo acessos">
+        <a href="inscricoes.html" class="voltar">← Voltar</a>
 
-        <div class="cabecalho">  <!-- cabeçalho dentro do corpo principal -->
-            <div> <!-- agrupar titulo e subtitulo -->
-                <h1 class="titulo">Gerenciar acessos</h1> <!-- titulo principal -->
-                <p class="subtitulo" id="subtitulo-acessos"></p> <!-- java script vai preencher -->
+        <div class="cabecalho">
+            <div>
+                <h1 class="titulo">Gerenciar acessos</h1>
+                <p class="subtitulo" id="subtitulo-acessos"></p>
             </div>
         </div>
 
-        <h2 class="secao-titulo">Pessoas com acesso</h2> <!-- outro titulo para pessoas com acesso mas menor -->
-        <div class="pessoas" id="lista-pessoas"></div> <!-- outra div para agrupar, a lsiat vai ser preenchida pelo js -->
+        <h2 class="secao-titulo">Pessoas com acesso</h2>
+        <div class="pessoas" id="lista-pessoas"></div>
 
-        <h2 class="secao-titulo novo-titulo">Criar novo acesso</h2><!--outro titulo  -->
-        <form id="form-acesso" class="cartao novo-acesso" novalidate> <!-- novalidate desativa a validação automatica--><!-- inicia um formulario n html é utilizada para agrupar campos ai nos temos o id para o js localizar-->
+        <section class="cartao distribuicao">
+            <div>
+                <h2>Distribuição das inscrições</h2>
+                <p id="resumo-distribuicao"></p>
+            </div>
+            <button type="button" class="botao" id="botao-distribuir">Distribuir inscrições</button>
+        </section>
+
+        <h2 class="secao-titulo novo-titulo">Criar novo acesso</h2>
+        <form id="form-acesso" class="cartao novo-acesso" novalidate>
             <div class="campo">
-                <label for="novo-nome">Nome</label> <!-- label defien um rotulo para um campo que vais er nme-->
-                <input type="text" id="novo-nome" name="novo-nome" placeholder="Nome da pessoa"> <!--input cria um campo para entrada de dados, palceholder é a sugestão -->
-                <p class="erro" id="erro-novo-nome"></p> <!-- começa vazio -->
+                <label for="novo-nome">Nome</label>
+                <input type="text" id="novo-nome" name="novo-nome" placeholder="Nome">
+                <p class="erro" id="erro-novo-nome"></p>
             </div>
             <div class="campo">
                 <label for="novo-email">E-mail</label>
-                <input type="email" id="novo-email" name="novo-email" placeholder="E-mail da pessoa">
+                <input type="email" id="novo-email" name="novo-email" placeholder="E-mail"    >
                 <p class="erro" id="erro-novo-email"></p>
             </div>
             <div class="campo">
@@ -65,17 +73,17 @@
             </div>
             <div class="campo">
                 <label for="nova-senha">Senha</label>
-                <input type="password" id="nova-senha" name="nova-senha" placeholder="Crie uma senha para a pessoa">
+                <input type="password" id="nova-senha" name="nova-senha" placeholder="Crie uma senha">
                 <p class="erro" id="erro-nova-senha"></p>
             </div>
             <div class="novo-acesso-botao">
                 <button type="submit" class="botao">Criar acesso</button>
             </div>
         </form>
- 
-        <template id="modelo-pessoa">  <!-- template pq pode ser reutilizado  -->
+
+        <template id="modelo-pessoa">
             <div class="cartao pessoa">
-                <span class="pessoa-iniciais"></span> <!-- para fazer o quadradinho -->
+                <span class="pessoa-iniciais"></span>
                 <div class="pessoa-dados">
                     <strong class="pessoa-nome"></strong>
                     <span class="pessoa-email"></span>
@@ -86,12 +94,12 @@
         </template>
     </main>
 
-    <div class="fundo-escuro" id="confirmacao" hidden> <!-- janela para remover alguem, hidden começa oculto --> 
-        <div class="janela" role="dialog" aria-modal="true" aria-labelledby="confirmacao-titulo"> <!-- começa vazio -->
+    <div class="fundo-escuro" id="confirmacao" hidden>
+        <div class="janela" role="dialog" aria-modal="true" aria-labelledby="confirmacao-titulo">
             <h2 id="confirmacao-titulo">Remover acesso?</h2>
-            <p><strong id="confirmacao-nome"></strong> não poderá mais abrir nem revisar o processo <span  
-                    id="confirmacao-processo"></span>.</p> <!-- consequecias e nome do processo -->
-            <div class="janela-botoes"> 
+            <p><strong id="confirmacao-nome"></strong> não poderá mais abrir nem revisar o processo <span
+                    id="confirmacao-processo"></span>.</p>
+            <div class="janela-botoes">
                 <button type="button" class="botao botao-neutro" id="botao-cancelar">Cancelar</button>
                 <button type="button" class="botao botao-perigo" id="botao-confirmar">Remover</button>
             </div>
@@ -105,7 +113,7 @@
         </p>
         <p class="rodape-contato">
             <span>Av. Lourival Melo Mota, S/N, Maceió - AL</span>
-            <a href="mailto:secretaria@ic.ufal.br">secretaria@ic.ufal.br</a> <!-- a cria um link, mailton significa que é email -->
+            <a href="mailto:secretaria@ic.ufal.br">secretaria@ic.ufal.br</a>
             <span>(82) 3214-1401</span>
         </p>
     </footer>
