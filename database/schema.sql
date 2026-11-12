@@ -116,7 +116,6 @@ CREATE TABLE tipo_documento (
 
 -- 6. INSCRIÇÕES
 -- Cada pasta identificada no ZIP gera uma inscrição.
--- A identificação pode ser corrigida manualmente depois.
 -- O resultado final é calculado a partir das avaliações dos documentos.
 
 CREATE TABLE inscricao (
@@ -134,16 +133,9 @@ CREATE TABLE inscricao (
 
     candidato VARCHAR(120),
 
-    identificacao_confirmada BOOLEAN NOT NULL DEFAULT FALSE,
-
     UNIQUE (id_processo_seletivo, numero_inscricao),
 
-    UNIQUE (id_processo_seletivo, nome_pasta_original),
-
-    CHECK (
-        identificacao_confirmada = FALSE
-        OR numero_inscricao IS NOT NULL
-    )
+    UNIQUE (id_processo_seletivo, nome_pasta_original)
 );
 
 
@@ -199,7 +191,7 @@ CREATE TABLE documento (
 
     caminho_original TEXT NOT NULL,
 
-    tipo_mime VARCHAR(100),
+    tipo_mime VARCHAR(100), -- pdf, jpg, png, docx, etc
 
     arquivo BYTEA NOT NULL,
 
