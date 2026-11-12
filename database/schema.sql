@@ -125,7 +125,7 @@ CREATE TABLE inscricao (
         REFERENCES processo_seletivo(id_processo_seletivo)
         ON DELETE CASCADE,
 
-    numero_inscricao VARCHAR(50),
+    numero_inscricao VARCHAR(50) NOT NULL,
 
     nome_pasta_original VARCHAR(255) NOT NULL,
 
