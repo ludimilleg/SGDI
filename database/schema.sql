@@ -3,7 +3,7 @@
 
 
 -- 1. USUÁRIOS
--- O secretário gerencia o sistema.
+-- O secretário(tiago) gerencia o sistema.
 -- Os avaliadores participam das comissões.
 -- Regras que dependem do perfil são validadas pela API, sem duplicar o perfil
 -- em tabelas relacionadas.
@@ -198,6 +198,9 @@ CREATE TABLE documento (
     data_importacao TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE INDEX idx_documento_inscricao
+    ON documento (id_inscricao);
+
 
 -- 9. AVALIAÇÕES
 -- O avaliador responsável registra o resultado dos documentos
@@ -228,3 +231,58 @@ CREATE TABLE avaliacao (
         OR NULLIF(BTRIM(observacao), '') IS NOT NULL
     )
 );
+
+
+-- 10. STATUS DAS INSCRIÇÕES
+-- O status é derivado das avaliações para evitar armazenar um valor duplicado.
+-- Qualquer avaliação NAO_OK torna a inscrição indeferida; todas as avaliações
+-- OK tornam-na deferida; inscrições sem documentos ou com avaliação incompleta
+-- permanecem pendentes.
+
+CREATE VIEW inscricao_com_status AS
+SELECT
+    i.id_inscricao,
+    i.id_processo_seletivo,
+    i.numero_inscricao,
+    i.nome_pasta_original,
+    i.candidato,
+    COUNT(d.id_documento) AS total_documentos,
+    COUNT(a.id_avaliacao) AS documentos_avaliados,
+    COUNT(
+        CASE
+            WHEN a.resultado = 'NAO_OK' THEN a.id_avaliacao
+        END
+    ) AS documentos_nao_ok,
+    CASE
+        WHEN COUNT(
+            CASE
+                WHEN a.resultado = 'NAO_OK' THEN a.id_avaliacao
+            END
+        ) > 0 THEN 'INDEFERIDA'
+        WHEN COUNT(d.id_documento) > 0
+            AND COUNT(a.id_avaliacao) = COUNT(d.id_documento)
+            THEN 'DEFERIDA'
+        ELSE 'PENDENTE'
+    END AS status
+FROM inscricao AS i
+LEFT JOIN documento AS d
+    ON d.id_inscricao = i.id_inscricao
+LEFT JOIN avaliacao AS a
+    ON a.id_documento = d.id_documento
+GROUP BY
+    i.id_inscricao,
+    i.id_processo_seletivo,
+    i.numero_inscricao,
+    i.nome_pasta_original,
+    i.candidato;
+
+-- Contadores por processo para a listagem de inscrições.
+CREATE VIEW contagem_inscricao_por_status AS
+SELECT
+    id_processo_seletivo,
+    status,
+    COUNT(*) AS total_inscricoes
+FROM inscricao_com_status
+GROUP BY
+    id_processo_seletivo,
+    status;
